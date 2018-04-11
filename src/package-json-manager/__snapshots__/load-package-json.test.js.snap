@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadPackageJson fail when package json does not exist 1`] = `[Error: package.json not found]`;
+
+exports[`loadPackageJson loads stat file 1`] = `
+Object {
+  "name": "found_package_json",
+  "private": true,
+}
+`;

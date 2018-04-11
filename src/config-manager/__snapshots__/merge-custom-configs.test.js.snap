@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mergeCustomConfigs catches thrown errors 1`] = `
+[Error: broken fn
+config namespace context: merge_custom_configs_test]
+`;
+
+exports[`mergeCustomConfigs finds invalid preset 1`] = `[Error: merge_custom_configs_test config failed. Mismatched type. Expected: 'plain object', Actual: 'array']`;
+
+exports[`mergeCustomConfigs finds invalid preset function 1`] = `[Error: merge_custom_configs_test config failed with custom function. Mismatched type. Expected: 'plain object', Actual: 'string']`;

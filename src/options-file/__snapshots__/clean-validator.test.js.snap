@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cleanValidator fails with absolute + relative 1`] = `[Error: del pattern '<PROJECT_ROOT>/__sandbox__/dist' must be inside build directory]`;
+
+exports[`cleanValidator fails with absolute 1`] = `[Error: del pattern '<PROJECT_ROOT>/__sandbox__/should_fail' must be inside build directory]`;
+
+exports[`cleanValidator fails with absolute inside rootPath 1`] = `[Error: del pattern '<PROJECT_ROOT>/src/**' must be inside build directory]`;
+
+exports[`cleanValidator fails with relative ../ 1`] = `[Error: del pattern '../src/**' must be inside build directory]`;
+
+exports[`cleanValidator makeDirs fails 1`] = `[Error: makeDirs '<PROJECT_ROOT>/__sandbox__/dist' must be inside build directory]`;

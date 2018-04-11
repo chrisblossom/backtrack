@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cleanPreprocessor converts all values to arrays and adds missing keys 1`] = `
+Array [
+  Object {
+    "del": Array [
+      "*",
+    ],
+    "makeDirs": Array [],
+  },
+  Object {
+    "del": Array [],
+    "makeDirs": Array [
+      "test",
+    ],
+  },
+  Object {
+    "del": Array [],
+    "makeDirs": Array [],
+  },
+  Object {
+    "del": Array [
+      "*",
+    ],
+    "makeDirs": Array [
+      "test",
+    ],
+  },
+]
+`;

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backtrack 1`] = `
+Object {
+  ".backtrack-stats.json": "f6dff28de896d46983a822a1ac63df60",
+  "backtrack.config.js": "8ffb22bc5d8c7e9d8787039dd5c78fa9",
+  "file1.js": "a6ca71edd39af84a3bd8c6412e9831e1",
+  "files/file1.js": "a6ca71edd39af84a3bd8c6412e9831e1",
+  "package.json": "d3cd662a2371fd1e79441bee77bdc0ac",
+}
+`;
+
+exports[`backtrack 2`] = `
+Object {
+  ".backtrack-stats.json": "6fe0b983c473eb7bbc6270ab06a01259",
+  "backtrack.config.js": "3ebfc8c4d459f177ac570f6fee5e90fb",
+  "file1.js": "a6ca71edd39af84a3bd8c6412e9831e1",
+  "files/file1.js": "a6ca71edd39af84a3bd8c6412e9831e1",
+  "package.json": "8017eeefdcdaa6e07153a3b5042537e8",
+}
+`;
+
+exports[`backtrack 3`] = `
+Object {
+  ".backtrack-stats.json": "6b6c16e551598a31afb4cdb307c906a4",
+  "backtrack.config.js": "1db315bf20bbdad0367e6cb90518dbdd",
+  "files/file1.js": "a6ca71edd39af84a3bd8c6412e9831e1",
+  "package.json": "e5ace72ad475dc0d19ef2425ea09bdd1",
+}
+`;

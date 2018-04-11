@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "backtrack build --production",
+    "build.dev": "backtrack build --development",
+    "dev": "backtrack dev --development",
+    "dev.prod": "backtrack dev --production",
+    "format": "backtrack format",
+    "lint": "backtrack lint",
+    "lint.fix": "backtrack lint --fix",
+    "test": "backtrack test"
+  }
+}

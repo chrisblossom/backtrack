@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cleanProcessor merges args together and completes resolves path 1`] = `
+Object {
+  "del": Array [
+    "first",
+    "second",
+    "third",
+  ],
+  "makeDirs": Array [
+    "<PROJECT_ROOT>/dist/first",
+    "<PROJECT_ROOT>/dist/second",
+    "<PROJECT_ROOT>/dist/third",
+  ],
+}
+`;
+
+exports[`cleanProcessor removes duplicates 1`] = `
+Object {
+  "del": Array [
+    "first",
+  ],
+  "makeDirs": Array [
+    "<PROJECT_ROOT>/dist/first",
+  ],
+}
+`;

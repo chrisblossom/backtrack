@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pkg handles missing packageId 1`] = `[Error: packageId is required]`;
+
+exports[`pkg handles missing sourceId 1`] = `[Error: sourceId is required]`;
+
+exports[`pkg handles unmatched resolve source 1`] = `[Error: sourceId "preset-01" is not valid. Available sourceIds: backtrack-preset-02, backtrack-preset-01]`;
+
+exports[`pkg handles unmatched resolve source with none available  1`] = `[Error: sourceId "preset-01" is not valid. Available sourceIds: null]`;

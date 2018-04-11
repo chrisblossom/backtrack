@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`start runs task 1`] = `
+Array [
+  Array [
+    "dev",
+    Array [
+      [Function anonymous],
+      [Function anonymous],
+    ],
+    undefined,
+  ],
+]
+`;

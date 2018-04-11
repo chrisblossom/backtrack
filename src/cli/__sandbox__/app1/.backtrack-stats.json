@@ -1,0 +1,13 @@
+{
+    "fileManager": {
+        "directories": [
+            "dist",
+            "src"
+        ]
+    },
+    "packageJson": {
+        "scripts": {
+            "dev": "backtrack dev --development"
+        }
+    }
+}

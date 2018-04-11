@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filesPreprocessor resolves src file 1`] = `
+Array [
+  Object {
+    "dest": "one.js",
+    "src": "<PROJECT_ROOT>/file1.js",
+  },
+  Object {
+    "dest": "two.js",
+    "src": "<PROJECT_ROOT>/file2.js",
+  },
+  Object {
+    "allowChanges": true,
+    "dest": "three.js",
+    "src": "<PROJECT_ROOT>/random.js",
+  },
+  Object {
+    "allowChanges": true,
+  },
+  Object {
+    "makeDirs": Array [
+      "static",
+    ],
+  },
+]
+`;

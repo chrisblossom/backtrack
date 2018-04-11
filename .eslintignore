@@ -1,0 +1,11 @@
+node_modules
+/coverage
+build
+dist
+static
+flow-typed
+flow
+.cache
+__sandbox__
+.idea
+.vscode

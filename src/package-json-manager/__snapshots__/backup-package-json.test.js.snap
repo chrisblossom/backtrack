@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backupPackageJson backup package.json when a managed script already exists 1`] = `
+Array [
+  Array [
+    "<PROJECT_ROOT>/package.json",
+    "<PROJECT_ROOT>/package.json-backup-a2b834f3.json",
+    Object {
+      "overwrite": false,
+    },
+  ],
+]
+`;
+
+exports[`backupPackageJson backup package.json when a managed script already exists 2`] = `
+Object {
+  "file": "<PROJECT_ROOT>/package.json-backup-a2b834f3.json",
+  "filename": "package.json-backup-a2b834f3.json",
+}
+`;
+
+exports[`backupPackageJson handles npm default test script with previously managed 1`] = `
+Array [
+  Array [
+    "<PROJECT_ROOT>/package.json",
+    "<PROJECT_ROOT>/package.json-backup-a2b834f3.json",
+    Object {
+      "overwrite": false,
+    },
+  ],
+]
+`;
+
+exports[`backupPackageJson handles npm default test script with previously managed 2`] = `
+Object {
+  "file": "<PROJECT_ROOT>/package.json-backup-a2b834f3.json",
+  "filename": "package.json-backup-a2b834f3.json",
+}
+`;
+
+exports[`backupPackageJson works with array value - backup 1`] = `
+Array [
+  Array [
+    "<PROJECT_ROOT>/package.json",
+    "<PROJECT_ROOT>/package.json-backup-a2b834f3.json",
+    Object {
+      "overwrite": false,
+    },
+  ],
+]
+`;
+
+exports[`backupPackageJson works with array value - backup 2`] = `
+Object {
+  "file": "<PROJECT_ROOT>/package.json-backup-a2b834f3.json",
+  "filename": "package.json-backup-a2b834f3.json",
+}
+`;

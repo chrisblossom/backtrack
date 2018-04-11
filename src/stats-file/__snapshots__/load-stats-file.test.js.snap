@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadStatsFile handle no stats file 1`] = `Object {}`;

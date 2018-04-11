@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`options handles custom searchPath 1`] = `
+Object {
+  "presets": Array [
+    "module_exports",
+  ],
+}
+`;
+
+exports[`options handles module.exports - .backtrackrc.js 1`] = `
+Object {
+  "presets": Array [
+    "module_exports_rc",
+  ],
+}
+`;
+
+exports[`options handles module.exports 1`] = `
+Object {
+  "presets": Array [
+    "module_exports",
+  ],
+}
+`;
+
+exports[`options loads ES Modules config 1`] = `
+Object {
+  "presets": Array [
+    "es_modules",
+  ],
+}
+`;
+
+exports[`options throws if ES Modules without default 1`] = `[Error: <PROJECT_ROOT>/backtrack.config.js must use default export with ES Modules]`;
+
+exports[`options throws on missing config 1`] = `[Error: backtrack config not found]`;

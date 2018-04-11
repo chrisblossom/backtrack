@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformConfig handles false 1`] = `
+Object {
+  "dev": Array [
+    [Function preset2DevTask1],
+    Object {
+      "name": "preset1DevTask1",
+      "task": [Function preset1DevTask1],
+    },
+    Object {
+      "name": "run jest",
+      "task": "jest",
+    },
+    "eslint --fix",
+    Array [
+      Object {
+        "name": "run prettier",
+        "task": "prettier",
+      },
+      "eslint",
+    ],
+    [Function preset1DevTask2],
+    Array [
+      [Function preset1DevTask1],
+      [Function preset1DevTask2],
+    ],
+  ],
+  "files": Object {
+    "dest": Object {
+      "absolute": Object {},
+      "allowChanges": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+    "makeDirs": Array [
+      "dist",
+      "src",
+    ],
+    "src": Object {
+      "absolute": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+  },
+  "resolve": Object {
+    "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01",
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+  },
+}
+`;
+
+exports[`transformConfig handles false in middle of long preset chain 1`] = `
+Object {
+  "dev": Array [
+    "preset-06",
+    "preset-05",
+    "base",
+  ],
+  "files": Object {
+    "dest": Object {
+      "absolute": Object {},
+      "allowChanges": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+    "makeDirs": Array [
+      "dist",
+      "src",
+    ],
+    "src": Object {
+      "absolute": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+  },
+  "resolve": Object {
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+    "backtrack-preset-05": "<PROJECT_ROOT>/node_modules/backtrack-preset-05",
+    "backtrack-preset-06": "<PROJECT_ROOT>/node_modules/backtrack-preset-06",
+    "backtrack-preset-07": "<PROJECT_ROOT>/node_modules/backtrack-preset-07",
+  },
+}
+`;
+
+exports[`transformConfig handles false in middle of preset chain 1`] = `
+Object {
+  "dev": Array [
+    "base",
+  ],
+  "files": Object {
+    "dest": Object {
+      "absolute": Object {},
+      "allowChanges": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+    "makeDirs": Array [
+      "dist",
+      "src",
+    ],
+    "src": Object {
+      "absolute": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+  },
+  "resolve": Object {
+    "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-03",
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+  },
+}
+`;
+
+exports[`transformConfig handles false in middle of preset chain with additional task 1`] = `
+Object {
+  "dev": Array [
+    "preset-04",
+    "base",
+  ],
+  "files": Object {
+    "dest": Object {
+      "absolute": Object {},
+      "allowChanges": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+    "makeDirs": Array [
+      "dist",
+      "src",
+    ],
+    "src": Object {
+      "absolute": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+  },
+  "resolve": Object {
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+    "backtrack-preset-04": "<PROJECT_ROOT>/node_modules/backtrack-preset-04",
+  },
+}
+`;
+
+exports[`transformConfig handles false with additional task 1`] = `
+Object {
+  "clean": Object {
+    "del": Array [
+      "static",
+    ],
+    "makeDirs": Array [],
+  },
+  "dev": Array [
+    [Function preset2DevTask1],
+    Object {
+      "name": "preset1DevTask1",
+      "task": [Function preset1DevTask1],
+    },
+    Object {
+      "name": "run jest",
+      "task": "jest",
+    },
+    "eslint --fix",
+    Array [
+      Object {
+        "name": "run prettier",
+        "task": "prettier",
+      },
+      "eslint",
+    ],
+    [Function preset1DevTask2],
+    Array [
+      [Function preset1DevTask1],
+      [Function preset1DevTask2],
+    ],
+  ],
+  "files": Object {
+    "dest": Object {
+      "absolute": Object {},
+      "allowChanges": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+    "makeDirs": Array [
+      "dist",
+      "src",
+    ],
+    "src": Object {
+      "absolute": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+  },
+  "resolve": Object {
+    "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01",
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+  },
+}
+`;
+
+exports[`transformConfig handles one preset 1`] = `
+Object {
+  "clean": Object {
+    "del": Array [
+      "nested",
+      "**/*",
+      "!.gitignore",
+    ],
+    "makeDirs": Array [
+      "<PROJECT_ROOT>/dist/static/other",
+      "<PROJECT_ROOT>/dist/static/favicons",
+    ],
+  },
+  "dev": Array [
+    [Function preset2DevTask1],
+    Object {
+      "name": "preset1DevTask1",
+      "task": [Function preset1DevTask1],
+    },
+    Object {
+      "name": "run jest",
+      "task": "jest",
+    },
+    "eslint --fix",
+    Array [
+      Object {
+        "name": "run prettier",
+        "task": "prettier",
+      },
+      "eslint",
+    ],
+    [Function preset1DevTask2],
+    Array [
+      [Function preset1DevTask1],
+      [Function preset1DevTask2],
+    ],
+    "base",
+  ],
+  "files": Object {
+    "dest": Object {
+      "absolute": Object {},
+      "allowChanges": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+    "makeDirs": Array [
+      "dist",
+      "src",
+    ],
+    "src": Object {
+      "absolute": Object {},
+      "files": Array [],
+      "hash": Object {},
+    },
+  },
+  "resolve": Object {
+    "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01",
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+  },
+}
+`;

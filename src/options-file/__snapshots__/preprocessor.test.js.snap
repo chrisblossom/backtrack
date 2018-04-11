@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preprocessor removes previous lifecycles but keeps new 1`] = `
+Object {
+  "dev": Array [
+    "eslint",
+  ],
+  "files": Array [
+    Object {
+      "allowChanges": false,
+    },
+  ],
+}
+`;
+
+exports[`Preprocessor removes previous lifecycles when false found 1`] = `
+Object {
+  "files": Array [
+    Object {
+      "allowChanges": false,
+    },
+  ],
+}
+`;
+
+exports[`Preprocessor removes previous lifecycles with no config 1`] = `
+Object {
+  "dev": Array [
+    "eslint",
+  ],
+  "files": Array [
+    Object {
+      "allowChanges": false,
+    },
+  ],
+}
+`;
+
+exports[`Preprocessor removes removes lifecycle with no config 1`] = `
+Object {
+  "files": Array [
+    Object {
+      "allowChanges": false,
+    },
+  ],
+}
+`;

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getFileHash fails when file not found 1`] = `[Error: ENOENT: no such file or directory, open '<PROJECT_ROOT>/file_not_found.js']`;
+
+exports[`getFileHash gets hash 1`] = `"b2c22cd66511e73bc0c189cc169bf13ef5ffd2fc1c988b5f0eb0cbf992456767"`;
+
+exports[`getFileHash gets hash sha512 1`] = `"02fbcf012104a80bcf56c46ee6e12a73362d0fb54fa42bfe8a4cf2736c5f22c88e8bd6ade5d2b241e681c8aab7bade1b482b6bc763997704b07152f39311535e"`;

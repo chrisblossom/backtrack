@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "backtrack dev --development",
+    "dev.prod": "backtrack dev --production",
+
+    "build": "backtrack build --production",
+    "build.dev": "backtrack build --development",
+
+    "clean": "backtrack clean",
+    "lint": "backtrack lint",
+    "lint.fix": "backtrack lint --fix",
+    "format": "backtrack format",
+    "test": "backtrack test"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
