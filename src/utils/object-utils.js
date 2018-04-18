@@ -22,7 +22,8 @@ function mapObjectKeyNames(object: ?{}) {
 
     const keyPaths: $ReadOnlyArray<string> = deepKeys(object);
 
-    const result = keyPaths.map((path) => {
+    // $FlowIssue
+    const result = keyPaths.map((path: string) => {
         /**
          * deep-keys escapes periods (.) in keys with \\.
          *
@@ -74,6 +75,7 @@ function mergeDeep(...objects: *) {
         }
 
         if (isPlainObject(objValue)) {
+            // $FlowIssue
             return mergeDeep(objValue, srcValue);
         }
 

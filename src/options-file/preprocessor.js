@@ -70,6 +70,7 @@ function Preprocessor() {
 
             const packageId = closestPackageJson.name;
             if (packageId) {
+                // $FlowIgnore
                 filtered.resolve = {
                     [packageId]: dirname,
                 };
