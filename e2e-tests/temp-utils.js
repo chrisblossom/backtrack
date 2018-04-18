@@ -3,7 +3,13 @@
 import path from 'path';
 import os from 'os';
 import del from 'del';
-import { readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
+import {
+    readdirSync,
+    readFileSync,
+    realpathSync,
+    statSync,
+    writeFileSync,
+} from 'fs';
 import { createHash } from 'crypto';
 import fse from 'fs-extra';
 import parentModule from 'parent-module';
@@ -13,7 +19,7 @@ class TempUtils {
     dir: string;
 
     constructor() {
-        const tempDir = os.tmpdir();
+        const tempDir = realpathSync(os.tmpdir());
         const parent = parentModule();
         const relativeParent = path.relative(process.cwd(), parent);
 
