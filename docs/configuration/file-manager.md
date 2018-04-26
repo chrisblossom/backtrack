@@ -91,25 +91,6 @@ const backtrackConfig = {
 };
 ```
 
-```typescript
-type CopyFiles = {
-    src: string;
-    dest: string;
-    allowChanges?: boolean;
-};
-
-type MakeDirs = {
-    makeDirs: Array<string>;
-};
-
-type Options = {
-    skip?: Array<string>;
-    allowChanges?: Array<string> | boolean;
-};
-
-type Files = Array<CopyFiles | MakeDirs | Options>;
-```
-
 ## options:
 
 #### Copy Files

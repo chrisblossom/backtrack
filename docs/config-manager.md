@@ -23,12 +23,6 @@ module.exports = configManager({
 });
 ```
 
-```typescript
-type ConfigManagerArgs = {
-    config: any;
-    namespace: string;
-};
-```
 
 ## options:
 

@@ -21,13 +21,6 @@ const backtrackConfig = {
 };
 ```
 
-```typescript
-type Clean = Array<{
-    del?: string | Array<string>;
-    makeDirs?: string | Array<string>;
-}>;
-```
-
 ## options:
 
 ##### del: [patterns]

@@ -40,9 +40,3 @@ const backtrackConfig = {
     // ...
 };
 ```
-
-```typescript
-type Config = Array<{
-    [key: string]: any;
-}>;
-```

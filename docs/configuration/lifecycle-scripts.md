@@ -81,27 +81,3 @@ const backtrackConfig = {
     // ...
 };
 ```
-
-```typescript
-type ShellCommand = string;
-type CustomFn = Function;
-
-export type NamedTask = {
-    name: string;
-    task: Task;
-};
-
-type Task = Array<ShellCommand | CustomFn | NamedTask>;
-
-type Lifecycles = {
-    // default lifecycles
-    build?: Task;
-    dev?: Task;
-    lint?: Task;
-    format?: Task;
-    test?: Task;
-
-    // custom lifecycles
-    [key: string]: Task;
-};
-```

@@ -30,7 +30,7 @@ describe('copyFiles', () => {
         process.chdir(cwd);
     });
 
-    test('copies only changed files', async () => {
+    test.only('copies only changed files', async () => {
         const dir = path.resolve(__dirname, '__sandbox__/stats1/');
         process.chdir(dir);
 

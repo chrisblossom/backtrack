@@ -25,9 +25,3 @@ const backtrackConfig = {
     // ...
 };
 ```
-
-```typescript
-type PackageJson = Array<{
-    [key: string]: any;
-}>;
-```
