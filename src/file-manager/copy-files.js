@@ -99,10 +99,7 @@ async function copyFiles(files: ParsedFiles, previousStats?: FileStats = {}) {
      * Must overwrite because source files can change
      * Safe to overwrite because changed dest files have been backed up
      */
-    await copy(filesToCopy, {
-        overwrite: true,
-        errorOnExist: true,
-    });
+    await copy(filesToCopy);
 }
 
 export { copyFiles };

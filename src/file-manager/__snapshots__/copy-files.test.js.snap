@@ -8,6 +8,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
 ]
@@ -21,6 +22,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
 ]
@@ -34,6 +36,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
   Array [
@@ -42,6 +45,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
 ]
@@ -55,6 +59,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
   Array [
@@ -63,6 +68,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
 ]
@@ -76,6 +82,7 @@ Array [
     Object {
       "errorOnExist": true,
       "overwrite": true,
+      "preserveTimestamps": true,
     },
   ],
 ]

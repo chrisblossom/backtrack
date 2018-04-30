@@ -4,16 +4,15 @@ import path from 'path';
 import os from 'os';
 import del from 'del';
 import {
-    readdirSync,
     readFileSync,
     realpathSync,
-    statSync,
     writeFileSync,
 } from 'fs';
 import { createHash } from 'crypto';
 import fse from 'fs-extra';
 import parentModule from 'parent-module';
 import readPkgUp from 'read-pkg-up';
+import { readDirDeepSync } from './read-dir-deep';
 
 class TempUtils {
     dir: string;
@@ -45,9 +44,11 @@ class TempUtils {
         (this: any).absolutePath = this.absolutePath.bind(this);
         (this: any).createDir = this.createDir.bind(this);
         (this: any).createFile = this.createFile.bind(this);
+        (this: any).deleteFile = this.deleteFile.bind(this);
         (this: any).readFile = this.readFile.bind(this);
         (this: any).getAllFiles = this.getAllFiles.bind(this);
         (this: any).getFileHash = this.getFileHash.bind(this);
+        (this: any).getAllFilesHash = this.getAllFilesHash.bind(this);
         (this: any).clean = this.clean.bind(this);
         (this: any).deleteTempDir = this.deleteTempDir.bind(this);
     }
@@ -77,7 +78,7 @@ class TempUtils {
             contents += '\n';
         }
 
-        writeFileSync(filePath, `${contents}\n`);
+        writeFileSync(filePath, `${contents}`);
     }
 
     deleteFile(file: string) {
@@ -111,29 +112,8 @@ class TempUtils {
         return hash;
     }
 
-    // credit: https://gist.github.com/kethinov/6658166
     getAllFiles() {
-        const getFiles = (dir: string) => {
-            const result = readdirSync(dir)
-                .reduce((acc, file) => {
-                    const pathname = path.resolve(dir, file);
-
-                    const isDirectory = statSync(pathname).isDirectory();
-                    if (isDirectory) {
-                        const dirList = getFiles(pathname);
-
-                        return [...acc, ...dirList];
-                    }
-
-                    const relativePath = path.relative(this.dir, pathname);
-                    return [...acc, relativePath];
-                }, [])
-                .sort();
-
-            return result;
-        };
-
-        const fileList = getFiles(this.dir);
+        const fileList = readDirDeepSync(this.dir);
 
         return fileList;
     }
