@@ -15,6 +15,7 @@ module.ignore_non_literal_requires=true
 module.use_strict=true
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
+experimental.well_formed_exports=true
 include_warnings=true
 
 [lints]
