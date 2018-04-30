@@ -21,8 +21,15 @@ include_warnings=true
 [lints]
 ;all=error
 ;sketchy-null=error
-;untyped-type-import=error
+untyped-type-import=error
 ;untyped-import=error
 ;unclear-type=error
-;unsafe-getters-setters=error
+unsafe-getters-setters=error
+
+[strict]
+;nonstrict-import
+;unclear-type
+;unsafe-getters-setters
+;untyped-import
+;untyped-type-import
 

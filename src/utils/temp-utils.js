@@ -3,11 +3,7 @@
 import path from 'path';
 import os from 'os';
 import del from 'del';
-import {
-    readFileSync,
-    realpathSync,
-    writeFileSync,
-} from 'fs';
+import { readFileSync, realpathSync, writeFileSync } from 'fs';
 import { createHash } from 'crypto';
 import fse from 'fs-extra';
 import parentModule from 'parent-module';
@@ -67,18 +63,21 @@ class TempUtils {
         const fileDir = path.parse(filePath).dir;
         fse.ensureDirSync(fileDir);
 
-        if (typeof contents === 'object') {
-            // eslint-disable-next-line no-param-reassign
-            contents = JSON.stringify(contents);
+        let fileContents = contents;
+
+        if (typeof fileContents === 'object') {
+            fileContents = JSON.stringify(fileContents);
         }
 
         // all files append new line
-        if (typeof contents === 'string' && contents.slice(-1) !== '\n') {
-            // eslint-disable-next-line no-param-reassign
-            contents += '\n';
+        if (
+            typeof fileContents === 'string' &&
+            fileContents.slice(-1) !== '\n'
+        ) {
+            fileContents += '\n';
         }
 
-        writeFileSync(filePath, `${contents}`);
+        writeFileSync(filePath, `${fileContents}`);
     }
 
     deleteFile(file: string) {
