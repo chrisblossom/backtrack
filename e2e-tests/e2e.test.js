@@ -20,7 +20,9 @@ beforeEach(() => {
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
     jest.spyOn(console, 'debug').mockImplementation(() => undefined);
 
-    processExitSpy = jest.spyOn(process, 'exit').mockImplementation(() => undefined);
+    processExitSpy = jest
+        .spyOn(process, 'exit')
+        .mockImplementation(() => undefined);
     jest.doMock('../src/utils/handle-error.js', () => ({
         handleError: (...args) => {
             handleErrorMock(...args);
@@ -81,8 +83,23 @@ test('backtrack', async () => {
 
     temp.createFile('package.json', { name: 'test-package' });
     temp.createFile('files/file1.js', '// file1.js');
+    temp.createFile('static/static-file.js', '// static-file.js');
+    temp.createFile('static-1/static1-file.js', '// static1-file.js');
 
     const config = {
+        clean: {
+            del: '**/*',
+            copy: [
+                {
+                    src: 'static',
+                    dest: 'static',
+                },
+                {
+                    src: 'static-1/static1-file.js',
+                    dest: 'static/static1-file.js',
+                },
+            ],
+        },
         files: {
             src: 'files/file1.js',
             dest: 'file1.js',
@@ -109,6 +126,7 @@ test('backtrack', async () => {
         name: 'test-package',
         scripts: {
             dev: 'backtrack dev --development',
+            clean: 'backtrack clean',
             test: 'jest',
         },
     });
@@ -116,7 +134,7 @@ test('backtrack', async () => {
     const initialFileHash = temp.getAllFilesHash();
     expect(initialFileHash).toMatchSnapshot();
 
-    // expect(processExitSpy).toHaveBeenCalledTimes(0);
+    expect(processExitSpy).toHaveBeenCalledTimes(0);
     expect(handleErrorMock).toHaveBeenCalledTimes(0);
 
     /**
@@ -133,12 +151,13 @@ test('backtrack', async () => {
     await backtrack();
 
     /**
-     * Removes dev
+     * Removes dev and static dir
      */
     jest.resetModules();
     process.env.RUN_MODE = 'init';
 
     delete config.dev;
+    delete config.clean.copy;
 
     temp.createFile(
         'backtrack.config.js',
@@ -150,6 +169,7 @@ test('backtrack', async () => {
     expect(temp.readFile('package.json')).toEqual({
         name: 'test-package',
         scripts: {
+            clean: 'backtrack clean',
             test: 'jest',
         },
     });

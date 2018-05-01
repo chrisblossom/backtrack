@@ -15,6 +15,17 @@ const backtrackConfig = {
                 // create directory 'dist/static/favicons/'
                 'static/favicons',
             ],
+            copy: [
+                {
+                    // Source file/directory
+                    src: 'static',
+                    // Destiniation directory dist/static/
+                    dest: 'static',
+                    // Add 8 digit file hash to destination filename
+                    // optional, default: false
+                    hash: true,
+                },
+            ],
         },
     ],
     // ...
@@ -28,3 +39,5 @@ const backtrackConfig = {
 See [isaacs/minimatch#usage](https://github.com/isaacs/minimatch#usage) for glob patterns.
 
 ##### makeDirs: [directories]
+
+##### copy: { src: source file/dir, dest: destination file/dir, hash: boolean}

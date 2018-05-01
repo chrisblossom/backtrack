@@ -1,8 +1,5 @@
 /* @flow */
 
-import path from 'path';
-import { buildPath } from '../config/paths';
-
 import type { NormalizedClean } from '../types.js';
 
 /**
@@ -11,6 +8,7 @@ import type { NormalizedClean } from '../types.js';
 const base = {
     del: [],
     makeDirs: [],
+    copy: [],
 };
 
 // eslint-disable-next-line flowtype/require-exact-type
@@ -32,13 +30,26 @@ function cleanProcessor({ value, current = base }: Args) {
             });
 
             arg.makeDirs.forEach((dir) => {
-                const resolvedDir = path.resolve(buildPath, dir);
-
                 /**
                  * remove duplicates
                  */
-                if (acc.makeDirs.includes(resolvedDir) === false) {
-                    acc.makeDirs.push(resolvedDir);
+                if (acc.makeDirs.includes(dir) === false) {
+                    acc.makeDirs.push(dir);
+                }
+            });
+
+            arg.copy.forEach((copy) => {
+                /**
+                 * remove duplicates
+                 */
+                const isDuplicate = !!acc.copy.find((copyArg) => {
+                    return (
+                        copyArg.src === copy.src && copyArg.dest === copy.dest
+                    );
+                });
+
+                if (isDuplicate === false) {
+                    acc.copy.push(copy);
                 }
             });
 
@@ -47,6 +58,7 @@ function cleanProcessor({ value, current = base }: Args) {
         {
             del: [...current.del],
             makeDirs: [...current.makeDirs],
+            copy: [...current.copy],
         },
     );
 }

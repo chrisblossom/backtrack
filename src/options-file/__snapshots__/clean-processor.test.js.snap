@@ -2,6 +2,21 @@
 
 exports[`cleanProcessor merges args together and completes resolves path 1`] = `
 Object {
+  "copy": Array [
+    Object {
+      "dest": "<PROJECT_ROOT>/dist/static-1",
+      "src": "<PROJECT_ROOT>/static-1",
+    },
+    Object {
+      "dest": "<PROJECT_ROOT>/dist/static-2",
+      "src": "<PROJECT_ROOT>/static-2",
+    },
+    Object {
+      "dest": "<PROJECT_ROOT>/dist/static-3",
+      "hash": true,
+      "src": "<PROJECT_ROOT>/static-3",
+    },
+  ],
   "del": Array [
     "first",
     "second",
@@ -17,6 +32,12 @@ Object {
 
 exports[`cleanProcessor removes duplicates 1`] = `
 Object {
+  "copy": Array [
+    Object {
+      "dest": "<PROJECT_ROOT>/dist/static-1",
+      "src": "<PROJECT_ROOT>/static-1",
+    },
+  ],
   "del": Array [
     "first",
   ],

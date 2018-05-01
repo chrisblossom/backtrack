@@ -5,6 +5,7 @@ import { loadStatsFile } from '../stats-file/load-stats-file';
 import { writeStatsFile } from '../stats-file/write-stats-file';
 import { handleError } from '../utils/handle-error';
 import { run } from '../run/run';
+import { clean } from '../clean/clean';
 import { fileManager } from '../file-manager/file-manager';
 import { packageJsonManager } from '../package-json-manager/package-json-manager';
 import log from '../utils/log';
@@ -57,6 +58,13 @@ async function start(options: ?{}) {
             process.env.RUN_MODE === '--init' ||
             process.env.RUN_MODE === 'init'
         ) {
+            /**
+             * Run clean script initially
+             */
+            if (lifecycles.clean) {
+                await clean(lifecycles.clean);
+            }
+
             log.success('backtrack initialized');
 
             return;

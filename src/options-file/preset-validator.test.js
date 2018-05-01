@@ -113,6 +113,12 @@ describe('presetValidator', () => {
         const value = {
             clean: [
                 {
+                    copy: {
+                        src: 'static',
+                        dest: 'static',
+                    },
+                },
+                {
                     del: ['**'],
                     makeDirs: ['fake/dir'],
                 },

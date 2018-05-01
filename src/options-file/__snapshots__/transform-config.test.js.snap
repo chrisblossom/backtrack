@@ -145,6 +145,7 @@ Object {
 exports[`transformConfig handles false with additional task 1`] = `
 Object {
   "clean": Object {
+    "copy": Array [],
     "del": Array [
       "static",
     ],
@@ -201,6 +202,21 @@ Object {
 exports[`transformConfig handles one preset 1`] = `
 Object {
   "clean": Object {
+    "copy": Array [
+      Object {
+        "dest": "<PROJECT_ROOT>/dist/static-1",
+        "src": "<PROJECT_ROOT>/static-1",
+      },
+      Object {
+        "dest": "<PROJECT_ROOT>/dist/static-2",
+        "hash": true,
+        "src": "<PROJECT_ROOT>/static-2",
+      },
+      Object {
+        "dest": "<PROJECT_ROOT>/dist/static-3",
+        "src": "<PROJECT_ROOT>/static-3",
+      },
+    ],
     "del": Array [
       "nested",
       "**/*",

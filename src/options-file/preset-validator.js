@@ -55,6 +55,17 @@ const functionLifecycles = Joi.array()
     ])
     .single(true);
 
+const cleanCopySchema = Joi.array()
+    .items(
+        Joi.object({
+            dest: Joi.string().required(),
+            src: Joi.string().required(),
+            hash: Joi.boolean(),
+        }),
+    )
+    .single(true)
+    .min(1);
+
 const cleanSchema = Joi.array()
     .items(
         Joi.object({
@@ -66,6 +77,7 @@ const cleanSchema = Joi.array()
                 .items(Joi.string())
                 .single(true)
                 .min(1),
+            copy: cleanCopySchema,
         }).min(1),
     )
     .single(true)

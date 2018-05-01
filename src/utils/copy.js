@@ -76,13 +76,9 @@ function copy(files: $ReadOnlyArray<File> | File): Promise<void> {
         if (isDirectory) {
             const deepFileList = await readDirDeep(src);
             const copyFilesToDest = deepFileList.reduce((acc, sourceFile) => {
-                const removeSourceBase = path.relative(src, sourceFile);
                 const absoluteSourcePath = path.resolve(src, sourceFile);
 
-                let absoluteDestinationPath = path.resolve(
-                    dest,
-                    removeSourceBase,
-                );
+                let absoluteDestinationPath = path.resolve(dest, sourceFile);
 
                 if (hash === true) {
                     absoluteDestinationPath = getHashedName(

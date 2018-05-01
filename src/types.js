@@ -18,14 +18,22 @@ export type Lifecycle = $ReadOnlyArray<
 
 export type Task = AllTaskTypes | Lifecycle;
 
+export type Copy = {|
+    dest: string,
+    src: string,
+    hash?: boolean
+|};
+
 export type NormalizedClean = {|
     del: $ReadOnlyArray<string>,
     makeDirs: $ReadOnlyArray<string>,
+    copy: $ReadOnlyArray<Copy>,
 |};
 
 export type Clean = {|
     del?: string | $ReadOnlyArray<string>,
     makeDirs?: string | $ReadOnlyArray<string>,
+    copy?: Copy | $ReadOnlyArray<Copy>,
     [any]: empty,
 |};
 

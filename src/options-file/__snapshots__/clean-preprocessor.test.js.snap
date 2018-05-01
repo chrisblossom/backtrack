@@ -3,27 +3,57 @@
 exports[`cleanPreprocessor converts all values to arrays and adds missing keys 1`] = `
 Array [
   Object {
+    "copy": Array [],
     "del": Array [
       "*",
     ],
     "makeDirs": Array [],
   },
   Object {
+    "copy": Array [],
     "del": Array [],
     "makeDirs": Array [
-      "test",
+      "<PROJECT_ROOT>/dist/test",
     ],
   },
   Object {
+    "copy": Array [
+      Object {
+        "dest": "<PROJECT_ROOT>/dist/static-1",
+        "hash": true,
+        "src": "<PROJECT_ROOT>/static-1",
+      },
+    ],
     "del": Array [],
     "makeDirs": Array [],
   },
   Object {
+    "copy": Array [
+      Object {
+        "dest": "<PROJECT_ROOT>/dist/static-2",
+        "src": "<PROJECT_ROOT>/static-2",
+      },
+    ],
+    "del": Array [],
+    "makeDirs": Array [],
+  },
+  Object {
+    "copy": Array [],
+    "del": Array [],
+    "makeDirs": Array [],
+  },
+  Object {
+    "copy": Array [
+      Object {
+        "dest": "<PROJECT_ROOT>/dist/static-3",
+        "src": "<PROJECT_ROOT>/static-3",
+      },
+    ],
     "del": Array [
       "*",
     ],
     "makeDirs": Array [
-      "test",
+      "<PROJECT_ROOT>/dist/test",
     ],
   },
 ]

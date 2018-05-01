@@ -18,10 +18,27 @@ describe('cleanPreprocessor', () => {
             {
                 makeDirs: 'test',
             },
+            {
+                copy: {
+                    src: 'static-1',
+                    dest: 'static-1',
+                    hash: true,
+                },
+            },
+            {
+                copy: {
+                    src: 'static-2',
+                    dest: 'static-2',
+                },
+            },
             {},
             {
                 del: '*',
                 makeDirs: 'test',
+                copy: {
+                    src: 'static-3',
+                    dest: 'static-3',
+                },
             },
         ];
 

@@ -19,6 +19,7 @@ describe('clean', () => {
     const cwd = process.cwd();
     let del;
     let ensureDir;
+    let copy;
 
     beforeEach(() => {
         jest.doMock('../utils/log', () => ({
@@ -44,9 +45,13 @@ describe('clean', () => {
 
         jest.doMock('fs-extra', () => ({
             ensureDir: jest.fn(() => Promise.resolve()),
+            copy: jest.fn(() => Promise.resolve()),
         }));
+
         // $FlowIssue
         ensureDir = require.requireMock('fs-extra').ensureDir;
+        // $FlowIssue
+        copy = require.requireMock('fs-extra').copy;
     });
 
     afterEach(() => {
@@ -57,11 +62,10 @@ describe('clean', () => {
         const dir = path.resolve(__dirname, '__sandbox__/1/');
         process.chdir(dir);
 
-        const result = await rawClean();
+        await rawClean();
 
         expect(del.mock.calls).toMatchSnapshot();
         expect(ensureDir.mock.calls).toEqual([]);
-        expect(result).toEqual({ del: [], makeDirs: [] });
     });
 
     test('handles one clean', async () => {
@@ -71,13 +75,20 @@ describe('clean', () => {
         const options = {
             del: ['**/*'],
             makeDirs: ['nested/', 'another_nested/folder'],
+            copy: [
+                {
+                    src: 'static',
+                    dest: 'static',
+                    hash: true,
+                },
+            ],
         };
 
-        const result = await clean(options);
+        await clean(options);
 
         expect(del.mock.calls).toMatchSnapshot();
         expect(ensureDir.mock.calls).toMatchSnapshot();
-        expect(result).toMatchSnapshot();
+        expect(copy.mock.calls).toMatchSnapshot();
     });
 
     test('handles multiple clean', async () => {
@@ -88,6 +99,13 @@ describe('clean', () => {
             {
                 del: ['**/*', '!.git'],
                 makeDirs: ['nested/', 'another_nested/folder'],
+                copy: [
+                    {
+                        src: 'static',
+                        dest: 'static',
+                        hash: true,
+                    },
+                ],
             },
             {
                 del: ['!two.js'],
@@ -95,16 +113,24 @@ describe('clean', () => {
             {
                 makeDirs: ['another_two_nested/folder'],
             },
+            {
+                copy: [
+                    {
+                        src: 'outside-build.js',
+                        dest: 'static/outside-build.js',
+                    },
+                ],
+            },
         ];
 
         const normalized = cleanPreprocessor({ value: options });
         const parsed = cleanParser({ value: normalized });
 
-        const result = await clean(parsed);
+        await clean(parsed);
 
         expect(del.mock.calls).toMatchSnapshot();
         expect(ensureDir.mock.calls).toMatchSnapshot();
-        expect(result).toMatchSnapshot();
+        expect(copy.mock.calls).toMatchSnapshot();
     });
 
     test('handles empty del', async () => {
@@ -117,11 +143,10 @@ describe('clean', () => {
             },
         ];
 
-        const result = await clean(options);
+        await clean(options);
 
         expect(del.mock.calls).toMatchSnapshot();
         expect(ensureDir.mock.calls).toMatchSnapshot();
-        expect(result).toMatchSnapshot();
     });
 
     test('handles empty makeDirs', async () => {
@@ -134,11 +159,10 @@ describe('clean', () => {
             },
         ];
 
-        const result = await clean(options);
+        await clean(options);
 
         expect(del.mock.calls).toMatchSnapshot();
         expect(ensureDir.mock.calls).toEqual([]);
-        expect(result).toMatchSnapshot();
     });
 
     test('merges duplicates in correct order', async () => {
@@ -152,10 +176,9 @@ describe('clean', () => {
             },
         ];
 
-        const result = await clean(options);
+        await clean(options);
 
         expect(del.mock.calls).toMatchSnapshot();
         expect(ensureDir.mock.calls).toMatchSnapshot();
-        expect(result).toMatchSnapshot();
     });
 });

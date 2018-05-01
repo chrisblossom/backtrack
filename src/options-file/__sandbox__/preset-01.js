@@ -35,6 +35,17 @@ const preset1 = {
     clean: {
         del: ['preset_1'],
         makeDirs: ['some/preset_1'],
+        copy: [
+            {
+                dest: 'static-1',
+                src: 'static-1',
+            },
+            {
+                dest: 'static-2',
+                src: 'static-2',
+                hash: true,
+            },
+        ],
     },
     build: preset1BuildTask1,
     format: [preset1FormatTask1],

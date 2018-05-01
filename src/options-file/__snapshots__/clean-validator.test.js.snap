@@ -1,11 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cleanValidator fails with absolute + relative 1`] = `[Error: del pattern '<PROJECT_ROOT>/__sandbox__/dist' must be inside build directory]`;
+exports[`cleanValidator copy fails when dest outside build directory 1`] = `[Error: copy.dest '<PROJECT_ROOT>/static' must be inside build directory]`;
 
-exports[`cleanValidator fails with absolute 1`] = `[Error: del pattern '<PROJECT_ROOT>/__sandbox__/should_fail' must be inside build directory]`;
+exports[`cleanValidator copy fails when duplicate dest but differing src 1`] = `[Error: copy.dest '<PROJECT_ROOT>/dist/static' is duplicated with mismatched sources]`;
 
-exports[`cleanValidator fails with absolute inside rootPath 1`] = `[Error: del pattern '<PROJECT_ROOT>/src/**' must be inside build directory]`;
+exports[`cleanValidator copy fails when duplicate dest/src and mismatched hash: true/false 1`] = `[Error: copy.src '<PROJECT_ROOT>/static' is duplicated with mismatched hash: true/false]`;
 
-exports[`cleanValidator fails with relative ../ 1`] = `[Error: del pattern '../src/**' must be inside build directory]`;
+exports[`cleanValidator copy fails when src is inside build directory 1`] = `[Error: copy.src '<PROJECT_ROOT>/dist/static' cannot be inside build directory]`;
 
-exports[`cleanValidator makeDirs fails 1`] = `[Error: makeDirs '<PROJECT_ROOT>/__sandbox__/dist' must be inside build directory]`;
+exports[`cleanValidator copy fails when src outside root directory 1`] = `[Error: copy.src '<HOME_DIR>/static' must be inside project root directory]`;
+
+exports[`cleanValidator del fails with absolute + relative 1`] = `[Error: del pattern '<PROJECT_ROOT>/__sandbox__/dist' must be inside build directory]`;
+
+exports[`cleanValidator del fails with absolute 1`] = `[Error: del pattern '<PROJECT_ROOT>/__sandbox__/should_fail' must be inside build directory]`;
+
+exports[`cleanValidator del fails with absolute inside rootPath 1`] = `[Error: del pattern '<PROJECT_ROOT>/src/**' must be inside build directory]`;
+
+exports[`cleanValidator del fails with relative ../ 1`] = `[Error: del pattern '../src/**' must be inside build directory]`;
+
+exports[`cleanValidator makeDirs fails when outside build directory 1`] = `[Error: makeDirs '<PROJECT_ROOT>/__sandbox__/dist' must be inside build directory]`;

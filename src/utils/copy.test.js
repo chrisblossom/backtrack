@@ -135,18 +135,18 @@ describe('copy', () => {
                     ),
                     path.resolve(
                         workingCwd,
-                        'build/nested/nested-inside/inside.js',
+                        'build/static/nested/nested-inside/inside.js',
                     ),
                     expectedOptions,
                 ],
                 [
                     path.resolve(workingCwd, 'files1/nested/other.js'),
-                    path.resolve(workingCwd, 'build/nested/other.js'),
+                    path.resolve(workingCwd, 'build/static/nested/other.js'),
                     expectedOptions,
                 ],
                 [
                     path.resolve(workingCwd, 'files1/test-file.js'),
-                    path.resolve(workingCwd, 'build/test-file.js'),
+                    path.resolve(workingCwd, 'build/static/test-file.js'),
                     expectedOptions,
                 ],
             ]),
@@ -177,18 +177,24 @@ describe('copy', () => {
                     ),
                     path.resolve(
                         workingCwd,
-                        'build/nested/nested-inside/inside.f7d8aade.js',
+                        'build/static/nested/nested-inside/inside.f7d8aade.js',
                     ),
                     expectedOptions,
                 ],
                 [
                     path.resolve(workingCwd, 'files1/nested/other.js'),
-                    path.resolve(workingCwd, 'build/nested/other.4a98043a.js'),
+                    path.resolve(
+                        workingCwd,
+                        'build/static/nested/other.4a98043a.js',
+                    ),
                     expectedOptions,
                 ],
                 [
                     path.resolve(workingCwd, 'files1/test-file.js'),
-                    path.resolve(workingCwd, 'build/test-file.b2c22cd6.js'),
+                    path.resolve(
+                        workingCwd,
+                        'build/static/test-file.b2c22cd6.js',
+                    ),
                     expectedOptions,
                 ],
             ]),

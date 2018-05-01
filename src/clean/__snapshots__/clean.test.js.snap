@@ -23,16 +23,6 @@ Array [
 ]
 `;
 
-exports[`clean handles empty del 3`] = `
-Object {
-  "del": Array [],
-  "makeDirs": Array [
-    "<PROJECT_ROOT>/dist/nested",
-    "<PROJECT_ROOT>/dist/another_nested/folder",
-  ],
-}
-`;
-
 exports[`clean handles empty makeDirs 1`] = `
 Array [
   Array [
@@ -45,18 +35,6 @@ Array [
     },
   ],
 ]
-`;
-
-exports[`clean handles empty makeDirs 2`] = `
-Object {
-  "del": Array [
-    "<PROJECT_ROOT>/dist/nested",
-    "<PROJECT_ROOT>/dist/nested/nested.js",
-    "<PROJECT_ROOT>/dist/one.js",
-    "<PROJECT_ROOT>/dist/two.js",
-  ],
-  "makeDirs": Array [],
-}
 `;
 
 exports[`clean handles multiple clean 1`] = `
@@ -90,18 +68,26 @@ Array [
 `;
 
 exports[`clean handles multiple clean 3`] = `
-Object {
-  "del": Array [
-    "<PROJECT_ROOT>/dist/nested",
-    "<PROJECT_ROOT>/dist/nested/nested.js",
-    "<PROJECT_ROOT>/dist/one.js",
+Array [
+  Array [
+    "<PROJECT_ROOT>/outside-build.js",
+    "<PROJECT_ROOT>/dist/static/outside-build.js",
+    Object {
+      "errorOnExist": true,
+      "overwrite": true,
+      "preserveTimestamps": true,
+    },
   ],
-  "makeDirs": Array [
-    "<PROJECT_ROOT>/dist/nested",
-    "<PROJECT_ROOT>/dist/another_nested/folder",
-    "<PROJECT_ROOT>/dist/another_two_nested/folder",
+  Array [
+    "<PROJECT_ROOT>/static/static-1.js",
+    "<PROJECT_ROOT>/dist/static/static-1.fade7080.js",
+    Object {
+      "errorOnExist": true,
+      "overwrite": true,
+      "preserveTimestamps": true,
+    },
   ],
-}
+]
 `;
 
 exports[`clean handles one clean 1`] = `
@@ -130,18 +116,17 @@ Array [
 `;
 
 exports[`clean handles one clean 3`] = `
-Object {
-  "del": Array [
-    "<PROJECT_ROOT>/dist/nested",
-    "<PROJECT_ROOT>/dist/nested/nested.js",
-    "<PROJECT_ROOT>/dist/one.js",
-    "<PROJECT_ROOT>/dist/two.js",
+Array [
+  Array [
+    "<PROJECT_ROOT>/static/static-1.js",
+    "<PROJECT_ROOT>/dist/static/static-1.fade7080.js",
+    Object {
+      "errorOnExist": true,
+      "overwrite": true,
+      "preserveTimestamps": true,
+    },
   ],
-  "makeDirs": Array [
-    "<PROJECT_ROOT>/dist/nested",
-    "<PROJECT_ROOT>/dist/another_nested/folder",
-  ],
-}
+]
 `;
 
 exports[`clean handles undefined 1`] = `
@@ -180,14 +165,4 @@ Array [
     "<PROJECT_ROOT>/dist/unique/dir",
   ],
 ]
-`;
-
-exports[`clean merges duplicates in correct order 3`] = `
-Object {
-  "del": Array [],
-  "makeDirs": Array [
-    "<PROJECT_ROOT>/dist/duplicate/dir",
-    "<PROJECT_ROOT>/dist/unique/dir",
-  ],
-}
 `;

@@ -2,21 +2,27 @@
 
 exports[`backtrack 1`] = `
 Object {
-  ".backtrack-stats.json": "561ad38ed44501267c8cbe42db1796fc",
-  "backtrack.config.js": "31457a97787120a9f36fcb742f897502",
+  ".backtrack-stats.json": "09cb9ff9b00f2a6e01f2bc28dc9c2b4c",
+  "backtrack.config.js": "d6c5fe5495d8f6613008e11f92f88147",
+  "dist/static/static-file.js": "72fbbbcf68ee7615495bbe3a18fb1a54",
+  "dist/static/static1-file.js": "4b8eb6166937afda36fa55d3a15b8a68",
   "file1.js": "7f477fcd51e87d9e65b134b17771dc03",
   "files/file1.js": "7f477fcd51e87d9e65b134b17771dc03",
-  "package.json": "d3cd662a2371fd1e79441bee77bdc0ac",
+  "package.json": "fa3fa40e4b2254180dc0f5f1b2189396",
+  "static-1/static1-file.js": "4b8eb6166937afda36fa55d3a15b8a68",
+  "static/static-file.js": "72fbbbcf68ee7615495bbe3a18fb1a54",
 }
 `;
 
 exports[`backtrack 2`] = `
 Object {
-  ".backtrack-stats.json": "58836dacb73ced285211ec08f2bf384a",
-  "backtrack.config.js": "285892e0eeb9483d6bdb973f3c9c9855",
+  ".backtrack-stats.json": "6f847f8e472f1e25348c35240a83c7ed",
+  "backtrack.config.js": "052518d2bd82f4034be10ed8ac211b86",
   "file1.js": "7f477fcd51e87d9e65b134b17771dc03",
   "files/file1.js": "7f477fcd51e87d9e65b134b17771dc03",
-  "package.json": "8017eeefdcdaa6e07153a3b5042537e8",
+  "package.json": "27cddffeac273fbe99833b27abcedcef",
+  "static-1/static1-file.js": "4b8eb6166937afda36fa55d3a15b8a68",
+  "static/static-file.js": "72fbbbcf68ee7615495bbe3a18fb1a54",
 }
 `;
 
@@ -26,5 +32,7 @@ Object {
   "backtrack.config.js": "73c0f77ffd19a4043aca19410be35b8c",
   "files/file1.js": "7f477fcd51e87d9e65b134b17771dc03",
   "package.json": "e5ace72ad475dc0d19ef2425ea09bdd1",
+  "static-1/static1-file.js": "4b8eb6166937afda36fa55d3a15b8a68",
+  "static/static-file.js": "72fbbbcf68ee7615495bbe3a18fb1a54",
 }
 `;

@@ -52,7 +52,7 @@ async function readDirDeep(startPath: string) {
         /* eslint-enable */
 
         // $FlowIssue
-        const sorted = result.sort()
+        const sorted = result.sort();
 
         return sorted;
     };

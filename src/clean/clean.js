@@ -2,6 +2,7 @@
 
 import del from 'del';
 import { makeDirs } from '../utils/make-dirs';
+import { copy } from '../utils/copy';
 
 import { buildPath } from '../config/paths';
 
@@ -10,9 +11,10 @@ import type { NormalizedClean } from '../types.js';
 const base: NormalizedClean = {
     del: [],
     makeDirs: [],
+    copy: [],
 };
 
-async function clean(args?: NormalizedClean = base): Promise<NormalizedClean> {
+async function clean(args?: NormalizedClean = base) {
     /**
      * Run all del requests together.
      *
@@ -20,7 +22,7 @@ async function clean(args?: NormalizedClean = base): Promise<NormalizedClean> {
      * and all makeDirs are not deleted
      */
     // $FlowIssue
-    const delResults = await del(args.del, {
+    await del(args.del, {
         cwd: buildPath,
         dot: true,
     });
@@ -30,10 +32,11 @@ async function clean(args?: NormalizedClean = base): Promise<NormalizedClean> {
      */
     await makeDirs(args.makeDirs);
 
-    return {
-        del: delResults,
-        makeDirs: args.makeDirs,
-    };
+    /**
+     * Copy static files last
+     */
+    // $FlowIssue
+    await copy(args.copy);
 }
 
 export { clean };

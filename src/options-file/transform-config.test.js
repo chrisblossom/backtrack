@@ -22,6 +22,12 @@ describe('transformConfig', () => {
                 {
                     del: ['**/*', '!.gitignore'],
                     makeDirs: ['static/favicons'],
+                    copy: [
+                        {
+                            src: 'static-3',
+                            dest: 'static-3',
+                        },
+                    ],
                 },
             ],
             dev: ['base'],
