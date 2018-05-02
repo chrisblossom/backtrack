@@ -2,6 +2,7 @@
 
 import path from 'path';
 import { fileInfo } from './file-test-utils';
+import { copyFormatMockCalls } from '../utils/copy-format-mock-calls';
 
 const copyFiles = (files, previousStats) =>
     require('./copy-files').copyFiles(files, previousStats);
@@ -49,7 +50,7 @@ describe('copyFiles', () => {
 
         await copyFiles(parsedFiles, previousStats);
 
-        expect(copy.mock.calls).toMatchSnapshot();
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
     });
 
     test('copies nothing if nothing changed', async () => {
@@ -93,7 +94,7 @@ describe('copyFiles', () => {
 
         await copyFiles(parsedFiles, previousStats);
 
-        expect(copy.mock.calls).toMatchSnapshot();
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
     });
 
     test('allowChanges - create file with -latest tag', async () => {
@@ -116,7 +117,7 @@ describe('copyFiles', () => {
 
         await copyFiles(parsedFiles, previousStats);
 
-        expect(copy.mock.calls).toMatchSnapshot();
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
     });
 
     test('allowChanges - if srcHash is equal to previousHash, do nothing', async () => {
@@ -162,7 +163,7 @@ describe('copyFiles', () => {
 
         await copyFiles(parsedFiles, previousStats);
 
-        expect(copy.mock.calls).toMatchSnapshot();
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
     });
 
     test('allowChanges - copies if destFile has not been modified', async () => {
@@ -189,6 +190,6 @@ describe('copyFiles', () => {
 
         await copyFiles(parsedFiles, previousStats);
 
-        expect(copy.mock.calls).toMatchSnapshot();
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
     });
 });

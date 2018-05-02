@@ -8,3 +8,4 @@ flow-typed
 flow
 package.json
 .backtrack-stats.json
+__sandbox__

@@ -9,9 +9,9 @@ describe('read-dir-deep', () => {
 
         const checkResult = (result) => {
             expect(result).toEqual([
-                'nested/nested-inside/inside.js',
-                'nested/other.js',
-                'test-file.js',
+                path.normalize('nested/nested-inside/inside.js'),
+                path.normalize('nested/other.js'),
+                path.normalize('test-file.js'),
             ]);
         };
 

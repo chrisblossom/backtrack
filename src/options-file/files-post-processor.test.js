@@ -229,11 +229,15 @@ describe('filesPostProcessor', () => {
     });
 
     test('removes duplicate makeDirs with exact path', () => {
-        process.chdir('/Users');
+        const dir = path.resolve(
+            __dirname,
+            '../file-manager/__sandbox__/stats1/',
+        );
+        process.chdir(dir);
 
         const value = [
             { makeDirs: ['src', 'dist'] },
-            { makeDirs: ['/Users/src', '/Users/dist'] },
+            { makeDirs: [path.resolve(dir, 'src'), path.resolve(dir, 'dist')] },
         ];
 
         const result = filesPostProcessor({ value });
