@@ -8,29 +8,9 @@
   "homepage": "https://github.com/chrisblossom/backtrack",
   "description": "Extendable task runner / file and build manager",
   "keywords": [
-    "build",
-    "make",
-    "tool",
-    "system",
-    "pipeline",
-    "configuration",
-    "config",
-    "file",
-    "management",
-    "manager",
-    "task",
-    "runner",
-    "gulp",
-    "grunt",
-    "webpack",
-    "rollup",
-    "babel",
-    "flow",
-    "typescript",
-    "prettier",
-    "eslint",
-    "jest",
-    "mocha"
+    "build", "make", "tool", "system", "pipeline", "configuration", "config", "file", "management", "manager",
+    "task", "runner", "gulp", "grunt", "webpack", "rollup", "babel", "flow", "typescript", "prettier",
+    "eslint", "jest", "mocha"
   ],
   "engines": {
     "node": ">=6.9.0",
@@ -44,6 +24,11 @@
   "bin": {
     "backtrack": "./dist/cli/cli.js"
   },
+  "files": [
+    "dist/",
+    "flow-typed/",
+    "paths.js"
+  ],
   "scripts": {
     "clean": "del-cli ./dist/*",
     "lint": "eslint .",
