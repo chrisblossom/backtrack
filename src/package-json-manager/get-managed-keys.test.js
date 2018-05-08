@@ -92,4 +92,32 @@ describe('getManagedKeys', () => {
             },
         });
     });
+
+    test('removes empty strings / null', () => {
+        const lifecycles = {
+            packageJson: [
+                {
+                    other: 'yes',
+                    scripts: {
+                        'lint.fix': 'eslint --fix',
+                        'format.fix': 'prettier',
+                    },
+                },
+                {
+                    other: null,
+                    scripts: {
+                        'lint.fix': '',
+                    },
+                },
+            ],
+        };
+
+        const result = getManagedKeys(lifecycles);
+
+        expect(result).toEqual({
+            scripts: {
+                'format.fix': 'prettier',
+            },
+        });
+    });
 });

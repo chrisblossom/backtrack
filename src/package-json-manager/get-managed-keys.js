@@ -1,6 +1,6 @@
 /* @flow */
 
-import { merge } from 'lodash';
+import { isPlainObject, merge } from 'lodash';
 
 import type { Lifecycles, PackageJson } from '../types.js';
 
@@ -10,6 +10,28 @@ const customScripts = {
 
     // 'dev.prod': 'backtrack dev --production',
     // 'build.dev': 'backtrack build --development',
+};
+
+const removeEmpty = (object) => {
+    return Object.keys(object).reduce((acc, key) => {
+        const value = object[key];
+
+        if (isPlainObject(value)) {
+            return {
+                ...acc,
+                [key]: removeEmpty(value),
+            };
+        }
+
+        if (value === '' || value === null || value === undefined) {
+            return acc;
+        }
+
+        return {
+            ...acc,
+            [key]: value,
+        };
+    }, {});
 };
 
 function getManagedKeys(lifecycles: Lifecycles = {}): PackageJson {
@@ -53,7 +75,9 @@ function getManagedKeys(lifecycles: Lifecycles = {}): PackageJson {
     const scripts =
         Object.keys(getScripts).length !== 0 ? { scripts: getScripts } : {};
 
-    const mergedKeys: PackageJson = merge(scripts, ...packageJson);
+    const mergePackageJson = merge(...packageJson);
+    const filteredPackageJson = removeEmpty(mergePackageJson);
+    const mergedKeys: PackageJson = merge(scripts, filteredPackageJson);
 
     return mergedKeys;
 }
