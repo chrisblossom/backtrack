@@ -59,7 +59,7 @@
     "dev.babel": "cross-env NODE_ENV=development babel -w src/ -d dist/ --ignore test.js,__sandbox__/ --source-maps",
     "dev.flow": "cross-env NODE_ENV=development flow-copy-source -w --ignore \"**/*.test.js\" --ignore \"**/__sandbox__/**/*\" src dist",
     "precommit": "lint-staged",
-    "prepush": "npm run format && npm run lint.fix && npm run flow && npm run test",
+    "prepush": "npm run lint && npm run flow && npm run test",
     "prepublishOnly": "npm run test && npm run build"
   },
   "lint-staged": {
