@@ -21,7 +21,7 @@ export type Task = AllTaskTypes | Lifecycle;
 export type Copy = {|
     dest: string,
     src: string,
-    hash?: boolean
+    hash?: boolean,
 |};
 
 export type NormalizedClean = {|
@@ -38,23 +38,18 @@ export type Clean = {|
 |};
 
 type CopyFileOptions = {|
-    skip?: $ReadOnlyArray<string> | string,
-    allowChanges?: $ReadOnlyArray<string> | string | boolean,
-|};
-
-type FileMakeDirs = {|
-    makeDirs: $ReadOnlyArray<string> | string,
+    +makeDirs?: $ReadOnlyArray<string> | string,
+    +skip?: $ReadOnlyArray<string> | string,
+    +allowChanges?: $ReadOnlyArray<string> | string | boolean,
 |};
 
 export type CopyFile = {|
-    src: string,
-    dest: string,
-    allowChanges?: boolean,
+    +src: string,
+    +dest: string,
+    +allowChanges?: boolean,
 |};
 
-export type FileManager = $ReadOnlyArray<
-    CopyFile | CopyFileOptions | FileMakeDirs,
->;
+export type FileManager = $ReadOnlyArray<CopyFile | CopyFileOptions>;
 
 // eslint-disable-next-line flowtype/require-exact-type
 export type Config = {
@@ -69,9 +64,8 @@ type PresetTask =
 export type Files =
     | CopyFile
     | CopyFileOptions
-    | FileMakeDirs
     | false
-    | $ReadOnlyArray<CopyFile | CopyFileOptions | FileMakeDirs | false>;
+    | $ReadOnlyArray<CopyFile | CopyFileOptions | false>;
 
 // eslint-disable-next-line flowtype/require-exact-type
 export type Resolve = { [key: string]: string };

@@ -149,6 +149,10 @@ describe('presetValidator', () => {
                 {
                     skip: ['file1.js'],
                     allowChanges: ['file1.js'],
+                    makeDirs: ['dist'],
+                },
+                {
+                    skip: ['file1.js'],
                 },
                 {
                     makeDirs: ['dist'],

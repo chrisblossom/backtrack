@@ -46,18 +46,16 @@ const backtrackConfig = {
         },
 
         /**
-         * Create directories
-         *
-         * dist and src are created by default
-         */
-        {
-            makeDirs: ['static'],
-        },
-
-        /**
          * Options
          */
         {
+            /**
+             * Create directories
+             *
+             * dist and src are created by default
+             */
+            makeDirs: ['static'],
+
             /**
              * Do not copy/manage .eslintrc.js, build or source paths
              */

@@ -11,12 +11,6 @@ const copyFilesSchema = Joi.object({
     allowChanges: Joi.boolean(),
 });
 
-const makeDirsSchema = Joi.object({
-    makeDirs: Joi.array()
-        .items(Joi.string())
-        .single(true),
-});
-
 const filesOptionsSchema = Joi.object({
     skip: Joi.array()
         .items(Joi.string())
@@ -28,10 +22,14 @@ const filesOptionsSchema = Joi.object({
             .single(true),
         Joi.boolean(),
     ],
+
+    makeDirs: Joi.array()
+        .items(Joi.string())
+        .single(true),
 });
 
 const filesSchema = Joi.array()
-    .items(copyFilesSchema, makeDirsSchema, filesOptionsSchema)
+    .items(copyFilesSchema, filesOptionsSchema)
     .single(true)
     .unique()
     .options({

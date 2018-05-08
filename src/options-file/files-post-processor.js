@@ -32,18 +32,13 @@ function splitSections(copyFiles) {
                 };
             }
 
-            if (file.makeDirs) {
-                const makeDirs = toArray(file.makeDirs);
-
-                return {
-                    ...acc,
-                    makeDirs: [...acc.makeDirs, ...makeDirs],
-                };
-            }
+            // $FlowIssue
+            const { makeDirs = [], ...options } = file;
 
             return {
                 ...acc,
-                options: [...acc.options, file],
+                options: [...acc.options, options],
+                makeDirs: [...acc.makeDirs, ...makeDirs],
             };
         },
         { copyFiles: [], options: [], makeDirs: [] },

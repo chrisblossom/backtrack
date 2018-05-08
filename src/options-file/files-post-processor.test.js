@@ -408,8 +408,6 @@ describe('filesPostProcessor', () => {
             },
             {
                 makeDirs: ['dist', 'dist/static', 'src'],
-            },
-            {
                 skip: ['nested/outside'],
             },
         ];
