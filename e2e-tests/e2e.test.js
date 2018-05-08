@@ -151,6 +151,16 @@ test('backtrack', async () => {
     await backtrack();
 
     /**
+     * Updates changed file
+     */
+    jest.resetModules();
+    process.env.RUN_MODE = 'init';
+    temp.createFile('files/file1.js', '// file1.js updated');
+
+    await backtrack();
+    expect(temp.getAllFilesHash()).toMatchSnapshot();
+
+    /**
      * Removes dev and static dir
      */
     jest.resetModules();
