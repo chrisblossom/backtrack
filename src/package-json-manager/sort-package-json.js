@@ -47,6 +47,7 @@ function sortPackageJson(packageJson: PackageJson): PackageJson {
 
         'engines',
         'engineStrict',
+        'devEngines',
         'os',
         'cpu',
 

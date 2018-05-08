@@ -11,6 +11,15 @@ describe('sortPackageJson', () => {
             repository: 'repo',
             bugs: 'all',
             name: 'package',
+            engines: {
+                node: '>=6.9.0',
+                npm: '>=3.10.10',
+                yarn: '>=1.6.0',
+            },
+            devEngines: {
+                node: '>=8.9.0',
+                npm: '>=5.5.1',
+            },
             scripts: {
                 one: 'script',
             },
@@ -27,6 +36,8 @@ describe('sortPackageJson', () => {
             'name',
             'repository',
             'bugs',
+            'engines',
+            'devEngines',
             'scripts',
             'after',
             'other',
