@@ -19,6 +19,13 @@ function shouldUpdate(
         const matchedMangedKey = get(managedKeys, key);
         const matchedPackageJson = get(packageJson, key);
 
+        /**
+         * Key has not been changed if it does not exist and it is managed as null
+         */
+        if (matchedPackageJson === undefined && matchedMangedKey === null) {
+            return false;
+        }
+
         return isEqual(matchedPackageJson, matchedMangedKey) === false;
     });
 

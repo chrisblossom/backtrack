@@ -46,3 +46,5 @@ Array [
   ],
 ]
 `;
+
+exports[`packageJsonManager setting null does not always update packageJson if already removed 1`] = `Array []`;

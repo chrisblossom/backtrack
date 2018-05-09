@@ -101,4 +101,26 @@ describe('packageJsonManager', () => {
             },
         });
     });
+
+    test('setting null does not always update packageJson if already removed', async () => {
+        const dir = path.resolve(__dirname, '__sandbox__/package-json-6/');
+        process.chdir(dir);
+
+        const lifecycles = {
+            packageJson: [
+                {
+                    scripts: {
+                        test: null,
+                    },
+                },
+            ],
+        };
+
+        const result = await packageJsonManager(lifecycles);
+
+        writeFileSync.mockRestore();
+
+        expect(writeFileSync.mock.calls).toMatchSnapshot();
+        expect(result).toEqual({ scripts: { test: null } });
+    });
 });

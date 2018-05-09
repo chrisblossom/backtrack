@@ -166,4 +166,20 @@ describe('shouldUpdate', () => {
 
         expect(updatePackageJson).toEqual(true);
     });
+
+    test('should not update if packageJson does not have key and managed is null', () => {
+        const packageJson = { scripts: {} };
+
+        const managedKeys = { scripts: { test: null } };
+
+        const previousManagedKeys = { scripts: { test: null } };
+
+        const updatePackageJson = shouldUpdate(
+            packageJson,
+            managedKeys,
+            previousManagedKeys,
+        );
+
+        expect(updatePackageJson).toEqual(false);
+    });
 });
