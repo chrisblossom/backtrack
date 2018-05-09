@@ -5,6 +5,7 @@ import { shouldUpdate } from './should-update';
 import { updatePackageJson } from './update-package-json';
 import { backupPackageJson } from './backup-package-json';
 import { loadPackageJson } from './load-package-json';
+import { removeNullValues } from './remove-null-values';
 import { sortPackageJson } from './sort-package-json';
 import { writePackageJson } from './write-package-json';
 
@@ -51,9 +52,14 @@ async function packageJsonManager(
     );
 
     /**
+     * remove null values
+     */
+    const packageJsonFiltered = removeNullValues(updatedPackageJson);
+
+    /**
      * sort package json
      */
-    const packageJsonSorted = sortPackageJson(updatedPackageJson);
+    const packageJsonSorted = sortPackageJson(packageJsonFiltered);
 
     /**
      * write packageJson

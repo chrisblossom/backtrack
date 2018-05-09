@@ -6,8 +6,35 @@ Array [
     "<PROJECT_ROOT>/package.json",
     "{
   \\"version\\": \\"1.0.0\\",
-  \\"license\\": \\"MIT\\",
+  \\"description\\": \\"\\",
+  \\"keywords\\": [],
+  \\"license\\": \\"ISC\\",
   \\"private\\": true,
+  \\"author\\": \\"\\",
+  \\"main\\": \\"index.js\\",
+  \\"scripts\\": {
+    \\"lint.fix\\": \\"eslint --fix\\",
+    \\"test\\": \\"echo /\\"Error: no test specified/\\" && exit 1\\"
+  },
+  \\"devDependencies\\": {},
+  \\"dependencies\\": {}
+}
+",
+  ],
+]
+`;
+
+exports[`packageJsonManager removes empty npm defaults 1`] = `
+Array [
+  Array [
+    "<PROJECT_ROOT>/package.json",
+    "{
+  \\"version\\": \\"1.0.0\\",
+  \\"description\\": \\"\\",
+  \\"keywords\\": [],
+  \\"license\\": \\"\\",
+  \\"private\\": true,
+  \\"author\\": \\"\\",
   \\"main\\": \\"index.js\\",
   \\"scripts\\": {
     \\"lint.fix\\": \\"eslint --fix\\"

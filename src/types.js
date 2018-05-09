@@ -138,7 +138,7 @@ export type StatsFile = $ReadOnly<{
     [any]: empty,
 }>;
 
-export type Scripts = $ReadOnly<{ [key: string]: string }>;
+export type Scripts = $ReadOnly<{ [key: string]: string | null }>;
 
 export type PackageJson = $ReadOnly<{
     scripts?: Scripts,

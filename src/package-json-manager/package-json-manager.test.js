@@ -71,4 +71,34 @@ describe('packageJsonManager', () => {
         expect(writeFileSync.mock.calls).toMatchSnapshot();
         expect(result).toEqual({ scripts: { 'lint.fix': 'eslint --fix' } });
     });
+
+    test('removes empty npm defaults', async () => {
+        const dir = path.resolve(__dirname, '__sandbox__/package-json-1/');
+        process.chdir(dir);
+
+        const lifecycles = {
+            packageJson: [
+                {
+                    license: '',
+                    scripts: {
+                        'lint.fix': 'eslint --fix',
+                        test: null,
+                    },
+                },
+            ],
+        };
+
+        const result = await packageJsonManager(lifecycles);
+
+        writeFileSync.mockRestore();
+
+        expect(writeFileSync.mock.calls).toMatchSnapshot();
+        expect(result).toEqual({
+            license: '',
+            scripts: {
+                test: null,
+                'lint.fix': 'eslint --fix',
+            },
+        });
+    });
 });
