@@ -46,33 +46,40 @@ describe('fileIsInsideDir', () => {
     });
 
     test('handles explicit dir - true', () => {
-        const file = path.resolve(
-            __dirname,
-            '__sandbox__/files1/nested/other1.js',
-        );
-        const dir = path.resolve(__dirname, '__sandbox__/files1/');
+        const file = path.resolve(sandboxDir, 'files1/nested/other1.js');
+        const dir = path.resolve(sandboxDir, 'files1/');
         const result = fileIsInsideDir(file, dir);
 
         expect(result).toEqual(true);
     });
 
     test('handles explicit dir - false', () => {
-        const file = path.resolve(
-            __dirname,
-            '__sandbox__/files1/nested/other1.js',
-        );
-        const dir = path.resolve(__dirname, '__sandbox__/other_files/');
+        const file = path.resolve(sandboxDir, 'files1/nested/other1.js');
+        const dir = path.resolve(sandboxDir, 'other_files/');
+        const result = fileIsInsideDir(file, dir);
+
+        expect(result).toEqual(false);
+    });
+
+    test('handles explicit relative dir - true', () => {
+        const file = 'files1/nested/other1.js';
+        const dir = 'files1/';
+        const result = fileIsInsideDir(file, dir);
+
+        expect(result).toEqual(true);
+    });
+
+    test('handles explicit relative dir - false', () => {
+        const file = 'nested/other1.js';
+        const dir = 'files1/';
         const result = fileIsInsideDir(file, dir);
 
         expect(result).toEqual(false);
     });
 
     test('handles excess path with same base', () => {
-        const file = path.resolve(
-            __dirname,
-            '__sandbox__/files1nested/other1.js',
-        );
-        const dir = path.resolve(__dirname, '__sandbox__/files1');
+        const file = path.resolve(sandboxDir, 'files1nested/other1.js');
+        const dir = path.resolve(sandboxDir, 'files1');
         const result = fileIsInsideDir(file, dir);
 
         expect(result).toEqual(false);

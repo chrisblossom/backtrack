@@ -28,14 +28,26 @@ function fileIsInsideDir(file: string, dir: string = rootPath): boolean {
         return false;
     }
 
-    const normalizedDir = path.normalize(dir) + path.sep;
-    const absoluteFilePath = path.resolve(normalizedDir, file);
+    let normalizedDir = path.relative(rootPath, dir) + path.sep;
 
-    const realPath = getRealPath(absoluteFilePath);
+    if (normalizedDir === path.sep) {
+        normalizedDir = '';
+    }
+
+    const absoluteFilePath = path.relative(rootPath, file);
+
+    const isOutsidePath = absoluteFilePath.split('/')[0];
+    if (isOutsidePath === '..') {
+        return false;
+    }
+
+    const realPath = path.relative(rootPath, getRealPath(absoluteFilePath));
 
     const truncatedPath = realPath.slice(0, normalizedDir.length);
 
-    return truncatedPath === normalizedDir;
+    const isInside = truncatedPath === normalizedDir;
+
+    return isInside;
 }
 
 export { fileIsInsideDir };

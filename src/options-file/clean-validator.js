@@ -1,5 +1,6 @@
 /* @flow */
 
+import path from 'path';
 import { buildPath, rootPath } from '../config/paths';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
 
@@ -13,7 +14,8 @@ type Args = {
 function cleanValidator({ value }: Args) {
     for (const arg of value) {
         for (const pattern of arg.del) {
-            if (fileIsInsideDir(pattern, buildPath) === false) {
+            const resolvedPattern = path.resolve(buildPath, pattern);
+            if (fileIsInsideDir(resolvedPattern, buildPath) === false) {
                 throw new Error(
                     `del pattern '${pattern}' must be inside build directory`,
                 );
