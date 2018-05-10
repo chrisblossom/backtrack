@@ -2,7 +2,11 @@
 
 import { TempUtils } from '../src/utils/temp-utils';
 
-const backtrack = () => require('../src/cli/start').start();
+const backtrack = () => {
+    jest.resetModules();
+
+    return require('../src/cli/start').start();
+};
 
 const temp = new TempUtils();
 const cwd = process.cwd();
@@ -23,6 +27,7 @@ beforeEach(() => {
     processExitSpy = jest
         .spyOn(process, 'exit')
         .mockImplementation(() => undefined);
+
     jest.doMock('../src/utils/handle-error.js', () => ({
         handleError: (...args) => {
             handleErrorMock(...args);
@@ -146,14 +151,12 @@ test('backtrack', async () => {
     /**
      * runs dev script
      */
-    jest.resetModules();
     process.env.RUN_MODE = 'dev';
     await backtrack();
 
     /**
      * Updates changed file
      */
-    jest.resetModules();
     process.env.RUN_MODE = 'init';
     temp.createFile('files/file1.js', '// file1.js updated');
 
@@ -163,7 +166,6 @@ test('backtrack', async () => {
     /**
      * Removes dev and static dir
      */
-    jest.resetModules();
     process.env.RUN_MODE = 'init';
 
     delete config.dev;
@@ -189,7 +191,6 @@ test('backtrack', async () => {
     /**
      * Removes everything
      */
-    jest.resetModules();
     process.env.RUN_MODE = 'init';
 
     temp.createFile('backtrack.config.js', 'module.exports = {}');
@@ -199,4 +200,45 @@ test('backtrack', async () => {
     expect(temp.readFile('package.json')).toEqual({ name: 'test-package' });
 
     expect(temp.getAllFilesHash()).toMatchSnapshot();
+});
+
+test('creates only latest when file already exists and new manged file that is allowed changed', async () => {
+    process.env.RUN_MODE = 'init';
+
+    const packageJson = {
+        name: 'test-package',
+        backtrack: {},
+    };
+
+    temp.createFile('package.json', packageJson);
+
+    await backtrack();
+
+    temp.createFile('src/file1.js', '// file1.js not managed');
+    expect(temp.getAllFilesHash()).toEqual({
+        '.backtrack-stats.json': '6b6c16e551598a31afb4cdb307c906a4',
+        'package.json': 'e536df14883ba8f1cecdf12ba4e0b813',
+        'src/file1.js': 'bf6054b34f42c85ee3f66a67000651c4',
+    });
+
+    /**
+     * add file that already exists
+     */
+    packageJson.backtrack.files = {
+        src: 'files/file1.js',
+        dest: 'src/file1.js',
+        allowChanges: true,
+    };
+    temp.createFile('package.json', packageJson);
+    temp.createFile('files/file1.js', '// file1.js managed');
+
+    await backtrack();
+
+    expect(temp.getAllFilesHash()).toEqual({
+        '.backtrack-stats.json': '6e0b335edb90e56e26649d65ad400a06',
+        'package.json': '106732492aab6d7ae67334e5d3b7dc2b',
+        'files/file1.js': '031895c8d5cd3c29681aa6713950d4c4',
+        'src/file1.js': 'bf6054b34f42c85ee3f66a67000651c4',
+        'src/file1.js-latest.js': '031895c8d5cd3c29681aa6713950d4c4',
+    });
 });

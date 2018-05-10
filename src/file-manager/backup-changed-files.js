@@ -25,12 +25,20 @@ async function backupChangedFiles(
             const srcFile = files.src.files[destFileIndex];
             const srcHash = files.src.hash[srcFile];
             const destHash = files.dest.hash[destFile];
+            const allowChanges = files.dest.allowChanges[destFile];
             const destExists = !!destHash;
 
             /**
              * Don't backup if file doesn't exist or the files are the same
              */
             if (!destExists || srcHash === destHash) {
+                return null;
+            }
+
+            /**
+             * Do not backup file if changes are allowed
+             */
+            if (allowChanges === true) {
                 return null;
             }
 

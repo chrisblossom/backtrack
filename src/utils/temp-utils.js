@@ -131,15 +131,15 @@ class TempUtils {
     }
 
     clean() {
-        const cleanPattern = this.absolutePath('**/*');
-        del.sync(cleanPattern, {
+        return del.sync('**/*', {
             root: this.dir,
+            cwd: this.dir,
             dot: true,
         });
     }
 
     deleteTempDir() {
-        del.sync(this.dir, { force: true, dot: true });
+        return del.sync(this.dir, { force: true, dot: true });
     }
 }
 

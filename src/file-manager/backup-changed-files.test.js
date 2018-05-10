@@ -72,7 +72,7 @@ describe('backupChangedFiles', () => {
         expect(move.mock.calls).toEqual([]);
     });
 
-    test('no previousStats - backup if file exists', async () => {
+    test('does not backup if changes allowed and not previously managed', async () => {
         const dir = path.resolve(__dirname, '__sandbox__/stats1/');
         process.chdir(dir);
 
@@ -81,6 +81,24 @@ describe('backupChangedFiles', () => {
                 src: path.resolve(dir, 'file1.js'),
                 dest: 'nested/other.js',
                 allowChanges: true,
+            },
+        ];
+
+        const { parsedFiles, previousStats } = fileInfo(files);
+
+        await backupChangedFiles(parsedFiles, previousStats);
+
+        expect(move.mock.calls).toEqual([]);
+    });
+
+    test('no previousStats - backup if file exists', async () => {
+        const dir = path.resolve(__dirname, '__sandbox__/stats1/');
+        process.chdir(dir);
+
+        const files = [
+            {
+                src: path.resolve(dir, 'file1.js'),
+                dest: 'nested/other.js',
             },
         ];
 
