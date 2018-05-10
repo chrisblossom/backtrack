@@ -3,6 +3,7 @@
 import path from 'path';
 import os from 'os';
 import del from 'del';
+import slash from 'slash';
 import { readFileSync, realpathSync, writeFileSync } from 'fs';
 import { createHash } from 'crypto';
 import fse from 'fs-extra';
@@ -123,7 +124,7 @@ class TempUtils {
             const fileHash = this.getFileHash(file);
             return {
                 ...acc,
-                [file]: fileHash,
+                [slash(file)]: fileHash,
             };
         }, {});
 
