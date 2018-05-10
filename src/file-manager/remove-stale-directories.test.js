@@ -144,6 +144,20 @@ describe('removeStaleDirectories', () => {
         expect(delMock.mock.calls).toMatchSnapshot();
     });
 
+    test('does not remove base directory when nested directory added', async () => {
+        const previousFiles = [{ makeDirs: ['dist'] }];
+        const files = [{ makeDirs: ['dist/static'] }];
+
+        const { parsedFiles, previousStats } = await dirInfo(
+            files,
+            previousFiles,
+        );
+
+        await removeStaleDirectories(parsedFiles, previousStats);
+
+        expect(delMock.mock.calls).toEqual([]);
+    });
+
     test('leaves directory if files exist', async () => {
         const previousFiles = [{ makeDirs: ['dist'] }];
         const files = [];

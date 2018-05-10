@@ -6,6 +6,7 @@ import del from 'del';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { normalizePathname } from '../utils/normalize-pathname';
+import { fileIsInsideDir } from '../utils/file-is-inside-dir';
 
 import type { ParsedFiles, DirStats } from '../types.js';
 
@@ -41,6 +42,14 @@ async function shouldDelete(relativeDir, makeDirs = []) {
     if (exists === false) {
         await goUpOne();
 
+        return;
+    }
+
+    const isInsideManagedDir = makeDirs.some((dir) => {
+        return fileIsInsideDir(dir, relativeDir);
+    });
+
+    if (isInsideManagedDir === true) {
         return;
     }
 
