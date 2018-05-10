@@ -36,7 +36,7 @@ function fileIsInsideDir(file: string, dir: string = rootPath): boolean {
 
     const absoluteFilePath = path.relative(rootPath, file);
 
-    const isOutsidePath = absoluteFilePath.split('/')[0];
+    const isOutsidePath = absoluteFilePath.split(path.sep)[0];
     if (isOutsidePath === '..') {
         return false;
     }
