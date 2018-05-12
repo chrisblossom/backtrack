@@ -28,6 +28,19 @@ async function copyFiles(files: ParsedFiles, previousStats?: FileStats = {}) {
             if (destHash) {
                 const previousHash = previousStats[destFile];
                 /**
+                 * Do not copy if ignoreUpdates is true and file already exists
+                 */
+                const ignoreUpdates = dest.ignoreUpdates[destFile];
+                if (ignoreUpdates === true) {
+                    if (previousHash !== srcHash) {
+                        log.info(
+                            `Unmanaged file ${destFile} source changed. Updating .backtrack-stats.json`,
+                        );
+                    }
+
+                    return acc;
+                }
+                /**
                  * Do not copy if changes are allowed and destFile has been modified
                  */
                 const allowChanges = dest.allowChanges[destFile];

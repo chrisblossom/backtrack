@@ -32,6 +32,7 @@ Object {
       "allowChanges": Object {},
       "files": Array [],
       "hash": Object {},
+      "ignoreUpdates": Object {},
     },
     "makeDirs": Array [
       "dist",
@@ -63,6 +64,7 @@ Object {
       "allowChanges": Object {},
       "files": Array [],
       "hash": Object {},
+      "ignoreUpdates": Object {},
     },
     "makeDirs": Array [
       "dist",
@@ -94,6 +96,7 @@ Object {
       "allowChanges": Object {},
       "files": Array [],
       "hash": Object {},
+      "ignoreUpdates": Object {},
     },
     "makeDirs": Array [
       "dist",
@@ -124,6 +127,7 @@ Object {
       "allowChanges": Object {},
       "files": Array [],
       "hash": Object {},
+      "ignoreUpdates": Object {},
     },
     "makeDirs": Array [
       "dist",
@@ -181,6 +185,7 @@ Object {
       "allowChanges": Object {},
       "files": Array [],
       "hash": Object {},
+      "ignoreUpdates": Object {},
     },
     "makeDirs": Array [
       "dist",
@@ -258,6 +263,7 @@ Object {
       "allowChanges": Object {},
       "files": Array [],
       "hash": Object {},
+      "ignoreUpdates": Object {},
     },
     "makeDirs": Array [
       "dist",

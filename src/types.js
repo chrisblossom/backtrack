@@ -41,12 +41,14 @@ type CopyFileOptions = {|
     +makeDirs?: $ReadOnlyArray<string> | string,
     +skip?: $ReadOnlyArray<string> | string,
     +allowChanges?: $ReadOnlyArray<string> | string | boolean,
+    +ignoreUpdates?: $ReadOnlyArray<string> | string | boolean,
 |};
 
 export type CopyFile = {|
     +src: string,
     +dest: string,
     +allowChanges?: boolean,
+    +ignoreUpdates?: boolean,
 |};
 
 export type FileManager = $ReadOnlyArray<CopyFile | CopyFileOptions>;
@@ -116,6 +118,7 @@ export type ParsedFiles = {|
         absolute: { [key: string]: string },
         hash: { [key: string]: string },
         allowChanges: { [key: string]: boolean },
+        ignoreUpdates: { [key: string]: boolean },
     |},
     makeDirs: $ReadOnlyArray<string>,
 |};

@@ -9,6 +9,7 @@ const copyFilesSchema = Joi.object({
     src: Joi.string().required(),
     dest: Joi.string().required(),
     allowChanges: Joi.boolean(),
+    ignoreUpdates: Joi.boolean(),
 });
 
 const filesOptionsSchema = Joi.object({
@@ -17,6 +18,12 @@ const filesOptionsSchema = Joi.object({
         .single(true),
 
     allowChanges: [
+        Joi.array()
+            .items(Joi.string())
+            .single(true),
+        Joi.boolean(),
+    ],
+    ignoreUpdates: [
         Joi.array()
             .items(Joi.string())
             .single(true),

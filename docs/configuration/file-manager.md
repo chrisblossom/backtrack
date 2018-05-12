@@ -10,6 +10,8 @@ If a managed file is modified or deleted, it will be backed up and replaced with
 
 If `allowChanges` is enabled for a file, it is only managed if it is unchanged or removed. If a file has changed and the source file has also changed, the source file will be copied with the `-latest.ext`.
 
+If `ignoreUpdates` is enabled for a file, it is only copied once and the file can be modified. All changes to the source file are ignored. If the file is deleted, the newest version of the file will be copied.
+
 Use the `skip` option to specify an array of files/directories not to be managed. They are equal to the relative directory.
 
 Managed files/directories will be removed when they are no longer managed.
@@ -43,6 +45,15 @@ const backtrackConfig = {
              * default: false
              */
             allowChanges: false,
+
+            /**
+             * Allow file to be modified and do not copy
+             * source file changes to -latest
+             *
+             * optional
+             * default: false
+             */
+            ignoreUpdates: false,
         },
 
         /**
@@ -70,10 +81,20 @@ const backtrackConfig = {
              *
              * After modified, updated source files will
              * have the name .eslintrc.js-latest.js
-             * This file can be deleted, but will be recreated
-             * if the source file is changed again.
+             *
+             * If the file is deleted it will be recreated
+             * with the latest source file.
              */
             allowChanges: ['.eslintrc.js'],
+
+            /**
+             * Allow changes and completely ignore
+             * source file updates to .prettierrc.js
+             *
+             * If the file is deleted it will be recreated
+             * with the latest source file.
+             */
+            ignoreUpdates: ['.prettierrc.js'],
         },
 
         {
@@ -82,7 +103,16 @@ const backtrackConfig = {
              *
              * default: false
              */
-            allowChanges: false,
+            allowChanges: true,
+        },
+
+        {
+            /**
+             * Ignore source file updates to all files
+             *
+             * default: false
+             */
+            ignoreUpdates: true,
         },
     ],
     // ...

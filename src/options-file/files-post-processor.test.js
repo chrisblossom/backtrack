@@ -144,12 +144,22 @@ describe('filesPostProcessor', () => {
                 dest: 'nested/other.js',
             },
             {
+                src: path.resolve(dir, 'nested/ignore-updates-1.js'),
+                dest: 'ignore-updates-1.js',
+                ignoreUpdates: true,
+            },
+            {
+                src: path.resolve(dir, 'nested/ignore-updates-2.js'),
+                dest: 'ignore-updates-2.js',
+            },
+            {
                 src: path.resolve(dir, 'z-file2.js'),
                 dest: 'z-file2.js',
             },
             {
                 skip: 'file1.js',
                 allowChanges: 'z-file2.js',
+                ignoreUpdates: 'ignore-updates-2.js',
             },
         ];
 
@@ -180,6 +190,36 @@ describe('filesPostProcessor', () => {
             },
             {
                 allowChanges: true,
+            },
+        ];
+
+        const result = filesPostProcessor({ value });
+
+        expect(result).toMatchSnapshot();
+    });
+
+    test('handles ignoreUpdatesAll', () => {
+        const dir = path.resolve(
+            __dirname,
+            '../file-manager/__sandbox__/stats1/',
+        );
+        process.chdir(dir);
+
+        const value = [
+            {
+                src: path.resolve(dir, 'file1.js'),
+                dest: 'file1.js',
+            },
+            {
+                src: path.resolve(dir, 'nested/inside.js'),
+                dest: 'nested/inside.js',
+            },
+            {
+                src: path.resolve(dir, 'nested/other.js'),
+                dest: 'nested/other.js',
+            },
+            {
+                ignoreUpdates: true,
             },
         ];
 

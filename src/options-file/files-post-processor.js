@@ -68,11 +68,25 @@ function parseOptions(options) {
                 acc.allowChanges.push(normalizedFile);
             });
 
+            if (typeof fileOptions.ignoreUpdates === 'boolean') {
+                acc.ignoreUpdatesAll = fileOptions.ignoreUpdates;
+
+                return acc;
+            }
+
+            toArray(fileOptions.ignoreUpdates).forEach((file) => {
+                const normalizedFile = normalizePathname(file);
+
+                acc.ignoreUpdates.push(normalizedFile);
+            });
+
             return acc;
         },
         {
             allowChangesAll: false,
+            ignoreUpdatesAll: false,
             allowChanges: [],
+            ignoreUpdates: [],
             skip: [],
         },
     );
@@ -141,6 +155,7 @@ function filesPostProcessor({ value = [] }: Args = {}): ParsedFiles {
             absolute: {},
             hash: {},
             allowChanges: {},
+            ignoreUpdates: {},
         },
         makeDirs: [],
     };
@@ -164,11 +179,21 @@ function filesPostProcessor({ value = [] }: Args = {}): ParsedFiles {
             result.dest.absolute[destId] = dest.absolute;
             result.dest.hash[destId] = dest.hash;
 
+            const ignoreUpdates =
+                options.ignoreUpdates.includes(destId) || !!file.ignoreUpdates;
+
             const allowChanges =
-                options.allowChanges.includes(destId) || !!file.allowChanges;
+                ignoreUpdates ||
+                options.allowChanges.includes(destId) ||
+                !!file.allowChanges;
+
+            result.dest.ignoreUpdates[destId] =
+                options.ignoreUpdatesAll || ignoreUpdates;
 
             result.dest.allowChanges[destId] =
-                options.allowChangesAll || allowChanges;
+                options.ignoreUpdatesAll ||
+                options.allowChangesAll ||
+                allowChanges;
         }
     }
 

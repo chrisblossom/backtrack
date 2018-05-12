@@ -143,6 +143,17 @@ describe('presetValidator', () => {
                     allowChanges: true,
                 },
                 {
+                    src: 'nested/inside.js',
+                    dest: 'nested/inside.js',
+                    ignoreUpdates: true,
+                },
+                {
+                    src: 'nested/inside.js',
+                    dest: 'nested/inside.js',
+                    allowChanges: true,
+                    ignoreUpdates: true,
+                },
+                {
                     src: 'nested/other.js',
                     dest: 'nested/other.js',
                 },
@@ -150,6 +161,7 @@ describe('presetValidator', () => {
                     skip: ['file1.js'],
                     allowChanges: ['file1.js'],
                     makeDirs: ['dist'],
+                    ignoreUpdates: true,
                 },
                 {
                     skip: ['file1.js'],
@@ -159,6 +171,9 @@ describe('presetValidator', () => {
                 },
                 {
                     allowChanges: true,
+                },
+                {
+                    ignoreUpdates: true,
                 },
             ],
         };

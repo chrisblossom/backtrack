@@ -192,4 +192,50 @@ describe('copyFiles', () => {
 
         expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
     });
+
+    test('ignoreUpdates - copies if no previous stats for file', async () => {
+        const dir = path.resolve(__dirname, '__sandbox__/stats1/');
+        process.chdir(dir);
+
+        const files = [
+            {
+                src: path.resolve(dir, 'nested/other.js'),
+                dest: 'nested/missing.js',
+                ignoreUpdates: true,
+            },
+        ];
+
+        const { parsedFiles, previousStats } = fileInfo(files);
+
+        await copyFiles(parsedFiles, previousStats);
+
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
+    });
+
+    test('ignoreUpdates - does not copy if has previous stats', async () => {
+        const dir = path.resolve(__dirname, '__sandbox__/stats1/');
+        process.chdir(dir);
+
+        const previousFiles = [
+            {
+                src: path.resolve(dir, 'nested/inside.js'),
+                dest: 'nested/inside.js',
+                ignoreUpdates: true,
+            },
+        ];
+
+        const files = [
+            {
+                src: path.resolve(dir, 'nested/other.js'),
+                dest: 'nested/inside.js',
+                ignoreUpdates: true,
+            },
+        ];
+
+        const { parsedFiles, previousStats } = fileInfo(files, previousFiles);
+
+        await copyFiles(parsedFiles, previousStats);
+
+        expect(copyFormatMockCalls(copy.mock.calls)).toMatchSnapshot();
+    });
 });

@@ -80,3 +80,18 @@ Object {
   },
 }
 `;
+
+exports[`copyFiles ignoreUpdates - copies if no previous stats for file 1`] = `
+Object {
+  "<PROJECT_ROOT>/nested/other.js": Object {
+    "dest": "<PROJECT_ROOT>/nested/missing.js",
+    "options": Object {
+      "errorOnExist": true,
+      "overwrite": true,
+      "preserveTimestamps": true,
+    },
+  },
+}
+`;
+
+exports[`copyFiles ignoreUpdates - does not copy if has previous stats 1`] = `Object {}`;
