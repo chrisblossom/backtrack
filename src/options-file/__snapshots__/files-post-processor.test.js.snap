@@ -416,6 +416,51 @@ Object {
 }
 `;
 
+exports[`filesPostProcessor removes duplicate dest 1`] = `
+Object {
+  "dest": Object {
+    "absolute": Object {
+      "file1.js": "<PROJECT_ROOT>/file1.js",
+      "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
+    },
+    "allowChanges": Object {
+      "file1.js": true,
+      "nested/other.js": false,
+    },
+    "files": Array [
+      "file1.js",
+      "nested/other.js",
+    ],
+    "hash": Object {
+      "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
+      "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
+    },
+    "ignoreUpdates": Object {
+      "file1.js": true,
+      "nested/other.js": false,
+    },
+  },
+  "makeDirs": Array [
+    "fake/dir",
+    "nested",
+  ],
+  "src": Object {
+    "absolute": Object {
+      "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
+      "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
+    },
+    "files": Array [
+      "z-file2.js",
+      "nested/other.js",
+    ],
+    "hash": Object {
+      "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
+      "z-file2.js": "447ad688b0d3b7449000199a9e766ee03965da1ab15a961756a90dcff3a810e3",
+    },
+  },
+}
+`;
+
 exports[`filesPostProcessor removes duplicate makeDirs 1`] = `
 Object {
   "dest": Object {

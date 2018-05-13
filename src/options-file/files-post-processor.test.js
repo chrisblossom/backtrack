@@ -168,6 +168,44 @@ describe('filesPostProcessor', () => {
         expect(result).toMatchSnapshot();
     });
 
+    test('removes duplicate dest', () => {
+        const dir = path.resolve(
+            __dirname,
+            '../file-manager/__sandbox__/stats1/',
+        );
+        process.chdir(dir);
+
+        const value = [
+            {
+                src: path.resolve(dir, 'file1.js'),
+                dest: 'file1.js',
+            },
+            {
+                src: path.resolve(dir, 'nested/other.js'),
+                dest: 'nested/other.js',
+                allowChanges: true,
+                ignoreUpdates: true,
+            },
+            {
+                src: path.resolve(dir, 'z-file2.js'),
+                dest: 'file1.js',
+                allowChanges: true,
+                ignoreUpdates: true,
+            },
+            {
+                src: path.resolve(dir, 'nested/other.js'),
+                dest: 'nested/other.js',
+            },
+            {
+                makeDirs: ['fake/dir'],
+            },
+        ];
+
+        const result = filesPostProcessor({ value });
+
+        expect(result).toMatchSnapshot();
+    });
+
     test('handles allowChangesAll', () => {
         const dir = path.resolve(
             __dirname,

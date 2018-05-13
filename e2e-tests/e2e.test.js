@@ -242,3 +242,51 @@ test('creates only latest when file already exists and new manged file that is a
         'src/file1.js-latest.js': '031895c8d5cd3c29681aa6713950d4c4',
     });
 });
+
+test('correctly handles files overridden in preset', async () => {
+    process.env.RUN_MODE = 'init';
+
+    temp.createFile('preset1-files/file1.js', '// preset1 file1.js');
+    temp.createFile('preset2-files/file1.js', '// preset2 file1.js');
+
+    temp.createFile(
+        'preset2.js',
+        `'use strict';
+const path = require('path');
+module.exports = { files: { src: 'preset2-files/file1.js', dest: 'file1.js' } };
+`,
+    );
+    temp.createFile(
+        'preset1.js',
+        `'use strict';
+const path = require('path');
+module.exports = { 
+  presets: [path.resolve(__dirname, 'preset2.js')],
+  files: { src: 'preset1-files/file1.js', dest: 'file1.js' }
+};`,
+    );
+
+    const packageJson = {
+        name: 'test-package',
+        backtrack: { presets: ['./preset1.js'] },
+    };
+
+    temp.createFile('package.json', packageJson);
+
+    await backtrack();
+
+    const initialFiles = temp.getAllFilesHash();
+
+    expect(initialFiles).toEqual({
+        '.backtrack-stats.json': '24d4ddc345ab79a921b5e32a635bce82',
+        'package.json': '2d9bb1a99db71a1c36bdb39da7c9124f',
+        'file1.js': 'ebec978d6ebcb14a97661268b956be1e',
+        'preset1-files/file1.js': 'ebec978d6ebcb14a97661268b956be1e',
+        'preset1.js': '3e08db405bd4bf9a14bd49100e847495',
+        'preset2-files/file1.js': '31b08120b26d1e362acaea87accfccdb',
+        'preset2.js': 'ddf76e8e63dec5848a5e9e963b48495d',
+    });
+
+    await backtrack();
+    expect(temp.getAllFilesHash()).toEqual(initialFiles);
+});

@@ -23,12 +23,23 @@ function shouldSkip(pathname, skipFiles) {
 }
 
 function splitSections(copyFiles) {
-    return copyFiles.reduce(
+    const sections = copyFiles.reduceRight(
         (acc, file) => {
             if (file.src && file.dest) {
+                const isDuplicate = acc.copyFiles.some((accFile) => {
+                    return file.dest === accFile.dest;
+                });
+
+                /**
+                 * Remove duplicates
+                 */
+                if (isDuplicate) {
+                    return acc;
+                }
+
                 return {
                     ...acc,
-                    copyFiles: [...acc.copyFiles, file],
+                    copyFiles: [file, ...acc.copyFiles],
                 };
             }
 
@@ -37,12 +48,14 @@ function splitSections(copyFiles) {
 
             return {
                 ...acc,
-                options: [...acc.options, options],
-                makeDirs: [...acc.makeDirs, ...makeDirs],
+                options: [options, ...acc.options],
+                makeDirs: [...makeDirs, ...acc.makeDirs],
             };
         },
         { copyFiles: [], options: [], makeDirs: [] },
     );
+
+    return sections;
 }
 
 function parseOptions(options) {
