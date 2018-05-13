@@ -123,14 +123,22 @@ const backtrackConfig = {
 
 #### Copy Files
 
-`allowChanges`: when set to `true`, managed file can be modified
+`src`: source file relative to configuration file
 
-#### Create Directories
+`dest`: destination file relative to project root
 
-`makeDirs`: [list of directories to create]
+`allowChanges`: when set to `true`, managed file can be modified, and latest revisions will be copied alongside the file with `-latest` filename tag
+
+`ignoreUpdates`: when set to `true`, managed file can be modified and all source file updates are ignored.
 
 #### Options Object
 
 `allowChanges`: [list of files that can be modified], when set to `true`, all managed files are able to be modified
 
+`ignoreUpdates`: [list of files that updates are ignored], when set to `true`, all managed file updates are ignored
+
 `skip`: [list of files/directories to disable management]
+
+`makeDirs`: [list of directories to create]
+
+####
