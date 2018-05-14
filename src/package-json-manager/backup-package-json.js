@@ -35,32 +35,38 @@ async function backupPackageJson(
     /**
      * backup package.json if any custom managed scripts exist
      */
-    const shouldBackup = mapManagedKeys.some((key) => {
-        const matchedMangedKey = get(managedKeys, key);
-        const matchedPackageJson = get(packageJson, key);
-        const matchedPreviousManagedKey = get(previousManagedKeys, key);
-        const matchedDefaultKey = get(npmDefaults, key);
 
-        /**
-         * Don't backup if package.json key === npm's default
-         */
-        if (
-            matchedPreviousManagedKey === undefined &&
-            isEqual(matchedPackageJson, matchedDefaultKey)
-        ) {
-            return false;
-        }
+    const shouldBackup = mapManagedKeys
+        .filter((key) => {
+            const matchedMangedKey = get(managedKeys, key);
+            const matchedPackageJson = get(packageJson, key);
+            const matchedPreviousManagedKey = get(previousManagedKeys, key);
+            const matchedDefaultKey = get(npmDefaults, key);
 
-        // use isEqual to match arrays
-        const result =
-            matchedPackageJson &&
-            isEqual(matchedMangedKey, matchedPackageJson) === false &&
-            isEqual(matchedPreviousManagedKey, matchedPackageJson) === false;
+            /**
+             * Don't backup if package.json key === npm's default
+             */
+            if (
+                matchedPreviousManagedKey === undefined &&
+                isEqual(matchedPackageJson, matchedDefaultKey)
+            ) {
+                return false;
+            }
 
-        return result;
-    });
+            // use isEqual to match arrays
+            const result =
+                matchedPackageJson &&
+                isEqual(matchedMangedKey, matchedPackageJson) === false &&
+                isEqual(matchedPreviousManagedKey, matchedPackageJson) ===
+                    false;
 
-    if (shouldBackup === false) {
+            return result;
+        })
+        .map((backupKeys) => {
+            return backupKeys.join('.');
+        });
+
+    if (shouldBackup.length === 0) {
         return undefined;
     }
 
@@ -74,7 +80,9 @@ async function backupPackageJson(
     const relativeBackupFilePath = path.relative(rootPath, backupData.file);
 
     log.warn(
-        `Unknown package.json scripts. Backing up to: ${relativeBackupFilePath}`,
+        `Unknown package.json keys: "${shouldBackup.join(
+            ', ',
+        )}". Backing up to: ${relativeBackupFilePath}`,
     );
 
     return {

@@ -19,6 +19,25 @@ Object {
 }
 `;
 
+exports[`backupPackageJson backup package.json when multiple keys already exist 1`] = `
+Array [
+  Array [
+    "<PROJECT_ROOT>/package.json",
+    "<PROJECT_ROOT>/package.json-backup-4ff910cd.json",
+    Object {
+      "overwrite": false,
+    },
+  ],
+]
+`;
+
+exports[`backupPackageJson backup package.json when multiple keys already exist 2`] = `
+Object {
+  "file": "<PROJECT_ROOT>/package.json-backup-4ff910cd.json",
+  "filename": "package.json-backup-4ff910cd.json",
+}
+`;
+
 exports[`backupPackageJson handles npm default test script with previously managed 1`] = `
 Array [
   Array [

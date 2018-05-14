@@ -14,12 +14,10 @@ describe('backupPackageJson', () => {
     let move;
 
     beforeEach(() => {
-        jest.mock('../utils/log', () => ({
-            warn: jest.fn(),
-            info: jest.fn(),
-            error: jest.fn(),
-            success: jest.fn(),
-        }));
+        jest.spyOn(console, 'info').mockImplementation(() => undefined);
+        jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+        jest.spyOn(console, 'error').mockImplementation(() => undefined);
+        jest.spyOn(console, 'debug').mockImplementation(() => undefined);
 
         // $FlowIssue
         move = require.requireMock('fs-extra').move;
@@ -49,6 +47,40 @@ describe('backupPackageJson', () => {
         };
 
         const managedKeys = {
+            scripts: {
+                test: 'backtrack test',
+                lint: 'backtrack lint',
+            },
+        };
+
+        const previousManagedKeys = {
+            scripts: {
+                test: 'backtrack test',
+            },
+        };
+
+        const backupResult = await backupPackageJson(
+            packageJson,
+            managedKeys,
+            previousManagedKeys,
+        );
+
+        expect(move.mock.calls).toMatchSnapshot();
+        expect(backupResult).toMatchSnapshot();
+    });
+
+    test('backup package.json when multiple keys already exist', async () => {
+        const packageJson = {
+            name: 'testing',
+            main: 'fake-entry.js',
+            scripts: {
+                start: 'start',
+                test: 'jest',
+            },
+        };
+
+        const managedKeys = {
+            main: 'real-entry.js',
             scripts: {
                 test: 'backtrack test',
                 lint: 'backtrack lint',
