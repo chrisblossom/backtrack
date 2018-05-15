@@ -32,6 +32,16 @@ Object {
 }
 `;
 
-exports[`options throws if ES Modules without default 1`] = `[Error: <PROJECT_ROOT>/backtrack.config.js must use default export with ES Modules]`;
+exports[`options throws if ES Modules without default 1`] = `
+Object {
+  "exitCode": 1,
+  "message": "<PROJECT_ROOT>/backtrack.config.js must use default export with ES Modules",
+}
+`;
 
-exports[`options throws on missing config 1`] = `[Error: backtrack config not found]`;
+exports[`options throws on missing config 1`] = `
+Object {
+  "exitCode": 1,
+  "message": "backtrack config not found",
+}
+`;

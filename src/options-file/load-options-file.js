@@ -11,7 +11,11 @@ function transform(result) {
      * TODO: ask to create default backtrack config file with found presets in package.json
      */
     if (result === null) {
-        throw new Error('backtrack config not found');
+        // eslint-disable-next-line no-throw-literal
+        throw {
+            message: 'backtrack config not found',
+            exitCode: 1,
+        };
     }
 
     let config = result.config;
@@ -23,9 +27,13 @@ function transform(result) {
         if (config.default) {
             config = config.default;
         } else {
-            throw new Error(
-                `${result.filepath} must use default export with ES Modules`,
-            );
+            // eslint-disable-next-line no-throw-literal
+            throw {
+                message: `${
+                    result.filepath
+                } must use default export with ES Modules`,
+                exitCode: 1,
+            };
         }
     }
 
