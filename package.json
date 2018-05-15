@@ -56,7 +56,7 @@
   ],
   "scripts": {
     "clean": "del-cli ./dist/*",
-    "check": "concurrently \"npm run flow\" \"npm run lint\" \"npm run test\"",
+    "check-all": "concurrently \"npm run flow\" \"npm run lint\" \"npm run test\"",
     "lint": "eslint .",
     "lint.fix": "eslint --fix .",
     "flow": "flow",
@@ -70,13 +70,18 @@
     "dev.babel": "cross-env NODE_ENV=development babel -w src/ -d dist/ --ignore test.js,__sandbox__/ --source-maps",
     "dev.flow": "cross-env NODE_ENV=development flow-copy-source -w --ignore \"**/*.test.js\" --ignore \"**/__sandbox__/**/*\" src dist",
     "precommit": "lint-staged",
-    "prepush": "npm run check",
-    "prepublishOnly": "npm run check && npm run build"
+    "prepush": "npm run check-all",
+    "prepublishOnly": "npm run check-all && npm run build"
   },
   "lint-staged": {
     "*.{js,md,json}": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "./.babelrc.js"
     ]
   },
   "devDependencies": {
@@ -118,6 +123,6 @@
     "resolve-with-prefix": "^1.0.4",
     "slash": "^2.0.0",
     "sort-keys": "^2.0.0",
-    "source-map-support": "^0.5.5"
+    "source-map-support": "^0.5.6"
   }
 }
