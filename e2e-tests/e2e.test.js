@@ -1,5 +1,6 @@
 /* @flow */
 
+import path from 'path';
 import { TempUtils } from '../src/utils/temp-utils';
 
 const backtrack = () => {
@@ -289,4 +290,59 @@ module.exports = {
 
     await backtrack();
     expect(temp.getAllFilesHash()).toEqual(initialFiles);
+});
+
+test('correctly handles multiple shell commands', async () => {
+    temp.createFile('file1.js', `console.log('file1.js');`);
+    temp.createFile('file2.js', `console.log('file2.js');`);
+
+    /**
+     * Get del-cli path
+     */
+    const delPath = require.resolve('del');
+    const delDirname = path.parse(delPath).dir;
+    const nodeModules = delDirname.split(path.sep);
+    nodeModules.pop();
+    const nodeModulesDirname = nodeModules.join(path.sep);
+    const delCli = path.resolve(nodeModulesDirname, '.bin/del-cli');
+
+    const packageJson = {
+        name: 'test-package',
+        backtrack: {
+            packageJson: {
+                scripts: {
+                    'del-file1': `${delCli} ./file1.js`,
+                    'del-file2': `${delCli} ./file2.js`,
+                },
+            },
+            'run-cmd': 'npm run del-file1 && npm run del-file2',
+        },
+    };
+
+    temp.createFile('package.json', packageJson);
+
+    process.env.RUN_MODE = 'init';
+    await backtrack();
+
+    const initialFiles = temp.getAllFilesHash();
+    // $FlowIgnore
+    delete initialFiles['.backtrack-stats.json'];
+    // $FlowIgnore
+    delete initialFiles['package.json'];
+
+    expect(initialFiles).toEqual({
+        'file1.js': 'ddfc5faf00a6852daf7c5ea10163d138',
+        'file2.js': '5629bb53733e6f8c3af391f2cd47a8bd',
+    });
+
+    process.env.RUN_MODE = 'run-cmd';
+    await backtrack();
+
+    const filesRemoved = temp.getAllFilesHash();
+    // $FlowIgnore
+    delete filesRemoved['.backtrack-stats.json'];
+    // $FlowIgnore
+    delete filesRemoved['package.json'];
+
+    expect(filesRemoved).toEqual({});
 });

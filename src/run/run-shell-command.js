@@ -5,9 +5,7 @@
 import execa from 'execa';
 
 async function runShellCommand(command: string) {
-    const [filename, ...args] = command.split(' ');
-
-    const runningCommand = execa(filename, args, {
+    const runningCommand = execa.shell(command, {
         env: { FORCE_COLOR: true },
     });
 
