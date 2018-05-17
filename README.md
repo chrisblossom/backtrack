@@ -1,5 +1,6 @@
 # backtrack
 
+[![npm](https://img.shields.io/npm/v/@backtrack/core.svg?label=npm%20version)](https://www.npmjs.com/package/@backtrack/core)
 [![Linux Build Status](https://img.shields.io/circleci/project/github/chrisblossom/backtrack/master.svg?label=linux%20build)](https://circleci.com/gh/chrisblossom/backtrack/tree/master)
 [![Windows Build Status](https://img.shields.io/appveyor/ci/chrisblossom/backtrack/master.svg?label=windows%20build)](https://ci.appveyor.com/project/chrisblossom/backtrack/branch/master)
 [![Code Coverage](https://img.shields.io/coveralls/github/chrisblossom/backtrack/master.svg)](https://coveralls.io/github/chrisblossom/backtrack?branch=master)
