@@ -7,6 +7,15 @@ import execa from 'execa';
 async function runShellCommand(command: string) {
     const runningCommand = execa.shell(command, {
         env: { FORCE_COLOR: true },
+        // https://nodejs.org/api/child_process.html#child_process_options_stdio
+        stdio: [
+            // stdin - forward keyboard input
+            process.stdin,
+            // stdout
+            'pipe',
+            // stderr
+            'pipe',
+        ],
     });
 
     const logStream = runningCommand.stdout;
