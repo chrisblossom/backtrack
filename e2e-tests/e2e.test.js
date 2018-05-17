@@ -203,7 +203,7 @@ test('backtrack', async () => {
     expect(temp.getAllFilesHash()).toMatchSnapshot();
 });
 
-test('creates only latest when file already exists and new manged file that is allowed changed', async () => {
+test('creates only latest when file already exists and new managed file that is allowed changed', async () => {
     process.env.RUN_MODE = 'init';
 
     const packageJson = {
@@ -345,4 +345,49 @@ test('correctly handles multiple shell commands', async () => {
     delete filesRemoved['package.json'];
 
     expect(filesRemoved).toEqual({});
+});
+
+test('correctly handles removing array values from managed package.json key', async () => {
+    process.env.RUN_MODE = 'init';
+
+    temp.createFile('package.json', {
+        name: 'test-package',
+    });
+
+    temp.createFile(
+        'backtrack.config.js',
+        `module.exports = ${JSON.stringify({
+            packageJson: {
+                files: ['one/', 'two/'],
+            },
+        })}`,
+    );
+
+    await backtrack();
+    const initialFiles = temp.getAllFilesHash();
+
+    expect(initialFiles).toEqual({
+        '.backtrack-stats.json': '6195c19fcd4629ea7fffb8bf1bd3a951',
+        'backtrack.config.js': '6251fb7493b440a1530b031384c67632',
+        'package.json': 'a6371c71981bcab5aeaa575e39e4994b',
+    });
+
+    temp.createFile(
+        'backtrack.config.js',
+        `module.exports = ${JSON.stringify({
+            packageJson: {
+                files: ['one/'],
+            },
+        })}`,
+    );
+
+    await backtrack();
+    // run twice, was previously adding backup file second run
+    await backtrack();
+
+    expect(temp.getAllFilesHash()).toEqual({
+        '.backtrack-stats.json': 'c40a50d3f34d257cbc0b124c3b53f543',
+        'backtrack.config.js': 'ea70dd8597e9bd71cbf6901cb8a2e176',
+        'package.json': '978b66e46622f48835a3d38dcb2f88a7',
+    });
 });

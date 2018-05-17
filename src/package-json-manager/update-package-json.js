@@ -21,31 +21,27 @@ function updatePackageJson(
         const mapPreviousManagedKeys = mapObjectKeyNames(previousManagedKeys);
 
         mapPreviousManagedKeys.forEach((key) => {
-            const matchedMangedKey = get(managedKeys, key);
+            const pathTree = getParentsFromPath(key);
 
-            if (matchedMangedKey === undefined) {
-                const pathTree = getParentsFromPath(key);
+            pathTree.forEach((currentPath, index) => {
+                /**
+                 * the first path is the missing managed key
+                 */
+                if (index === 0) {
+                    unset(packageJsonCopy, currentPath);
+                }
 
-                pathTree.forEach((currentPath, index) => {
-                    /**
-                     * the first path is the missing managed key
-                     */
-                    if (index === 0) {
-                        unset(packageJsonCopy, currentPath);
-                    }
-
-                    /**
-                     * Unset object empty tree
-                     */
-                    const matchedPackageKey = get(packageJsonCopy, currentPath);
-                    if (
-                        isPlainObject(matchedPackageKey) &&
-                        isEmpty(matchedPackageKey)
-                    ) {
-                        unset(packageJsonCopy, currentPath);
-                    }
-                });
-            }
+                /**
+                 * Unset object empty tree
+                 */
+                const matchedPackageKey = get(packageJsonCopy, currentPath);
+                if (
+                    isPlainObject(matchedPackageKey) &&
+                    isEmpty(matchedPackageKey)
+                ) {
+                    unset(packageJsonCopy, currentPath);
+                }
+            });
         });
     }
 

@@ -84,6 +84,29 @@ describe('updatePackageJson', () => {
         expect(result).toEqual({ name: 'backtrack' });
     });
 
+    test('removes item from array when item removed', () => {
+        const packageJson = {
+            name: 'backtrack',
+            files: ['one', 'two'],
+        };
+
+        const managedKeys = {
+            files: ['one'],
+        };
+
+        const previouslyManagedKeys = {
+            files: ['one', 'two'],
+        };
+
+        const result = updatePackageJson(
+            packageJson,
+            managedKeys,
+            previouslyManagedKeys,
+        );
+
+        expect(result).toEqual({ name: 'backtrack', files: ['one'] });
+    });
+
     test('removes keys with .', () => {
         const packageJson = {
             name: 'backtrack',
