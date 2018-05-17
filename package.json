@@ -1,6 +1,6 @@
 {
   "name": "@backtrack/core",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "main": "dist/backtrack.js",
   "license": "ISC",
   "author": "Chris Blossom",
@@ -113,7 +113,7 @@
     "deep-keys": "^0.5.0",
     "del": "^3.0.0",
     "dotenv": "^5.0.1",
-    "ex-config": "^1.0.6",
+    "ex-config": "^1.0.9",
     "execa": "^0.10.0",
     "fs-extra": "^6.0.1",
     "joi": "^12.0.0",
