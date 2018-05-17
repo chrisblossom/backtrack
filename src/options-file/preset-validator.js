@@ -131,18 +131,16 @@ function generateSchema(lifecycles: Preset) {
     }, {});
 
     const result = Joi.object({
+        ...allLifecycles,
         presets: Joi.array()
             .items(
-                // eslint-disable-next-line arrow-body-style
-                Joi.lazy(() => result)
-                    .description('preset schema')
-                    .label('presets'),
+                Joi.string(),
+                Joi.array().ordered(Joi.string().required(), Joi.object()),
             )
+
             .single(true)
             .unique()
             .label('presets'),
-
-        ...allLifecycles,
     }).required();
 
     return result;

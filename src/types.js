@@ -74,7 +74,7 @@ export type Resolve = { [key: string]: string };
 
 // eslint-disable-next-line flowtype/require-exact-type
 export type Preset = {
-    presets?: string | $ReadOnlyArray<string>,
+    presets?: string | $ReadOnlyArray<string | [string, ?{}]>,
 
     build?: PresetTask,
     dev?: PresetTask,

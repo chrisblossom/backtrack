@@ -17,6 +17,16 @@ describe('presetValidator', () => {
         expect(validated).toEqual(undefined);
     });
 
+    test('preset passes with options', () => {
+        const value = {
+            presets: [['./__sandbox__/preset-01', { options: true }]],
+        };
+
+        const validated = presetValidator({ value });
+
+        expect(validated).toEqual(undefined);
+    });
+
     test('preset validates custom lifecycles', () => {
         const value = {
             invalid1: new Date('2017-12-05T18:02:11.869Z'),
