@@ -183,25 +183,28 @@ function filesPostProcessor({ value = [] }: Args = {}): ParsedFiles {
         const skip = shouldSkip(dest.relative, options.skip);
         if (skip === false) {
             const srcId = src.relative;
+            const destId = dest.relative;
+
+            const ignoreUpdates =
+                options.ignoreUpdatesAll ||
+                options.ignoreUpdates.includes(destId) ||
+                !!file.ignoreUpdates;
+
             result.src.files.push(srcId);
             result.src.absolute[srcId] = src.absolute;
-            result.src.hash[srcId] = src.hash;
+            result.src.hash[srcId] =
+                ignoreUpdates === false ? src.hash : 'ignoreUpdates';
 
-            const destId = dest.relative;
             result.dest.files.push(destId);
             result.dest.absolute[destId] = dest.absolute;
             result.dest.hash[destId] = dest.hash;
-
-            const ignoreUpdates =
-                options.ignoreUpdates.includes(destId) || !!file.ignoreUpdates;
 
             const allowChanges =
                 ignoreUpdates ||
                 options.allowChanges.includes(destId) ||
                 !!file.allowChanges;
 
-            result.dest.ignoreUpdates[destId] =
-                options.ignoreUpdatesAll || ignoreUpdates;
+            result.dest.ignoreUpdates[destId] = ignoreUpdates;
 
             result.dest.allowChanges[destId] =
                 options.ignoreUpdatesAll ||

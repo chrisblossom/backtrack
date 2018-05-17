@@ -168,6 +168,26 @@ describe('filesPostProcessor', () => {
         expect(result).toMatchSnapshot();
     });
 
+    test('handles ignoreUpdates', () => {
+        const dir = path.resolve(
+            __dirname,
+            '../file-manager/__sandbox__/stats1/',
+        );
+        process.chdir(dir);
+
+        const value = [
+            {
+                src: path.resolve(dir, 'file1.js'),
+                dest: 'file1.js',
+                ignoreUpdates: true,
+            },
+        ];
+
+        const result = filesPostProcessor({ value });
+
+        expect(result).toMatchSnapshot();
+    });
+
     test('removes duplicate dest', () => {
         const dir = path.resolve(
             __dirname,

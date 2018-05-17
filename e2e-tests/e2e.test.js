@@ -391,3 +391,56 @@ test('correctly handles removing array values from managed package.json key', as
         'package.json': '978b66e46622f48835a3d38dcb2f88a7',
     });
 });
+
+test('completely ignores updates to ignored source files', async () => {
+    process.env.RUN_MODE = 'init';
+
+    temp.createFile('package.json', {
+        name: 'test-package',
+    });
+
+    temp.createFile('files/file1.js', '// file1.js');
+
+    temp.createFile(
+        'backtrack.config.js',
+        `module.exports = ${JSON.stringify({
+            files: {
+                src: 'files/file1.js',
+                dest: 'file1.js',
+                ignoreUpdates: true,
+            },
+        })}`,
+    );
+
+    await backtrack();
+    const initialFiles = temp.getAllFilesHash();
+
+    expect(initialFiles).toEqual({
+        '.backtrack-stats.json': 'b5302f926313cf6d6c7f269a2ddc0bbc',
+        'backtrack.config.js': 'c940bddf3d3e702288435d3d5e4e6918',
+        'file1.js': '7f477fcd51e87d9e65b134b17771dc03',
+        'files/file1.js': '7f477fcd51e87d9e65b134b17771dc03',
+        'package.json': '624e8f9f0a4bb033c9998d9ecf24b393',
+    });
+
+    temp.createFile('files/file1.js', '// file1.js nested modified');
+    temp.createFile('file1.js', '// file1.js modified');
+
+    await backtrack();
+
+    // eslint-disable-next-line no-console
+    const loggedUpdateMessage = console.info.mock.calls.some((message) => {
+        return message[1].includes(
+            'Unmanaged file file1.js source changed. Updating .backtrack-stats.json',
+        );
+    });
+    expect(loggedUpdateMessage).toEqual(false);
+
+    expect(temp.getAllFilesHash()).toEqual({
+        '.backtrack-stats.json': 'b5302f926313cf6d6c7f269a2ddc0bbc',
+        'backtrack.config.js': 'c940bddf3d3e702288435d3d5e4e6918',
+        'file1.js': '6ee14b91f6650d0d66df3d6abed83545',
+        'files/file1.js': '75ca550e137beb27a115fc2bf7850290',
+        'package.json': '624e8f9f0a4bb033c9998d9ecf24b393',
+    });
+});
