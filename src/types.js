@@ -34,7 +34,6 @@ export type Clean = {|
     del?: string | $ReadOnlyArray<string>,
     makeDirs?: string | $ReadOnlyArray<string>,
     copy?: Copy | $ReadOnlyArray<Copy>,
-    [any]: empty,
 |};
 
 type CopyFileOptions = {|
