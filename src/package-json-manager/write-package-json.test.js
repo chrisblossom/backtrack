@@ -43,9 +43,11 @@ describe('writePackageJson', () => {
 
         const result = writePackageJson(fakePackageJson);
 
+        const writeFileSyncCalls = writeFileSync.mock.calls;
+
         writeFileSync.mockRestore();
 
-        expect(writeFileSync.mock.calls).toMatchSnapshot();
+        expect(writeFileSyncCalls).toMatchSnapshot();
         expect(result).toEqual(undefined);
     });
 });

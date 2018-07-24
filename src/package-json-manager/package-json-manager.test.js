@@ -44,9 +44,11 @@ describe('packageJsonManager', () => {
 
         const result = await packageJsonManager();
 
+        const writeFileSyncCalls = writeFileSync.mock.calls;
+
         writeFileSync.mockRestore();
 
-        expect(writeFileSync.mock.calls).toEqual([]);
+        expect(writeFileSyncCalls).toEqual([]);
         expect(result).toEqual({});
     });
 
@@ -66,9 +68,11 @@ describe('packageJsonManager', () => {
 
         const result = await packageJsonManager(lifecycles);
 
+        const writeFileSyncCalls = writeFileSync.mock.calls;
+
         writeFileSync.mockRestore();
 
-        expect(writeFileSync.mock.calls).toMatchSnapshot();
+        expect(writeFileSyncCalls).toMatchSnapshot();
         expect(result).toEqual({ scripts: { 'lint.fix': 'eslint --fix' } });
     });
 
@@ -90,9 +94,11 @@ describe('packageJsonManager', () => {
 
         const result = await packageJsonManager(lifecycles);
 
+        const writeFileSyncCalls = writeFileSync.mock.calls;
+
         writeFileSync.mockRestore();
 
-        expect(writeFileSync.mock.calls).toMatchSnapshot();
+        expect(writeFileSyncCalls).toMatchSnapshot();
         expect(result).toEqual({
             license: '',
             scripts: {
@@ -118,9 +124,11 @@ describe('packageJsonManager', () => {
 
         const result = await packageJsonManager(lifecycles);
 
+        const writeFileSyncCalls = writeFileSync.mock.calls;
+
         writeFileSync.mockRestore();
 
-        expect(writeFileSync.mock.calls).toMatchSnapshot();
+        expect(writeFileSyncCalls).toMatchSnapshot();
         expect(result).toEqual({ scripts: { test: null } });
     });
 });
