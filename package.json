@@ -63,7 +63,7 @@
     "flow.ci": "flow check",
     "format": "prettier */**/*.{js,md,json} --write",
     "test": "jest",
-    "test.ci": "jest --coverage && codecov",
+    "test.ci": "jest --coverage --maxWorkers 2 && codecov",
     "build": "npm run clean && concurrently \"npm run build.babel\" \"npm run build.flow\"",
     "build.babel": "cross-env NODE_ENV=production babel src -d dist --ignore test.js,__sandbox__/ --source-maps",
     "build.flow": "cross-env NODE_ENV=production flow-copy-source --ignore \"**/*.test.js\" --ignore \"**/__sandbox__/**/*\" src dist",
