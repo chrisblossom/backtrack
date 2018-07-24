@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/@backtrack/core.svg?label=npm%20version)](https://www.npmjs.com/package/@backtrack/core)
 [![Linux Build Status](https://img.shields.io/circleci/project/github/chrisblossom/backtrack/master.svg?label=linux%20build)](https://circleci.com/gh/chrisblossom/backtrack/tree/master)
 [![Windows Build Status](https://img.shields.io/appveyor/ci/chrisblossom/backtrack/master.svg?label=windows%20build)](https://ci.appveyor.com/project/chrisblossom/backtrack/branch/master)
-[![Code Coverage](https://img.shields.io/coveralls/github/chrisblossom/backtrack/master.svg)](https://coveralls.io/github/chrisblossom/backtrack?branch=master)
+[![Code Coverage](https://img.shields.io/codecov/c/github/chrisblossom/backtrack/master.svg)](https://codecov.io/gh/chrisblossom/backtrack/branch/master)
 
 ## About
 
@@ -11,9 +11,9 @@
 
 Can be used for:
 
-*   Task runner expressed in plain JS
-*   File / config / package.json manager
-*   Extendable configuration
+-   Task runner expressed in plain JS
+-   File / config / package.json manager
+-   Extendable configuration
 
 ## Installation
 
@@ -34,9 +34,9 @@ See [docs](./docs/)
 
 ## Presets
 
-*   [@backtrack/preset-node-module](https://github.com/chrisblossom/backtrack-preset-node-module)
-*   [@backtrack/preset-preset](https://github.com/chrisblossom/backtrack-preset-preset)
-*   [@backtrack/preset-jest](https://github.com/chrisblossom/backtrack-preset-jest)
-*   [@backtrack/preset-style](https://github.com/chrisblossom/backtrack-preset-style)
+-   [@backtrack/preset-node-module](https://github.com/chrisblossom/backtrack-preset-node-module)
+-   [@backtrack/preset-preset](https://github.com/chrisblossom/backtrack-preset-preset)
+-   [@backtrack/preset-jest](https://github.com/chrisblossom/backtrack-preset-jest)
+-   [@backtrack/preset-style](https://github.com/chrisblossom/backtrack-preset-style)
 
 [Discover more `backtrack` presets](https://www.npmjs.com/search?q=backtrack-preset)

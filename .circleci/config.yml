@@ -25,7 +25,7 @@ jobs:
       - run: npm run build
       - run: npm run lint
       - run: npm run flow
-      - run: npm run test
+      - run: npm run test.ci
   test-node8:
     docker:
       - image: circleci/node:8
@@ -67,8 +67,7 @@ jobs:
       - run: npm run build
       - run: npm run lint
       - run: npm run flow
-      - run: npm run test
-
+      - run: npm run test.ci
 
 workflows:
   version: 2
