@@ -56,10 +56,11 @@
   ],
   "scripts": {
     "clean": "del-cli ./dist/*",
-    "check-all": "concurrently \"npm run flow\" \"npm run lint\" \"npm run test\"",
+    "check-all": "concurrently \"npm run flow.ci\" \"npm run lint\" \"npm run test\"",
     "lint": "eslint .",
     "lint.fix": "eslint --fix .",
     "flow": "flow",
+    "flow.ci": "flow check",
     "format": "prettier */**/*.{js,md,json} --write",
     "test": "jest",
     "test.ci": "jest --coverage && codecov",
