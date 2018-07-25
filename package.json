@@ -1,6 +1,6 @@
 {
   "name": "@backtrack/core",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "main": "dist/backtrack.js",
   "license": "MIT",
   "author": "Chris Blossom",
