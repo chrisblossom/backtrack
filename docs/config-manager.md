@@ -23,7 +23,6 @@ module.exports = configManager({
 });
 ```
 
-
 ## options:
 
 **config**: target config
