@@ -34,6 +34,7 @@ See [docs](./docs/)
 
 ## Presets
 
+-   [@backtrack/preset-node-app](https://github.com/chrisblossom/backtrack-preset-node-app)
 -   [@backtrack/preset-node-module](https://github.com/chrisblossom/backtrack-preset-node-module)
 -   [@backtrack/preset-preset](https://github.com/chrisblossom/backtrack-preset-preset)
 -   [@backtrack/preset-jest](https://github.com/chrisblossom/backtrack-preset-jest)
