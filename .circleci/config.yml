@@ -13,8 +13,7 @@ jobs:
             - image: circleci/node:6
         steps:
             - checkout
-            - run:
-                  node --version > _node_version && npm --version > _npm_version && cat _node_version && cat _npm_version
+            - run: node --version > _node_version && npm --version > _npm_version && cat _node_version && cat _npm_version
             - restore_cache:
                   keys:
                       - v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
@@ -23,8 +22,7 @@ jobs:
             - save_cache:
                   paths:
                       - ~/.npm
-                  key:
-                      v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
+                  key: v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
             - run: npm run build
             - run: npm run lint
             - run: npm run flow.ci
@@ -34,8 +32,7 @@ jobs:
             - image: circleci/node:8
         steps:
             - checkout
-            - run:
-                  node --version > _node_version && npm --version > _npm_version && cat _node_version && cat _npm_version
+            - run: node --version > _node_version && npm --version > _npm_version && cat _node_version && cat _npm_version
             - restore_cache:
                   keys:
                       - v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
@@ -44,8 +41,7 @@ jobs:
             - save_cache:
                   paths:
                       - ~/.npm
-                  key:
-                      v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
+                  key: v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
             - run: npm run build
             - run: npm run lint
             - run: npm run flow.ci
@@ -55,8 +51,7 @@ jobs:
             - image: circleci/node:10
         steps:
             - checkout
-            - run:
-                  node --version > _node_version && npm --version > _npm_version && cat _node_version && cat _npm_version
+            - run: node --version > _node_version && npm --version > _npm_version && cat _node_version && cat _npm_version
             - restore_cache:
                   keys:
                       - v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
@@ -65,8 +60,7 @@ jobs:
             - save_cache:
                   paths:
                       - ~/.npm
-                  key:
-                      v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
+                  key: v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
             - run: npm run build
             - run: npm run lint
             - run: npm run flow.ci

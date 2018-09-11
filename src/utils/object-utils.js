@@ -32,6 +32,8 @@ function mapObjectKeyNames(object: ?{}) {
          * https://github.com/lodash/lodash/issues/3530
          */
         const escapePeriodsInKeys = path.replace(/\\./g, '@!@%@!');
+
+        // $FlowIssue
         const escaped = escapePeriodsInKeys.split('.').map((k) => {
             return k.replace(/@!@%@!/g, '.');
         });
