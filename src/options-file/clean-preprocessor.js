@@ -10,9 +10,9 @@ type Args = {
     value?: Clean | $ReadOnlyArray<Clean>,
 };
 
-function cleanPreprocessor({ value }: Args = {}): $ReadOnlyArray<
-    NormalizedClean,
-> {
+function cleanPreprocessor({
+    value,
+}: Args = {}): $ReadOnlyArray<NormalizedClean> {
     const allToArray = toArray(value);
 
     return allToArray.map((arg: Clean) => {

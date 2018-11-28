@@ -44,13 +44,11 @@ function transform(result) {
 }
 
 const explorer = cosmiconfig('backtrack', {
-    rcExtensions: true,
-    sync: true,
     transform,
 });
 
 function loadOptionsFile(searchPath: string = rootPath): Preset {
-    const { config } = explorer.load(searchPath);
+    const { config } = explorer.searchSync(searchPath);
 
     return config;
 }
