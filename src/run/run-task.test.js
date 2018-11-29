@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./run-task');
+
 const runTask = (task, ...options) =>
     require('./run-task').runTask(task, ...options);
 

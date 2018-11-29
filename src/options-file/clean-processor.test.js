@@ -3,6 +3,9 @@
 import path from 'path';
 import { buildPath, rootPath } from '../config/paths';
 
+require('./clean-processor');
+require('./clean-preprocessor');
+
 const cleanProcessor = (args) =>
     require('./clean-processor').cleanProcessor(args);
 

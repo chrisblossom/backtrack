@@ -3,6 +3,8 @@
 import path from 'path';
 import { fileInfo } from './file-test-utils';
 
+require('./remove-stale-files');
+
 const removeStaleFiles = (files, previousStats) =>
     require('./remove-stale-files').removeStaleFiles(files, previousStats);
 

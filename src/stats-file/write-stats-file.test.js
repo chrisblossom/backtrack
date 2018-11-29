@@ -3,6 +3,8 @@
 import path from 'path';
 import fs from 'fs';
 
+require('./write-stats-file');
+
 const writeStatsFile = (stats, previousStats) =>
     require('./write-stats-file').writeStatsFile(stats, previousStats);
 

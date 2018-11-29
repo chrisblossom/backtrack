@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./merge-custom-configs');
+
 const mergeCustomConfigs = (namespace, config, customConfigs) =>
     require('./merge-custom-configs').mergeCustomConfigs(
         namespace,

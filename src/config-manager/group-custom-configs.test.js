@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./group-custom-configs');
+
 const groupCustomConfigs = (namespace, customConfigs) =>
     require('./group-custom-configs').groupCustomConfigs(
         namespace,

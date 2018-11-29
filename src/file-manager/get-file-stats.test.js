@@ -2,6 +2,9 @@
 
 import path from 'path';
 
+require('./get-file-stats');
+require('../options-file/files-post-processor');
+
 const getFileStats = (files) => require('./get-file-stats').getFileStats(files);
 const filesParser = (args) =>
     require('../options-file/files-post-processor').filesPostProcessor(args);

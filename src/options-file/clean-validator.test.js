@@ -3,6 +3,9 @@
 import path from 'path';
 import os from 'os';
 
+require('./clean-validator');
+require('./clean-preprocessor');
+
 const cleanValidator = (args) =>
     require('./clean-validator').cleanValidator(args);
 

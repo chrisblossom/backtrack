@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./resolve-processor');
+
 const resolveProcessor = (args) =>
     // $FlowIgnore
     require('./resolve-processor').resolveProcessor(args);

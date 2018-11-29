@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./get-managed-keys');
+
 const getManagedKeys = (lifecycles) =>
     require('./get-managed-keys').getManagedKeys(lifecycles);
 

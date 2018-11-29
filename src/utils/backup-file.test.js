@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./backup-file');
+
 const backupFile = (files) => require('./backup-file').backupFile(files);
 
 describe('backupFile', () => {

@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./clean-preprocessor');
+
 const cleanPreprocessor = (args) =>
     require('./clean-preprocessor').cleanPreprocessor(args);
 

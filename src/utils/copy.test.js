@@ -3,6 +3,8 @@
 import path from 'path';
 import { copyFormatMockCalls } from './copy-format-mock-calls';
 
+require('./copy');
+
 const copy = (files) => require('./copy').copy(files);
 
 describe('copy', () => {

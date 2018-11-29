@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./file-is-inside-dir');
+
 const fileIsInsideDir = (file, dir) =>
     require('./file-is-inside-dir').fileIsInsideDir(file, dir);
 

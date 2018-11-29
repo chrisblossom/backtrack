@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./should-update');
+
 const shouldUpdate = (packageJson, managedKeys, previousManagedKeys) =>
     require('./should-update').shouldUpdate(
         packageJson,

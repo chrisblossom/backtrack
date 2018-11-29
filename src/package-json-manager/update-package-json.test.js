@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./update-package-json');
+
 const updatePackageJson = (packageJson, managedKeys, previousManagedKeys) =>
     require('./update-package-json').updatePackageJson(
         // $FlowIgnore

@@ -3,6 +3,8 @@
 import path from 'path';
 import fs from 'fs';
 
+require('./package-json-manager');
+
 const packageJsonManager = (presets, previousManagedKeys) =>
     require('./package-json-manager').packageJsonManager(
         presets,

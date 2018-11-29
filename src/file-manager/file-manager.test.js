@@ -8,6 +8,8 @@ import fse from 'fs-extra';
 import { getRandomInteger } from '../utils/get-random-number';
 import { fileInfo } from './file-test-utils';
 
+require('./file-manager');
+
 const fileManager = (copyFiles, previousStats) =>
     require('./file-manager').fileManager(copyFiles, previousStats);
 

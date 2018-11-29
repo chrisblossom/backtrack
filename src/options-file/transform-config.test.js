@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./transform-config');
+
 const transformConfig = (config, dirname) =>
     require('./transform-config').transformConfig(config, dirname);
 

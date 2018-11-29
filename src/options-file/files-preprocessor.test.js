@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./files-preprocessor');
+
 const filesPreprocessor = (args) =>
     require('./files-preprocessor').filesPreprocessor(args);
 

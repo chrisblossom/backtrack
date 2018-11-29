@@ -4,6 +4,8 @@ import path from 'path';
 import { fileInfo } from './file-test-utils';
 import { copyFormatMockCalls } from '../utils/copy-format-mock-calls';
 
+require('./copy-files');
+
 const copyFiles = (files, previousStats) =>
     require('./copy-files').copyFiles(files, previousStats);
 

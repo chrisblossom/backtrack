@@ -1,5 +1,7 @@
 /* @flow */
 
+require('./sort-package-json');
+
 const sortPackageJson = (packageJson) =>
     require('./sort-package-json').sortPackageJson(packageJson);
 

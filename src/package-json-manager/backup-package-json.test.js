@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./backup-package-json');
+
 const backupPackageJson = (packageJson, managedKeys, previousManagedKeys) =>
     require('./backup-package-json').backupPackageJson(
         packageJson,

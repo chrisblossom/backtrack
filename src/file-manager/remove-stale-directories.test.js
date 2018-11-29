@@ -7,6 +7,11 @@ import fse from 'fs-extra';
 import { realpathSync } from 'fs';
 import { getRandomInteger } from '../utils/get-random-number';
 
+require('../options-file/files-preprocessor');
+require('../options-file/files-post-processor');
+require('./get-file-stats');
+require('./remove-stale-directories');
+
 const filesPreprocessor = (args) =>
     require('../options-file/files-preprocessor').filesPreprocessor(args);
 const filesPostProcessor = (args) =>

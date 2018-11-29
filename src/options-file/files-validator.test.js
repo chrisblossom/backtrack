@@ -2,6 +2,8 @@
 
 import path from 'path';
 
+require('./files-validator');
+
 const filesValidator = (args) =>
     require('./files-validator').filesValidator(args);
 

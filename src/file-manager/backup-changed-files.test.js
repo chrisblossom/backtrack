@@ -3,6 +3,8 @@
 import path from 'path';
 import { fileInfo } from './file-test-utils';
 
+require('./backup-changed-files');
+
 const backupChangedFiles = (files, previousStats) =>
     require('./backup-changed-files').backupChangedFiles(files, previousStats);
 
