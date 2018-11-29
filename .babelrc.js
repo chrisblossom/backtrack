@@ -3,17 +3,21 @@
 const babel = {
     presets: [
         [
-            'env',
+            '@babel/env',
             {
                 targets: {
                     node: '6.9.0',
                 },
-                useBuiltIns: true,
+                useBuiltIns: 'entry',
             },
         ],
-        'flow',
+        '@babel/flow',
     ],
-    plugins: ['dynamic-import-node', 'transform-object-rest-spread'],
+    plugins: [
+        '@babel/transform-strict-mode',
+        '@babel/proposal-class-properties',
+        'dynamic-import-node',
+    ],
 };
 
 module.exports = babel;

@@ -92,7 +92,7 @@ module.exports = (wallaby) => {
                 process.chdir(w.projectCacheDir);
             }
 
-            require('babel-polyfill');
+            require('@babel/polyfill');
             process.env.NODE_ENV = 'test';
             const jestConfig = require('./jest.config');
 

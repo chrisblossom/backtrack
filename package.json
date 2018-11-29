@@ -60,26 +60,23 @@
     "test": "jest",
     "test.ci": "jest --coverage --maxWorkers 2 && codecov",
     "build": "npm run clean && concurrently \"npm run build.babel\" \"npm run build.flow\"",
-    "build.babel": "cross-env NODE_ENV=production babel src -d dist --ignore test.js,__sandbox__/ --source-maps",
+    "build.babel": "cross-env NODE_ENV=production babel src -d dist --ignore */**/*.test.js,*/**/__sandbox__/ --source-maps",
     "build.flow": "cross-env NODE_ENV=production flow-copy-source --ignore \"**/*.test.js\" --ignore \"**/__sandbox__/**/*\" src dist",
     "dev": "npm run clean && concurrently \"npm run dev.babel\" \"npm run dev.flow\"",
-    "dev.babel": "cross-env NODE_ENV=development babel -w src/ -d dist/ --ignore test.js,__sandbox__/ --source-maps",
+    "dev.babel": "cross-env NODE_ENV=development babel -w src -d dist --ignore */**/*.test.js,*/**/__sandbox__/ --source-maps",
     "dev.flow": "cross-env NODE_ENV=development flow-copy-source -w --ignore \"**/*.test.js\" --ignore \"**/__sandbox__/**/*\" src dist",
     "prepublishOnly": "npm run check-all && npm run build"
   },
-  "babel": {
-    "presets": [
-      "./.babelrc.js"
-    ]
-  },
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-transform-strict-mode": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-flow": "^7.0.0",
     "@chrisblossom/eslint-config": "^2.0.9",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-dynamic-import-node": "^2.2.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
     "codecov": "^3.1.0",
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
@@ -95,7 +92,7 @@
     "prettier": "^1.15.2"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.0.0",
     "chalk": "^2.4.1",
     "cosmiconfig": "^5.0.7",
     "deep-keys": "^0.5.0",
