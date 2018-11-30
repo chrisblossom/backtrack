@@ -16,6 +16,8 @@ skip_branch_with_pr: true
 test_script:
     - node --version
     - npm --version
+    - npm run lint
+    - npm run typescript
     - npm run test.ci
 cache:
     - '%APPDATA%\npm-cache'

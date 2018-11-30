@@ -11,7 +11,7 @@ const babel = {
                 useBuiltIns: 'entry',
             },
         ],
-        '@babel/flow',
+        '@babel/typescript',
     ],
     plugins: [
         '@babel/transform-strict-mode',

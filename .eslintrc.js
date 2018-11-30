@@ -2,12 +2,7 @@
 
 module.exports = {
     extends: ['@chrisblossom/eslint-config'],
-    rules: {
-        'import/named': 'off',
-    },
-    settings: {
-        flowtype: {
-            onlyFilesWithFlowAnnotation: false,
-        },
-    },
+    // Add explicitly for webstorm to work
+    parser: 'typescript-eslint-parser',
+    rules: {},
 };

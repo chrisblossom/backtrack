@@ -6,18 +6,20 @@ module.exports = (wallaby) => {
             { pattern: '*/**/__sandbox__/**/*', instrument: false },
             { pattern: '*/**/__sandbox__/**/.*', instrument: false },
             { pattern: '.babelrc+(.js|)', instrument: false },
-            'src/**/*.js',
-            'e2e-tests/**/*.js',
-            'jest.config.js',
+            { pattern: 'tsconfig.json', instrument: false },
+            { pattern: 'jest.config.js', instrument: false },
+            { pattern: 'jest-babel-transform.js', instrument: false },
+            'src/**/*.ts',
+            'e2e-tests/**/*.ts',
             '.env',
             '*/**/__snapshots__/*.snap',
-            '!src/**/*.test.js',
-            '!e2e-tests/**/*.test.js',
+            '!src/**/*.test.ts',
+            '!e2e-tests/**/*.test.ts',
         ],
 
         tests: [
-            'src/**/*.test.js',
-            'e2e-tests/**/*.test.js',
+            'src/**/*.test.ts',
+            // 'e2e-tests/**/*.test.ts',
 
             // 'src/initialize/initialize.test.js',
             // 'src/pkg/pkg.test.js',
@@ -55,7 +57,7 @@ module.exports = (wallaby) => {
             // 'src/utils/backup-file.test.js',
             // 'src/utils/file-is-inside-dir.test.js',
             // 'src/utils/handle-error.test.js',
-            // 'src/utils/object-utils.test.js',
+            // 'src/utils/object-utils.test.ts',
             // 'src/package-json-manager/backup-package-json.test.js',
             // 'src/package-json-manager/should-update.test.js',
             // 'src/package-json-manager/update-package-json.test.js',
@@ -70,7 +72,7 @@ module.exports = (wallaby) => {
         ],
 
         compilers: {
-            '**/*.js': wallaby.compilers.babel(),
+            '**/*.ts': wallaby.compilers.babel(),
         },
 
         hints: {
