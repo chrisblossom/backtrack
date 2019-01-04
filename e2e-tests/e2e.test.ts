@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import path from 'path';
-import { TempUtils } from '../src/utils/temp-utils';
+import TempSandbox from 'temp-sandbox';
 
 const backtrack = () => {
     jest.resetModules();
@@ -7,15 +9,15 @@ const backtrack = () => {
     return require('../src/cli/start').start();
 };
 
-const temp = new TempUtils();
+const sandbox = new TempSandbox();
 const cwd = process.cwd();
 const runMode = process.env.RUN_MODE;
 const handleErrorMock = jest.fn();
 let processExitSpy: any;
 
-beforeEach(() => {
-    process.chdir(temp.dir);
-    temp.clean();
+beforeEach(async () => {
+    process.chdir(sandbox.dir);
+    await sandbox.clean();
 
     // Suppress all console logging
     jest.spyOn(console, 'info').mockImplementation(() => undefined);
@@ -46,8 +48,8 @@ afterEach(() => {
     jest.restoreAllMocks();
 });
 
-afterAll(() => {
-    temp.deleteTempDir();
+afterAll(async () => {
+    await sandbox.destroySandbox();
 });
 
 function getError() {
@@ -84,11 +86,6 @@ test('exits when no config found', async () => {
 test('backtrack', async () => {
     process.env.RUN_MODE = 'init';
 
-    temp.createFile('package.json', { name: 'test-package' });
-    temp.createFile('files/file1.js', '// file1.js');
-    temp.createFile('static/static-file.js', '// static-file.js');
-    temp.createFile('static-1/static1-file.js', '// static1-file.js');
-
     const config = {
         clean: {
             del: '**/*',
@@ -115,17 +112,23 @@ test('backtrack', async () => {
         dev: ['echo'],
     };
 
-    temp.createFile(
-        'backtrack.config.js',
-        `module.exports = ${JSON.stringify(config)}`,
-    );
+    await Promise.all([
+        sandbox.createFile('package.json', { name: 'test-package' }),
+        sandbox.createFile('files/file1.js', '// file1.js'),
+        sandbox.createFile('static/static-file.js', '// static-file.js'),
+        sandbox.createFile('static-1/static1-file.js', '// static1-file.js'),
+        sandbox.createFile(
+            'backtrack.config.js',
+            `module.exports = ${JSON.stringify(config)}`,
+        ),
+    ]);
 
     /**
      * Initial
      */
     await backtrack();
 
-    expect(temp.readFile('package.json')).toEqual({
+    expect(await sandbox.readFile('package.json')).toEqual({
         name: 'test-package',
         scripts: {
             dev: 'backtrack dev --development',
@@ -134,7 +137,7 @@ test('backtrack', async () => {
         },
     });
 
-    const initialFileHash = temp.getAllFilesHash();
+    const initialFileHash = await sandbox.getAllFilesHash();
     expect(initialFileHash).toMatchSnapshot();
 
     expect(processExitSpy).toHaveBeenCalledTimes(0);
@@ -144,7 +147,7 @@ test('backtrack', async () => {
      * Ensure no changes after initialization
      */
     await backtrack();
-    expect(temp.getAllFilesHash()).toEqual(initialFileHash);
+    expect(await sandbox.getAllFilesHash()).toEqual(initialFileHash);
 
     /**
      * runs dev script
@@ -156,10 +159,10 @@ test('backtrack', async () => {
      * Updates changed file
      */
     process.env.RUN_MODE = 'init';
-    temp.createFile('files/file1.js', '// file1.js updated');
+    await sandbox.createFile('files/file1.js', '// file1.js updated');
 
     await backtrack();
-    expect(temp.getAllFilesHash()).toMatchSnapshot();
+    expect(await sandbox.getAllFilesHash()).toMatchSnapshot();
 
     /**
      * Removes dev and static dir
@@ -169,14 +172,14 @@ test('backtrack', async () => {
     delete config.dev;
     delete config.clean.copy;
 
-    temp.createFile(
+    await sandbox.createFile(
         'backtrack.config.js',
         `module.exports = ${JSON.stringify(config)}`,
     );
 
     await backtrack();
 
-    expect(temp.readFile('package.json')).toEqual({
+    expect(await sandbox.readFile('package.json')).toEqual({
         name: 'test-package',
         scripts: {
             clean: 'backtrack clean',
@@ -184,20 +187,22 @@ test('backtrack', async () => {
         },
     });
 
-    expect(temp.getAllFilesHash()).toMatchSnapshot();
+    expect(await sandbox.getAllFilesHash()).toMatchSnapshot();
 
     /**
      * Removes everything
      */
     process.env.RUN_MODE = 'init';
 
-    temp.createFile('backtrack.config.js', 'module.exports = {}');
+    await sandbox.createFile('backtrack.config.js', 'module.exports = {}');
 
     await backtrack();
 
-    expect(temp.readFile('package.json')).toEqual({ name: 'test-package' });
+    expect(await sandbox.readFile('package.json')).toEqual({
+        name: 'test-package',
+    });
 
-    expect(temp.getAllFilesHash()).toMatchSnapshot();
+    expect(await sandbox.getAllFilesHash()).toMatchSnapshot();
 });
 
 test('creates only latest when file already exists and new managed file that is allowed changed', async () => {
@@ -208,14 +213,14 @@ test('creates only latest when file already exists and new managed file that is 
         backtrack: {},
     };
 
-    temp.createFile('package.json', packageJson);
+    await sandbox.createFile('package.json', packageJson);
 
     await backtrack();
 
-    temp.createFile('src/file1.js', '// file1.js not managed');
-    expect(temp.getAllFilesHash()).toEqual({
+    await sandbox.createFile('src/file1.js', '// file1.js not managed');
+    expect(await sandbox.getAllFilesHash()).toEqual({
         '.backtrack-stats.json': '6b6c16e551598a31afb4cdb307c906a4',
-        'package.json': 'e536df14883ba8f1cecdf12ba4e0b813',
+        'package.json': '868cadc53adb0af0948c8a0baa064e21',
         'src/file1.js': 'bf6054b34f42c85ee3f66a67000651c4',
     });
 
@@ -228,14 +233,17 @@ test('creates only latest when file already exists and new managed file that is 
         dest: 'src/file1.js',
         allowChanges: true,
     };
-    temp.createFile('package.json', packageJson);
-    temp.createFile('files/file1.js', '// file1.js managed');
+
+    await Promise.all([
+        sandbox.createFile('package.json', packageJson),
+        sandbox.createFile('files/file1.js', '// file1.js managed'),
+    ]);
 
     await backtrack();
 
-    expect(temp.getAllFilesHash()).toEqual({
+    expect(await sandbox.getAllFilesHash()).toEqual({
         '.backtrack-stats.json': '6e0b335edb90e56e26649d65ad400a06',
-        'package.json': '106732492aab6d7ae67334e5d3b7dc2b',
+        'package.json': '653cc1e476188e9e4801ef77f5c8c2c5',
         'files/file1.js': '031895c8d5cd3c29681aa6713950d4c4',
         'src/file1.js': 'bf6054b34f42c85ee3f66a67000651c4',
         'src/file1.js-latest.js': '031895c8d5cd3c29681aa6713950d4c4',
@@ -245,40 +253,42 @@ test('creates only latest when file already exists and new managed file that is 
 test('correctly handles files overridden in preset', async () => {
     process.env.RUN_MODE = 'init';
 
-    temp.createFile('preset1-files/file1.js', '// preset1 file1.js');
-    temp.createFile('preset2-files/file1.js', '// preset2 file1.js');
+    await Promise.all([
+        sandbox.createFile('preset1-files/file1.js', '// preset1 file1.js'),
+        sandbox.createFile('preset2-files/file1.js', '// preset2 file1.js'),
 
-    temp.createFile(
-        'preset2.js',
-        `'use strict';
+        sandbox.createFile(
+            'preset2.js',
+            `'use strict';
 const path = require('path');
 module.exports = { files: { src: 'preset2-files/file1.js', dest: 'file1.js' } };
 `,
-    );
-    temp.createFile(
-        'preset1.js',
-        `'use strict';
+        ),
+        sandbox.createFile(
+            'preset1.js',
+            `'use strict';
 const path = require('path');
 module.exports = {
   presets: [path.resolve(__dirname, 'preset2.js')],
   files: { src: 'preset1-files/file1.js', dest: 'file1.js' }
 };`,
-    );
+        ),
+    ]);
 
     const packageJson = {
         name: 'test-package',
         backtrack: { presets: ['./preset1.js'] },
     };
 
-    temp.createFile('package.json', packageJson);
+    await sandbox.createFile('package.json', packageJson);
 
     await backtrack();
 
-    const initialFiles = temp.getAllFilesHash();
+    const initialFiles = await sandbox.getAllFilesHash();
 
     expect(initialFiles).toEqual({
         '.backtrack-stats.json': '24d4ddc345ab79a921b5e32a635bce82',
-        'package.json': '2d9bb1a99db71a1c36bdb39da7c9124f',
+        'package.json': 'd5cbc6109bc0df60cc9449ba538ddb78',
         'file1.js': 'ebec978d6ebcb14a97661268b956be1e',
         'preset1-files/file1.js': 'ebec978d6ebcb14a97661268b956be1e',
         'preset1.js': 'a68b9a86ea34a31e5f0a3f85d88b7188',
@@ -287,13 +297,10 @@ module.exports = {
     });
 
     await backtrack();
-    expect(temp.getAllFilesHash()).toEqual(initialFiles);
+    expect(await sandbox.getAllFilesHash()).toEqual(initialFiles);
 });
 
 test('correctly handles multiple shell commands', async () => {
-    temp.createFile('file1.js', `console.log('file1.js');`);
-    temp.createFile('file2.js', `console.log('file2.js');`);
-
     /**
      * Get del-cli path
      */
@@ -317,12 +324,16 @@ test('correctly handles multiple shell commands', async () => {
         },
     };
 
-    temp.createFile('package.json', packageJson);
+    await Promise.all([
+        sandbox.createFile('file1.js', `console.log('file1.js');`),
+        sandbox.createFile('file2.js', `console.log('file2.js');`),
+        sandbox.createFile('package.json', packageJson),
+    ]);
 
     process.env.RUN_MODE = 'init';
     await backtrack();
 
-    const initialFiles = temp.getAllFilesHash();
+    const initialFiles = await sandbox.getAllFilesHash();
     // @ts-ignore
     delete initialFiles['.backtrack-stats.json'];
     // @ts-ignore
@@ -336,7 +347,7 @@ test('correctly handles multiple shell commands', async () => {
     process.env.RUN_MODE = 'run-cmd';
     await backtrack();
 
-    const filesRemoved = temp.getAllFilesHash();
+    const filesRemoved = await sandbox.getAllFilesHash();
     // @ts-ignore
     delete filesRemoved['.backtrack-stats.json'];
     // @ts-ignore
@@ -348,21 +359,23 @@ test('correctly handles multiple shell commands', async () => {
 test('correctly handles removing array values from managed package.json key', async () => {
     process.env.RUN_MODE = 'init';
 
-    temp.createFile('package.json', {
-        name: 'test-package',
-    });
+    await Promise.all([
+        sandbox.createFile('package.json', {
+            name: 'test-package',
+        }),
 
-    temp.createFile(
-        'backtrack.config.js',
-        `module.exports = ${JSON.stringify({
-            packageJson: {
-                files: ['one/', 'two/'],
-            },
-        })}`,
-    );
+        sandbox.createFile(
+            'backtrack.config.js',
+            `module.exports = ${JSON.stringify({
+                packageJson: {
+                    files: ['one/', 'two/'],
+                },
+            })}`,
+        ),
+    ]);
 
     await backtrack();
-    const initialFiles = temp.getAllFilesHash();
+    const initialFiles = await sandbox.getAllFilesHash();
 
     expect(initialFiles).toEqual({
         '.backtrack-stats.json': '6195c19fcd4629ea7fffb8bf1bd3a951',
@@ -370,7 +383,7 @@ test('correctly handles removing array values from managed package.json key', as
         'package.json': 'a6371c71981bcab5aeaa575e39e4994b',
     });
 
-    temp.createFile(
+    await sandbox.createFile(
         'backtrack.config.js',
         `module.exports = ${JSON.stringify({
             packageJson: {
@@ -383,7 +396,7 @@ test('correctly handles removing array values from managed package.json key', as
     // run twice, was previously adding backup file second run
     await backtrack();
 
-    expect(temp.getAllFilesHash()).toEqual({
+    expect(await sandbox.getAllFilesHash()).toEqual({
         '.backtrack-stats.json': 'c40a50d3f34d257cbc0b124c3b53f543',
         'backtrack.config.js': 'ea70dd8597e9bd71cbf6901cb8a2e176',
         'package.json': '978b66e46622f48835a3d38dcb2f88a7',
@@ -393,36 +406,40 @@ test('correctly handles removing array values from managed package.json key', as
 test('completely ignores updates to ignored source files', async () => {
     process.env.RUN_MODE = 'init';
 
-    temp.createFile('package.json', {
-        name: 'test-package',
-    });
+    await Promise.all([
+        sandbox.createFile('package.json', {
+            name: 'test-package',
+        }),
 
-    temp.createFile('files/file1.js', '// file1.js');
+        sandbox.createFile('files/file1.js', '// file1.js'),
 
-    temp.createFile(
-        'backtrack.config.js',
-        `module.exports = ${JSON.stringify({
-            files: {
-                src: 'files/file1.js',
-                dest: 'file1.js',
-                ignoreUpdates: true,
-            },
-        })}`,
-    );
+        sandbox.createFile(
+            'backtrack.config.js',
+            `module.exports = ${JSON.stringify({
+                files: {
+                    src: 'files/file1.js',
+                    dest: 'file1.js',
+                    ignoreUpdates: true,
+                },
+            })}`,
+        ),
+    ]);
 
     await backtrack();
-    const initialFiles = temp.getAllFilesHash();
+    const initialFiles = await sandbox.getAllFilesHash();
 
     expect(initialFiles).toEqual({
         '.backtrack-stats.json': 'b5302f926313cf6d6c7f269a2ddc0bbc',
         'backtrack.config.js': 'c940bddf3d3e702288435d3d5e4e6918',
         'file1.js': '7f477fcd51e87d9e65b134b17771dc03',
         'files/file1.js': '7f477fcd51e87d9e65b134b17771dc03',
-        'package.json': '624e8f9f0a4bb033c9998d9ecf24b393',
+        'package.json': 'f2b2d4935b7fc04f67fdd526e0bbeafe',
     });
 
-    temp.createFile('files/file1.js', '// file1.js nested modified');
-    temp.createFile('file1.js', '// file1.js modified');
+    await Promise.all([
+        sandbox.createFile('files/file1.js', '// file1.js nested modified'),
+        sandbox.createFile('file1.js', '// file1.js modified'),
+    ]);
 
     await backtrack();
 
@@ -435,11 +452,11 @@ test('completely ignores updates to ignored source files', async () => {
     });
     expect(loggedUpdateMessage).toEqual(false);
 
-    expect(temp.getAllFilesHash()).toEqual({
+    expect(await sandbox.getAllFilesHash()).toEqual({
         '.backtrack-stats.json': 'b5302f926313cf6d6c7f269a2ddc0bbc',
         'backtrack.config.js': 'c940bddf3d3e702288435d3d5e4e6918',
         'file1.js': '6ee14b91f6650d0d66df3d6abed83545',
         'files/file1.js': '75ca550e137beb27a115fc2bf7850290',
-        'package.json': '624e8f9f0a4bb033c9998d9ecf24b393',
+        'package.json': 'f2b2d4935b7fc04f67fdd526e0bbeafe',
     });
 });

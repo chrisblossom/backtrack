@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import fse from 'fs-extra';
-import { readDirDeep } from './read-dir-deep';
+import readDirDeep from 'read-dir-deep';
 import { getFileHash } from './get-file-hash';
 import { toArray } from './object-utils';
 
@@ -73,7 +73,7 @@ function copy(files: ReadonlyArray<File> | File): Promise<void> {
         // @ts-ignore
         const isDirectory: Boolean = (await stat(src)).isDirectory();
         if (isDirectory) {
-            const deepFileList = await readDirDeep(src);
+            const deepFileList: string[] = await readDirDeep(src);
 
             type CopyFilesToDestAcc = {
                 src: string;
