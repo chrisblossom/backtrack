@@ -1,8 +1,6 @@
 import path from 'path';
 import { TempUtils } from '../src/utils/temp-utils';
 
-require('../src/cli/start');
-
 const backtrack = () => {
     jest.resetModules();
 

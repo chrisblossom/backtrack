@@ -1,5 +1,3 @@
-require('./update-package-json');
-
 const updatePackageJson = (
     packageJson: any,
     managedKeys: any,

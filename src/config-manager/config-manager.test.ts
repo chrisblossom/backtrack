@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('../initialize/initialize');
-
 function configManager(args: any) {
     const Backtrack = require('../initialize/initialize').Initialize;
 

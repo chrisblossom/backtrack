@@ -1,5 +1,3 @@
-require('./clean-preprocessor');
-
 const cleanPreprocessor = (args?: any) =>
     require('./clean-preprocessor').cleanPreprocessor(args);
 

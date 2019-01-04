@@ -1,5 +1,3 @@
-require('./should-update');
-
 const shouldUpdate = (
     packageJson: any,
     managedKeys: any,

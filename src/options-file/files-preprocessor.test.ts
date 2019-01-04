@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./files-preprocessor');
-
 const filesPreprocessor = (args: any) =>
     require('./files-preprocessor').filesPreprocessor(args);
 

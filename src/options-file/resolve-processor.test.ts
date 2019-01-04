@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./resolve-processor');
-
 const resolveProcessor = (args: any) =>
     require('./resolve-processor').resolveProcessor(args);
 

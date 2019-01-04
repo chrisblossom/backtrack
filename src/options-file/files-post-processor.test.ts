@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./files-post-processor');
-
 const filesPostProcessor = (copyFiles?: any) =>
     require('./files-post-processor').filesPostProcessor(copyFiles);
 

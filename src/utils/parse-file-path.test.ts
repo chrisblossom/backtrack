@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./parse-file-path');
-
 const parseFilePath = (file: string) =>
     require('./parse-file-path').parseFilePath(file);
 

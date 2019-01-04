@@ -2,8 +2,6 @@ import path from 'path';
 import { fileInfo } from './file-test-utils';
 import { FileManager } from '../types';
 
-require('./remove-stale-files');
-
 const removeStaleFiles = (files: any, previousStats: any) =>
     require('./remove-stale-files').removeStaleFiles(files, previousStats);
 

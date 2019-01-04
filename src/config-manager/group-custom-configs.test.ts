@@ -1,5 +1,3 @@
-require('./group-custom-configs');
-
 const groupCustomConfigs = (namespace: any, customConfigs: any) =>
     require('./group-custom-configs').groupCustomConfigs(
         namespace,

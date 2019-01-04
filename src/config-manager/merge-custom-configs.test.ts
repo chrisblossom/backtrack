@@ -1,5 +1,3 @@
-require('./merge-custom-configs');
-
 const mergeCustomConfigs = (namespace: any, config: any, customConfigs: any) =>
     require('./merge-custom-configs').mergeCustomConfigs(
         namespace,

@@ -2,8 +2,6 @@ import path from 'path';
 import { copyFormatMockCalls } from './copy-format-mock-calls';
 import { File } from './copy';
 
-require('./copy');
-
 const copy = (files: ReadonlyArray<File> | File) =>
     require('./copy').copy(files);
 

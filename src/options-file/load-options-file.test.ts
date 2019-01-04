@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./load-options-file');
-
 const loadOptionsFile = (dir?: any) =>
     require('./load-options-file').loadOptionsFile(dir);
 

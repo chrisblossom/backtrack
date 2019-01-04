@@ -1,5 +1,3 @@
-require('./get-managed-keys');
-
 const getManagedKeys = (lifecycles?: any) =>
     require('./get-managed-keys').getManagedKeys(lifecycles);
 

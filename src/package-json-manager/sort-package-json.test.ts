@@ -1,5 +1,3 @@
-require('./sort-package-json');
-
 const sortPackageJson = (packageJson: any) =>
     require('./sort-package-json').sortPackageJson(packageJson);
 

@@ -1,8 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 
-require('./write-package-json');
-
 const writePackageJson = (packageJson: any) =>
     require('./write-package-json').writePackageJson(packageJson);
 

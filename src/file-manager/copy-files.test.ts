@@ -2,8 +2,6 @@ import path from 'path';
 import { fileInfo } from './file-test-utils';
 import { copyFormatMockCalls } from '../utils/copy-format-mock-calls';
 
-require('./copy-files');
-
 const copyFiles = (files: any, previousStats: any) =>
     require('./copy-files').copyFiles(files, previousStats);
 

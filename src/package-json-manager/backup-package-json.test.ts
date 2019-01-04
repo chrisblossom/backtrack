@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./backup-package-json');
-
 const backupPackageJson = (
     packageJson: any,
     managedKeys: any,

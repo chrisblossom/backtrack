@@ -1,8 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 
-require('./write-stats-file');
-
 const writeStatsFile = (stats: any, previousStats?: any) =>
     require('./write-stats-file').writeStatsFile(stats, previousStats);
 

@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./start');
-
 const start = () => require('./start').start();
 
 describe('start', () => {

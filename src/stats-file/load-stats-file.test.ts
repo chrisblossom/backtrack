@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./load-stats-file');
-
 const loadStatsFile = () => require('./load-stats-file').loadStatsFile();
 
 describe('loadStatsFile', () => {

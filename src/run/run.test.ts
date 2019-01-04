@@ -1,5 +1,3 @@
-require('./run');
-
 const runTask = (task: any, ...options: unknown[]) =>
     require('./run').runTask(task, ...options);
 

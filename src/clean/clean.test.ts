@@ -1,9 +1,5 @@
 import path from 'path';
 
-require('./clean');
-require('../options-file/clean-processor');
-require('../options-file/clean-preprocessor');
-
 const rawClean = (args?: any) => require('./clean').clean(args);
 const cleanParser = (args: any) =>
     require('../options-file/clean-processor').cleanProcessor(args);

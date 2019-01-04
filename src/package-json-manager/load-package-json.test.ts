@@ -1,7 +1,5 @@
 import path from 'path';
 
-require('./load-package-json');
-
 const loadPackageJson = () => require('./load-package-json').loadPackageJson();
 
 describe('loadPackageJson', () => {
