@@ -97,8 +97,6 @@ module.exports = (wallaby) => {
             require('@babel/polyfill');
             process.env.NODE_ENV = 'test';
             const jestConfig = require('./jest.config');
-
-            jestConfig.transform = { '__sandbox__.+\\.jsx?$': 'babel-jest' };
             w.testFramework.configure(jestConfig);
         },
     };
