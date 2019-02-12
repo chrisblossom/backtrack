@@ -18,6 +18,17 @@ const babel = {
         '@babel/proposal-class-properties',
         'dynamic-import-node',
     ],
+    overrides: [
+        {
+            test: ['./src/backtrack.ts'],
+            plugins: [
+                [
+                    'babel-plugin-add-module-exports',
+                    { addDefaultProperty: true },
+                ],
+            ],
+        },
+    ],
 };
 
 module.exports = babel;
