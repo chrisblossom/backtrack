@@ -1,78 +1,40 @@
 'use strict';
 
-module.exports = (wallaby) => {
-    return {
+const ignore = [
+    '!node_modules/**',
+    '!**/dist/**',
+    '!**/build/**',
+    '!**/coverage/**',
+    '!**/.git/**',
+    '!**/.idea/**',
+    '!**/.vscode/**',
+    '!**/.cache/**',
+    '!**/.DS_Store/**',
+    '!**/flow-typed/**',
+];
+
+module.exports = (wallabyInitial) => {
+    const wallabyConfig = {
         files: [
-            { pattern: '*/**/__sandbox__/**/*', instrument: false },
-            { pattern: '*/**/__sandbox__/**/.*', instrument: false },
-            { pattern: '.babelrc+(.js|)', instrument: false },
-            { pattern: 'tsconfig.json', instrument: false },
-            { pattern: 'jest.config.js', instrument: false },
-            { pattern: 'jest-babel-transform.js', instrument: false },
-            'src/**/*.ts',
-            'e2e-tests/**/*.ts',
-            '.env',
-            '*/**/__snapshots__/*.snap',
-            '!src/**/*.test.ts',
-            '!e2e-tests/**/*.test.ts',
+            ...ignore,
+            { pattern: '*', instrument: false },
+            { pattern: '.*', instrument: false },
+            { pattern: '**/__sandbox__/**/*', instrument: false },
+            { pattern: '**/__sandbox__/**/.*', instrument: false },
+            '**/!(*.test).+(js|jsx|ts|tsx|mjs)',
+            { pattern: '**/.*', instrument: false },
+            { pattern: '**/!(*.test).*', instrument: false },
         ],
 
         tests: [
-            'src/**/*.test.ts',
-            // 'e2e-tests/**/*.test.ts',
-
-            // 'src/initialize/initialize.test.js',
-            // 'src/pkg/pkg.test.js',
-
-            // 'src/run/run-task.test.js',
-            // 'src/run/run.test.js',
-            // 'src/options-file/resolve-processor.test.js',
-            // 'src/options-file/files-preprocessor.test.js',
-            // 'src/options-file/files-validator.test.js',
-            // 'src/options-file/files-post-processor.test.js',
-            // 'src/options-file/clean-validator.test.js',
-            // 'src/options-file/clean-preprocessor.test.js',
-            // 'src/options-file/clean-processor.test.js',
-            // 'src/options-file/options-file.test.js',
-            // 'src/options-file/transform-config.test.js',
-            // 'src/options-file/preprocessor.test.js',
-            // 'src/options-file/preset-validator.test.js',
-            // 'src/options-file/merge-presets.test.js',
-            // 'src/options-file/add-defaults.test.js',
-            // 'src/options-file/load-options-file.test.js',
-            // 'src/cli/start.test.js',
-            // 'src/file-manager/parse-copy-files.test.js',
-            // 'src/file-manager/remove-stale-files.test.js',
-            // 'src/file-manager/remove-stale-directories.test.js',
-            // 'src/file-manager/file-manager.test.js',
-            // 'src/file-manager/backup-changed-files.test.js',
-            // 'src/file-manager/copy-files.test.js',
-            // 'src/file-manager/validate-copy-files.test.js',
-            // 'src/file-manager/get-file-stats.test.js',
-            // 'src/stats-file/load-stats-file.test.js',
-            // 'src/stats-file/write-stats-file.test.js',
-            // 'src/utils/parse-file-path.test.js',
-            // 'src/utils/test-utils.test.js',
-            // 'src/utils/get-file-hash.test.js',
-            // 'src/utils/backup-file.test.js',
-            // 'src/utils/file-is-inside-dir.test.js',
-            // 'src/utils/handle-error.test.js',
-            // 'src/utils/object-utils.test.ts',
-            // 'src/package-json-manager/backup-package-json.test.js',
-            // 'src/package-json-manager/should-update.test.js',
-            // 'src/package-json-manager/update-package-json.test.js',
-            // 'src/package-json-manager/package-json-manager.test.js',
-            // 'src/package-json-manager/write-package-json.test.js',
-            // 'src/package-json-manager/load-package-json.test.js',
-            // 'src/package-json-manager/get-managed-keys.test.js',
-            // 'src/clean/*.test.js',
-            // 'src/clean/clean.test.js',
-            // 'src/config-manager/merge-custom-configs.test.js',
-            // 'src/config-manager/config-manager.test.js',
+            ...ignore,
+            '!**/__sandbox__/**',
+            '**/*.test.+(js|jsx|ts|tsx|mjs)',
         ],
 
         compilers: {
-            '**/*.ts': wallaby.compilers.babel(),
+            'src/**/*.+(js|jsx)': wallabyInitial.compilers.babel(),
+            '**/*.+(ts|tsx)': wallabyInitial.compilers.babel(),
         },
 
         hints: {
@@ -86,18 +48,47 @@ module.exports = (wallaby) => {
 
         testFramework: 'jest',
 
-        setup: (w) => {
+        setup: (wallabySetup) => {
             /**
-             * https://github.com/wallabyjs/public/issues/1268#issuecomment-323237993
+             * link node_modules inside wallaby's temp dir
+             *
+             * https://github.com/wallabyjs/public/issues/1663#issuecomment-389717074
              */
-            if (w.projectCacheDir !== process.cwd()) {
-                process.chdir(w.projectCacheDir);
+            const fs = require('fs');
+            const path = require('path');
+            const realModules = path.join(
+                wallabySetup.localProjectDir,
+                'node_modules'
+            );
+            const linkedModules = path.join(
+                wallabySetup.projectCacheDir,
+                'node_modules'
+            );
+
+            try {
+                fs.symlinkSync(realModules, linkedModules, 'dir');
+            } catch (error) {
+                if (error.code !== 'EEXIST') {
+                    throw error;
+                }
             }
 
-            require('@babel/polyfill');
+            /**
+             * https://github.com/wallabyjs/public/issues/1268#issuecomment-323237993
+             *
+             * reset to expected wallaby process.cwd
+             */
+            process.chdir(wallabySetup.projectCacheDir);
+
+            try {
+                require('@babel/polyfill');
+                // eslint-disable-next-line no-empty
+            } catch (error) {}
             process.env.NODE_ENV = 'test';
             const jestConfig = require('./jest.config');
-            w.testFramework.configure(jestConfig);
+            wallabySetup.testFramework.configure(jestConfig);
         },
     };
+
+    return wallabyConfig;
 };
