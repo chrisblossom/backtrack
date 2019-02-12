@@ -1,6 +1,6 @@
 {
   "name": "@backtrack/core",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "main": "dist/backtrack.js",
   "types": "dist/backtrack.d.ts",
   "license": "MIT",
