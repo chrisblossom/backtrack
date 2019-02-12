@@ -13,13 +13,6 @@ module.exports = {
         'jest-snapshot-serializer-function-name',
     ],
 
-    transform: {
-        '^.+\\.(tsx?|jsx?)$': require.resolve('./jest-babel-transform.js'),
-    },
-
-    testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
-    moduleFileExtensions: ['ts', 'js'],
-
     /**
      * Automatically reset mock state between every test.
      * Equivalent to calling jest.resetAllMocks() between each test.

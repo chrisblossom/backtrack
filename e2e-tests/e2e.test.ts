@@ -27,6 +27,7 @@ beforeEach(async () => {
 
     processExitSpy = jest
         .spyOn(process, 'exit')
+        // @ts-ignore
         .mockImplementation(() => undefined);
 
     jest.doMock('../src/utils/handle-error', () => ({

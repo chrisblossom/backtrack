@@ -2,7 +2,8 @@
 
 module.exports = {
     extends: ['@chrisblossom/eslint-config'],
-    // Add explicitly for webstorm to work
-    parser: 'typescript-eslint-parser',
-    rules: {},
+    rules: {
+        // https://github.com/benmosher/eslint-plugin-import/issues/1282
+        'import/named': 'off',
+    },
 };
