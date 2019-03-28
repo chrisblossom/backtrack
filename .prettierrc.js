@@ -12,7 +12,7 @@ const prettier = {
      */
     overrides: [
         {
-            files: '*.js',
+            files: ['*.js', '.*.js'],
             excludeFiles: '*/**',
             options: {
                 trailingComma: 'es5',

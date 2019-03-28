@@ -26,8 +26,13 @@ async function runShellCommand(command: string) {
     /**
      * Log all output to console
      */
-    logStream.pipe(process.stdout);
-    logErrorStream.pipe(process.stderr);
+    if (logStream !== null) {
+        logStream.pipe(process.stdout);
+    }
+
+    if (logErrorStream !== null) {
+        logErrorStream.pipe(process.stderr);
+    }
 
     try {
         await runningCommand;
