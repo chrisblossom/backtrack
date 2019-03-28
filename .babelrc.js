@@ -9,6 +9,7 @@ const babel = {
                     node: '6.9.0',
                 },
                 useBuiltIns: 'entry',
+                corejs: 2,
             },
         ],
         '@babel/typescript',
