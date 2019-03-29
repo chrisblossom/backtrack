@@ -39,8 +39,7 @@
     "mocha"
   ],
   "engines": {
-    "node": ">=6.9.0",
-    "npm": ">=3.10.10"
+    "node": ">=6.9.0"
   },
   "bin": {
     "backtrack": "./dist/cli/cli.js"
