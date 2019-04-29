@@ -2,10 +2,8 @@
  * use resolve-with-prefix because it includes patches to the resolve package
  * and as well as it is used by ex-config (consistency)
  */
-import ResolveWithPrefix from 'resolve-with-prefix';
+import { resolveWithPrefixSync } from 'resolve-with-prefix';
 import { Resolve } from '../types';
-
-const resolvePkg = new ResolveWithPrefix();
 
 class Pkg {
     resolveMap: Resolve;
@@ -44,7 +42,7 @@ class Pkg {
 
         const dirname = this.resolveMap[sourceId];
 
-        return resolvePkg(packageId, { dirname });
+        return resolveWithPrefixSync(packageId, { dirname });
     }
 
     require(sourceId: string, packageId: string) {
@@ -52,7 +50,7 @@ class Pkg {
 
         const dirname = this.resolveMap[sourceId];
 
-        const modulePath = resolvePkg(packageId, { dirname });
+        const modulePath = resolveWithPrefixSync(packageId, { dirname });
 
         return require(modulePath);
     }

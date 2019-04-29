@@ -1,4 +1,4 @@
-import ExConfig from 'ex-config';
+import { exConfigSync, Options as exConfigOptions } from 'ex-config';
 import { Preprocessor } from './preprocessor';
 import { postProcessor } from './post-processor';
 import { presetValidator } from './preset-validator';
@@ -19,7 +19,8 @@ function transformConfig(
     /**
      * Needs to be placed inside function for caching reasons
      */
-    const options = {
+    const options: exConfigOptions = {
+        baseDirectory: dirname,
         preprocessor: Preprocessor(),
         postProcessor,
         plugins: false,
@@ -48,9 +49,7 @@ function transformConfig(
         },
     };
 
-    const exConfig = new ExConfig(options);
-
-    const result: Lifecycles = exConfig.load(config, dirname);
+    const result: Lifecycles = exConfigSync(config, options);
 
     return result;
 }

@@ -1,10 +1,8 @@
-import ResolveWithPrefix from 'resolve-with-prefix';
+import { resolveWithPrefixSync } from 'resolve-with-prefix';
 import path from 'path';
 import { toArray } from '../utils/object-utils';
 
 import { Resolve } from '../types';
-
-const resolve = new ResolveWithPrefix();
 
 type Args = {
     value: Resolve | ReadonlyArray<Resolve>;
@@ -37,7 +35,7 @@ function resolveProcessor(args: Args): Resolve {
             throw new Error('invalid packageId');
         }
 
-        const resolved = resolve(pkgId, { dirname });
+        const resolved = resolveWithPrefixSync(pkgId, { dirname });
 
         return {
             ...acc,

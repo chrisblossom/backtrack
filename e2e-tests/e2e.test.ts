@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import path from 'path';
-import TempSandbox from 'temp-sandbox';
+import { TempSandbox } from 'temp-sandbox';
 
 const backtrack = () => {
     jest.resetModules();

@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import fse from 'fs-extra';
-import readDirDeep from 'read-dir-deep';
+import { readDirDeep } from 'read-dir-deep';
 import { getFileHash } from './get-file-hash';
 import { toArray } from './object-utils';
 
