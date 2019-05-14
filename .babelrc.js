@@ -6,7 +6,7 @@ const babel = {
             '@babel/env',
             {
                 targets: {
-                    node: '6.9.0',
+                    node: '8.9.0',
                 },
                 useBuiltIns: 'usage',
                 corejs: 3,

@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 import path from 'path';
 import { existsSync } from 'fs';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';

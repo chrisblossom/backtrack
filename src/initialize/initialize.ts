@@ -12,7 +12,7 @@ class Initialize {
     env: any;
 
     constructor() {
-        const parent = parentModule();
+        const parent = parentModule() || '';
         const parentDirname = path.parse(parent).dir;
 
         this.config = optionsFile(parentDirname);

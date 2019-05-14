@@ -65,10 +65,14 @@ function Preprocessor() {
 
         if (baseConfig === false && dirname) {
             // Disable normalize as it takes a lot of time and we do not need it
-            const closestPackageJson = readPkgUp.sync({
+            const findPackageJson = readPkgUp.sync({
                 cwd: dirname,
                 normalize: false,
-            }).pkg;
+            });
+
+            const closestPackageJson = findPackageJson
+                ? findPackageJson.package
+                : {};
 
             const packageId = closestPackageJson.name;
             if (packageId) {

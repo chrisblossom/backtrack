@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 function validateTask<T>(task: T) {
     const taskValid = Joi.string()

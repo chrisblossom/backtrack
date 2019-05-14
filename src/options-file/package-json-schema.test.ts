@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 import { packageJsonSchema } from './package-json-schema';
 
 describe('packageJsonSchema', () => {
