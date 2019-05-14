@@ -8,8 +8,8 @@ const babel = {
                 targets: {
                     node: '6.9.0',
                 },
-                useBuiltIns: 'entry',
-                corejs: 2,
+                useBuiltIns: 'usage',
+                corejs: 3,
             },
         ],
         '@babel/typescript',

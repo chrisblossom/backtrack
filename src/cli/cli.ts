@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import 'source-map-support/register';
-import '@babel/polyfill';
 import dotenv from 'dotenv';
 
 import { handleError } from '../utils/handle-error';

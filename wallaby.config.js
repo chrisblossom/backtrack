@@ -80,10 +80,6 @@ module.exports = (wallabyInitial) => {
              */
             process.chdir(wallabySetup.projectCacheDir);
 
-            try {
-                require('@babel/polyfill');
-                // eslint-disable-next-line no-empty
-            } catch (error) {}
             process.env.NODE_ENV = 'test';
             const jestConfig = require('./jest.config');
             wallabySetup.testFramework.configure(jestConfig);
