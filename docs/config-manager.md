@@ -7,7 +7,7 @@
 
 'use strict';
 
-const Backtrack = require('@backtrack/core');
+const { Backtrack } = require('@backtrack/core');
 
 const { configManager, pkg } = new Backtrack();
 

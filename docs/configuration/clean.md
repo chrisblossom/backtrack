@@ -19,7 +19,7 @@ const backtrackConfig = {
                 {
                     // Source file/directory
                     src: 'static',
-                    // Destiniation directory dist/static/
+                    // Destination directory dist/static/
                     dest: 'static',
                     // Add 8 digit file hash to destination filename
                     // optional, default: false

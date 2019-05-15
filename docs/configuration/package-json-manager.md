@@ -16,7 +16,7 @@ const backtrackConfig = {
                 precommit: 'lint-staged',
             },
 
-            // Add lint-staged configuation to package.json
+            // Add lint-staged configuration to package.json
             'lint-staged': {
                 '*.{js,jsx,md,css,scss,json}': ['prettier --write', 'git add'],
             },
