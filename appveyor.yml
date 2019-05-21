@@ -1,3 +1,9 @@
+# This file is managed by backtrack
+#
+# source: @backtrack/preset-jest
+#
+# DO NOT MODIFY
+
 environment:
     matrix:
         - nodejs_version: '8'
@@ -18,8 +24,7 @@ skip_branch_with_pr: true
 test_script:
     - node --version
     - npm --version
-    - npm run lint
-    - npm run typescript
+    - npm run test.ci-pretest
     - npm run test.ci
 cache:
     - '%APPDATA%\npm-cache'

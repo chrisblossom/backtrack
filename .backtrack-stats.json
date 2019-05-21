@@ -1,0 +1,60 @@
+{
+    "fileManager": {
+        "directories": [
+            ".circleci",
+            "dist",
+            "src"
+        ],
+        "files": {
+            ".babelrc.js": "46ec57ee7ace7a0f86672ab17e78a9b89b288971d0200abd50cfa78d229d9749",
+            ".circleci/config.yml": "ed700b1e1ed715aaa370a41a40f8236df1886fa35913c644e8cc82580997e327",
+            ".editorconfig": "ec4ed6b0bd85bf29162eccef4420c8b03bd330e8abd84d7a14b2cae3079f1fd9",
+            ".eslintignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
+            ".eslintrc.js": "3aa22828e051343c67e77b871d094ad536208e8cce15fc270abf97444c68fef9",
+            ".gitignore": "8791c419e79de53e5c2eefa59ab16b52b5413bd08da46be94e9e6cc3153a17a0",
+            ".huskyrc.js": "d41c387b0d3f16730829f444ef7bc0665cc52e92847c548c5166ebb7597bc69a",
+            ".lintstagedrc.js": "5398a6883c9332018fa32fdac8989989eef1eca27c0e2d92ccf35bb13381e7e7",
+            ".npmrc": "f535d8452d57a9d969bc54c2eaa831f3e20ccb5c3dbeeabc6f613d27a4b5a28a",
+            ".prettierignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
+            ".prettierrc.js": "f76ed92bea30dd6cb22675cedc0044614a9220be9b74859b5750a54ef4745a99",
+            ".yarnrc": "feed5a1b1413c2d27507ed09e7d1c21fb40e0f8aca947c0620793b7e187e8ba4",
+            "CHANGELOG.md": "ignoreUpdates",
+            "README.md": "ignoreUpdates",
+            "appveyor.yml": "5dcc891d04c8131f9a5782771c5fecd04af5a6cc6c22f4090a63b3b4583bafaa",
+            "global.d.ts": "ignoreUpdates",
+            "jest.config.js": "996d179962a5518ff433880e9d7586c4d960c66112aa28698801d73347af4d00",
+            "src/core.ts": "ignoreUpdates",
+            "tsconfig.json": "82c59a9bda4362ae308e013465028a04e97edb9ff0ed6f2c500c69effd6ae12d",
+            "tsconfig.types.json": "5fcb969aef44ee0d4c94c53572433f558d49cc1b4b05257fc6a0765cc1afa737",
+            "wallaby.config.js": "3968a28638500fa170681791a468b61a051969f7c202fe8f30823a22779a55ac"
+        }
+    },
+    "packageJson": {
+        "engines": {
+            "node": ">=8.9.0"
+        },
+        "files": [
+            "dist/",
+            "paths.js"
+        ],
+        "main": "dist/core.js",
+        "scripts": {
+            "build": "backtrack build --production",
+            "clean": "backtrack clean",
+            "dev": "backtrack dev --development",
+            "format": "backtrack format",
+            "git-pre-commit": "backtrack git-pre-commit",
+            "git-pre-push": "backtrack git-pre-push",
+            "lint": "backtrack lint",
+            "lint.fix": "backtrack lint.fix",
+            "prepublishOnly": "backtrack prepublishOnly",
+            "test": "backtrack test",
+            "test.ci": "backtrack test.ci",
+            "test.ci-pretest": "backtrack test.ci-pretest",
+            "test.update": "jest --update-snapshot",
+            "test.watch": "jest --watch",
+            "typescript": "backtrack typescript"
+        },
+        "types": "dist/core.d.ts"
+    }
+}

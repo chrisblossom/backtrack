@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import path from 'path';
 import { TempSandbox } from 'temp-sandbox';
 
 const backtrack = () => {
@@ -305,12 +304,7 @@ test('correctly handles multiple shell commands', async () => {
     /**
      * Get del-cli path
      */
-    const delPath = require.resolve('del');
-    const delDirname = path.parse(delPath).dir;
-    const nodeModules = delDirname.split(path.sep);
-    nodeModules.pop();
-    const nodeModulesDirname = nodeModules.join(path.sep);
-    const delCli = path.resolve(nodeModulesDirname, '.bin/del-cli');
+    const delCli = require.resolve('del-cli/cli.js');
 
     const packageJson = {
         name: 'test-package',

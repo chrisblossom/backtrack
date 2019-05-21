@@ -56,6 +56,7 @@ function transform(result: Result | null) {
 }
 
 const explorer = cosmiconfig('backtrack', {
+    stopDir: rootPath,
     transform,
 });
 

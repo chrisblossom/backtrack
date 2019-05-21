@@ -1,3 +1,9 @@
+# This file is managed by backtrack
+#
+# source: @backtrack/preset-jest
+#
+# DO NOT MODIFY
+
 # Javascript Node CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
@@ -23,9 +29,7 @@ jobs:
                   paths:
                       - ~/.npm
                   key: v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run typescript
+            - run: npm run test.ci-pretest
             - run: npm run test.ci
     test-node10:
         docker:
@@ -42,9 +46,7 @@ jobs:
                   paths:
                       - ~/.npm
                   key: v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run typescript
+            - run: npm run test.ci-pretest
             - run: npm run test.ci
     test-node12:
         docker:
@@ -61,9 +63,7 @@ jobs:
                   paths:
                       - ~/.npm
                   key: v1-dependencies-{{ checksum "_node_version" }}-{{ checksum "_npm_version" }}
-            - run: npm run build
-            - run: npm run lint
-            - run: npm run typescript
+            - run: npm run test.ci-pretest
             - run: npm run test.ci
 
 workflows:
