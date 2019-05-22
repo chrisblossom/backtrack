@@ -64,6 +64,18 @@ describe('options', () => {
         }
     });
 
+    test('config must be in rootDir/process.cwd()', () => {
+        const dir = path.resolve(__dirname, '__sandbox__/outside-cwd/cwd/');
+        process.chdir(dir);
+
+        try {
+            expect.hasAssertions();
+            loadOptionsFile();
+        } catch (error) {
+            expect(error).toMatchSnapshot();
+        }
+    });
+
     test('handles custom searchPath', () => {
         const dir = path.resolve(__dirname, '__sandbox__/module-exports/');
 

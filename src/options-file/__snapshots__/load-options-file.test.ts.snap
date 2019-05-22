@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`options config must be in rootDir/process.cwd() 1`] = `
+Object {
+  "exitCode": 1,
+  "message": "backtrack config not found",
+}
+`;
+
 exports[`options handles custom searchPath 1`] = `
 Object {
   "presets": Array [
