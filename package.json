@@ -1,6 +1,6 @@
 {
   "name": "@backtrack/core",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Extendable task runner / file and build manager",
   "keywords": [
     "build",
