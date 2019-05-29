@@ -4,7 +4,6 @@ const disallowed = [
     'name',
     'description',
     'keywords',
-    'private',
     'preferGlobal',
 
     'repository',
@@ -27,7 +26,7 @@ const disallowed = [
         ...acc,
         [key]: Joi.any()
             .forbidden()
-            .label(`package.json mangedKey: ${key}`),
+            .label(`package.json managedKey: ${key}`),
     };
 }, {});
 

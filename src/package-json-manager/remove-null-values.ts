@@ -1,7 +1,9 @@
 import { PackageJson } from '../types';
 
+type CurrentObject = { [key: string]: unknown };
+
 function removeNullValues(packageJson: PackageJson): PackageJson {
-    const removeNull = (object: { [key: string]: unknown }): PackageJson => {
+    const removeNull = (object: CurrentObject): PackageJson => {
         return Object.keys(object).reduce((acc, key) => {
             let value = object[key];
 
@@ -14,7 +16,7 @@ function removeNullValues(packageJson: PackageJson): PackageJson {
                 Array.isArray(value) === false &&
                 value !== null
             ) {
-                value = removeNull(value);
+                value = removeNull(value as CurrentObject);
             }
 
             return {
