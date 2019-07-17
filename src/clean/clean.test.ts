@@ -1,14 +1,14 @@
 import path from 'path';
 
 const rawClean = (args?: any) => require('./clean').clean(args);
-const cleanParser = (args: any) =>
+const cleanProcessor = (args: any) =>
 	require('../options-file/clean-processor').cleanProcessor(args);
 const cleanPreprocessor = (args: any) =>
 	require('../options-file/clean-preprocessor').cleanPreprocessor(args);
 
 function clean(files: any) {
 	const normalized = cleanPreprocessor({ value: files });
-	const parsed = cleanParser({ value: normalized });
+	const parsed = cleanProcessor({ value: normalized });
 
 	return rawClean(parsed);
 }
@@ -119,7 +119,7 @@ describe('clean', () => {
 		];
 
 		const normalized = cleanPreprocessor({ value: options });
-		const parsed = cleanParser({ value: normalized });
+		const parsed = cleanProcessor({ value: normalized });
 
 		await clean(parsed);
 
