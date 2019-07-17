@@ -2,50 +2,50 @@ import path from 'path';
 import fs from 'fs';
 
 const writePackageJson = (packageJson: any) =>
-    require('./write-package-json').writePackageJson(packageJson);
+	require('./write-package-json').writePackageJson(packageJson);
 
 describe('writePackageJson', () => {
-    const cwd = process.cwd();
-    let writeFileSync: any;
+	const cwd = process.cwd();
+	let writeFileSync: any;
 
-    beforeEach(() => {
-        jest.mock('../utils/log', () => ({
-            warn: jest.fn(),
-            info: jest.fn(),
-            error: jest.fn(),
-            success: jest.fn(),
-        }));
+	beforeEach(() => {
+		jest.mock('../utils/log', () => ({
+			warn: jest.fn(),
+			info: jest.fn(),
+			error: jest.fn(),
+			success: jest.fn(),
+		}));
 
-        /**
-         * Before calling '.toMatchSnapshot();' snapshot, call 'writeFileSync.mockRestore();'
-         * otherwise snapshot will not write
-         */
-        writeFileSync = jest
-            .spyOn(fs, 'writeFileSync')
-            .mockImplementation(() => jest.fn());
-    });
+		/**
+		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFileSync.mockRestore();'
+		 * otherwise snapshot will not write
+		 */
+		writeFileSync = jest
+			.spyOn(fs, 'writeFileSync')
+			.mockImplementation(() => jest.fn());
+	});
 
-    afterEach(() => {
-        process.chdir(cwd);
-    });
+	afterEach(() => {
+		process.chdir(cwd);
+	});
 
-    test('writes package json', () => {
-        const dir = path.resolve(__dirname, '__sandbox__/package-json-1/');
-        process.chdir(dir);
+	test('writes package json', () => {
+		const dir = path.resolve(__dirname, '__sandbox__/package-json-1/');
+		process.chdir(dir);
 
-        const fakePackageJson = {
-            scripts: {
-                dev: 'run dev',
-            },
-        };
+		const fakePackageJson = {
+			scripts: {
+				dev: 'run dev',
+			},
+		};
 
-        const result = writePackageJson(fakePackageJson);
+		const result = writePackageJson(fakePackageJson);
 
-        const writeFileSyncCalls = writeFileSync.mock.calls;
+		const writeFileSyncCalls = writeFileSync.mock.calls;
 
-        writeFileSync.mockRestore();
+		writeFileSync.mockRestore();
 
-        expect(writeFileSyncCalls).toMatchSnapshot();
-        expect(result).toEqual(undefined);
-    });
+		expect(writeFileSyncCalls).toMatchSnapshot();
+		expect(result).toEqual(undefined);
+	});
 });

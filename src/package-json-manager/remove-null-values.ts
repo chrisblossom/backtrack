@@ -3,32 +3,32 @@ import { PackageJson } from '../types';
 type CurrentObject = { [key: string]: unknown };
 
 function removeNullValues(packageJson: PackageJson): PackageJson {
-    const removeNull = (object: CurrentObject): PackageJson => {
-        return Object.keys(object).reduce((acc, key) => {
-            let value = object[key];
+	const removeNull = (object: CurrentObject): PackageJson => {
+		return Object.keys(object).reduce((acc, key) => {
+			let value = object[key];
 
-            if (value === null) {
-                return acc;
-            }
+			if (value === null) {
+				return acc;
+			}
 
-            if (
-                typeof value === 'object' &&
-                Array.isArray(value) === false &&
-                value !== null
-            ) {
-                value = removeNull(value as CurrentObject);
-            }
+			if (
+				typeof value === 'object' &&
+				Array.isArray(value) === false &&
+				value !== null
+			) {
+				value = removeNull(value as CurrentObject);
+			}
 
-            return {
-                ...acc,
-                [key]: value,
-            };
-        }, {});
-    };
+			return {
+				...acc,
+				[key]: value,
+			};
+		}, {});
+	};
 
-    const result = removeNull(packageJson);
+	const result = removeNull(packageJson);
 
-    return result;
+	return result;
 }
 
 export { removeNullValues };

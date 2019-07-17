@@ -12,14 +12,14 @@ const { Backtrack } = require('@backtrack/core');
 const { configManager, pkg } = new Backtrack();
 
 const eslint = {
-    // Use pkg.resolve to correctly resolve airbnb-base
-    // from @backtrack/preset-style's dependencies
-    extends: [pkg.resolve('@backtrack/preset-style', 'airbnb-base')],
+	// Use pkg.resolve to correctly resolve airbnb-base
+	// from @backtrack/preset-style's dependencies
+	extends: [pkg.resolve('@backtrack/preset-style', 'airbnb-base')],
 };
 
 module.exports = configManager({
-    namespace: '@backtrack/preset-style',
-    config: eslint,
+	namespace: '@backtrack/preset-style',
+	config: eslint,
 });
 ```
 

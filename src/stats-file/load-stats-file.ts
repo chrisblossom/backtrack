@@ -8,18 +8,18 @@ import { StatsFile } from '../types';
 const statsFilename = '.backtrack-stats.json';
 
 function loadStatsFile(): StatsFile {
-    const file = path.resolve(rootPath, statsFilename);
-    const exists = existsSync(file);
+	const file = path.resolve(rootPath, statsFilename);
+	const exists = existsSync(file);
 
-    if (!exists) {
-        return {};
-    }
+	if (!exists) {
+		return {};
+	}
 
-    const load: StatsFile = require(file);
+	const load: StatsFile = require(file);
 
-    const normalized = normalizeStats.load(load);
+	const normalized = normalizeStats.load(load);
 
-    return normalized;
+	return normalized;
 }
 
 export { loadStatsFile };

@@ -13,45 +13,45 @@ import { rootPath } from '../config/paths';
 import { Lifecycles, Preset } from '../types';
 
 function transformConfig(
-    config: Preset,
-    dirname: string = rootPath,
+	config: Preset,
+	dirname: string = rootPath,
 ): Lifecycles {
-    /**
-     * Needs to be placed inside function for caching reasons
-     */
-    const options: exConfigOptions = {
-        baseDirectory: dirname,
-        preprocessor: Preprocessor(),
-        postProcessor,
-        plugins: false,
-        validator: presetValidator,
-        processor: 'arrayPush',
-        overrides: {
-            presets: {
-                resolve: {
-                    prefix: 'backtrack-preset',
-                    org: '@backtrack',
-                    orgPrefix: 'preset',
-                },
-            },
-            clean: {
-                preprocessor: cleanPreprocessor,
-                validator: cleanValidator,
-                processor: cleanProcessor,
-            },
-            files: {
-                preprocessor: filesPreprocessor,
-                validator: filesValidator,
-            },
-            resolve: {
-                processor: 'mergeDeep',
-            },
-        },
-    };
+	/**
+	 * Needs to be placed inside function for caching reasons
+	 */
+	const options: exConfigOptions = {
+		baseDirectory: dirname,
+		preprocessor: Preprocessor(),
+		postProcessor,
+		plugins: false,
+		validator: presetValidator,
+		processor: 'arrayPush',
+		overrides: {
+			presets: {
+				resolve: {
+					prefix: 'backtrack-preset',
+					org: '@backtrack',
+					orgPrefix: 'preset',
+				},
+			},
+			clean: {
+				preprocessor: cleanPreprocessor,
+				validator: cleanValidator,
+				processor: cleanProcessor,
+			},
+			files: {
+				preprocessor: filesPreprocessor,
+				validator: filesValidator,
+			},
+			resolve: {
+				processor: 'mergeDeep',
+			},
+		},
+	};
 
-    const result: Lifecycles = exConfigSync(config, options);
+	const result: Lifecycles = exConfigSync(config, options);
 
-    return result;
+	return result;
 }
 
 export { transformConfig };

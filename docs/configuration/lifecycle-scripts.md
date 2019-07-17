@@ -8,20 +8,20 @@ Default / recommended lifecycles are:
 
 ```js
 [
-    // start development environment
-    'dev',
+	// start development environment
+	'dev',
 
-    // create production build
-    'build',
+	// create production build
+	'build',
 
-    // Format project files, e.g. run prettier
-    'format',
+	// Format project files, e.g. run prettier
+	'format',
 
-    // Lint project files, e.g. run eslint
-    'lint',
+	// Lint project files, e.g. run eslint
+	'lint',
 
-    // Test project, e.g. run jest
-    'test',
+	// Test project, e.g. run jest
+	'test',
 ];
 ```
 
@@ -33,51 +33,51 @@ To disable a lifecycle set by a preset, set the preset to `false`.
 
 ```js
 const backtrackConfig = {
-    // ...
-    dev: [
-        /**
-         * Tasks run sequentially
-         */
+	// ...
+	dev: [
+		/**
+		 * Tasks run sequentially
+		 */
 
-        /**
-         * Run backtrack lifecycle. Do not use npm run LIFECYCLE
-         */
-        'backtrack clean',
+		/**
+		 * Run backtrack lifecycle. Do not use npm run LIFECYCLE
+		 */
+		'backtrack clean',
 
-        /**
-         * Run function. Can be a promise or sync function
-         */
-        () => 'run function1',
+		/**
+		 * Run function. Can be a promise or sync function
+		 */
+		() => 'run function1',
 
-        /**
-         * Strings are terminal commands
-         */
-        'eslint . --fix',
+		/**
+		 * Strings are terminal commands
+		 */
+		'eslint . --fix',
 
-        /**
-         * Named tasks have the following format
-         */
-        {
-            name: 'lint',
-            // Can be any task type
-            task: 'eslint .',
-        },
+		/**
+		 * Named tasks have the following format
+		 */
+		{
+			name: 'lint',
+			// Can be any task type
+			task: 'eslint .',
+		},
 
-        /**
-         * Run multiple tasks at the same time
-         */
-        [() => Promise.resolve('function2'), 'backtrack lint'],
-    ],
+		/**
+		 * Run multiple tasks at the same time
+		 */
+		[() => Promise.resolve('function2'), 'backtrack lint'],
+	],
 
-    /**
-     * Disable lifecycle found in other preset
-     */
-    lint: false,
+	/**
+	 * Disable lifecycle found in other preset
+	 */
+	lint: false,
 
-    /**
-     * Disable and replace lifecycle found in preset
-     */
-    lint: [false, 'eslint .'],
-    // ...
+	/**
+	 * Disable and replace lifecycle found in preset
+	 */
+	lint: [false, 'eslint .'],
+	// ...
 };
 ```

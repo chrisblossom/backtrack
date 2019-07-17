@@ -9,104 +9,104 @@ import { PackageJson } from '../types';
  */
 
 function sortPackageJson(packageJson: PackageJson): PackageJson {
-    /**
-     * sort initially to sort deep keys
-     */
-    const initialSort = sortKeys(packageJson, { deep: true });
+	/**
+	 * sort initially to sort deep keys
+	 */
+	const initialSort = sortKeys(packageJson, { deep: true });
 
-    const top = [
-        'name',
-        'version',
-        'description',
-        'keywords',
-        'license',
-        'private',
-        'preferGlobal',
-        'publishConfig',
+	const top = [
+		'name',
+		'version',
+		'description',
+		'keywords',
+		'license',
+		'private',
+		'preferGlobal',
+		'publishConfig',
 
-        'repository',
-        'bugs',
-        'homepage',
+		'repository',
+		'bugs',
+		'homepage',
 
-        'author',
-        'contributors',
+		'author',
+		'contributors',
 
-        'engines',
-        'engineStrict',
-        'devEngines',
-        'os',
-        'cpu',
+		'engines',
+		'engineStrict',
+		'devEngines',
+		'os',
+		'cpu',
 
-        'directories',
-        'files',
-        'bin',
-        'main',
-        'module',
-        'jsnext:main',
+		'directories',
+		'files',
+		'bin',
+		'main',
+		'module',
+		'jsnext:main',
 
-        'browser',
-        'config',
+		'browser',
+		'config',
 
-        'types',
-        'typings',
-        'style',
+		'types',
+		'typings',
+		'style',
 
-        'scripts',
+		'scripts',
 
-        'pre-commit',
-        'lint-staged',
+		'pre-commit',
+		'lint-staged',
 
-        'babel',
-        'eslintConfig',
-        'stylelint',
-        'browserslist',
-    ];
+		'babel',
+		'eslintConfig',
+		'stylelint',
+		'browserslist',
+	];
 
-    const bottom = [
-        'bundledDependencies',
-        'bundleDependencies',
-        'optionalDependencies',
-        'peerDependencies',
-        'devDependencies',
-        'dependencies',
-    ];
+	const bottom = [
+		'bundledDependencies',
+		'bundleDependencies',
+		'optionalDependencies',
+		'peerDependencies',
+		'devDependencies',
+		'dependencies',
+	];
 
-    const getSortedKeys = (keys: typeof top | typeof bottom) => {
-        return keys.reduce((acc, key) => {
-            const value = initialSort[key];
+	const getSortedKeys = (keys: typeof top | typeof bottom) => {
+		return keys.reduce((acc, key) => {
+			const value = initialSort[key];
 
-            if (value === undefined) {
-                return acc;
-            }
+			if (value === undefined) {
+				return acc;
+			}
 
-            return { ...acc, [key]: value };
-        }, {});
-    };
+			return { ...acc, [key]: value };
+		}, {});
+	};
 
-    const topKeys = getSortedKeys(top);
-    const bottomKeys = getSortedKeys(bottom);
+	const topKeys = getSortedKeys(top);
+	const bottomKeys = getSortedKeys(bottom);
 
-    /**
-     * Get keys not explicitly sorted
-     */
-    const mergedTopBottom = [...top, ...bottom];
-    const rest = Object.keys(initialSort).reduce((acc, key) => {
-        if (mergedTopBottom.includes(key)) {
-            return acc;
-        }
+	/**
+	 * Get keys not explicitly sorted
+	 */
+	const mergedTopBottom = [...top, ...bottom];
+	const rest = Object.keys(initialSort).reduce((acc, key) => {
+		if (mergedTopBottom.includes(key)) {
+			return acc;
+		}
 
-        const value = initialSort[key];
+		const value = initialSort[key];
 
-        return { ...acc, [key]: value };
-    }, {});
+		return { ...acc, [key]: value };
+	}, {});
 
-    const result = {
-        ...topKeys,
-        ...rest,
-        ...bottomKeys,
-    };
+	const result = {
+		...topKeys,
+		...rest,
+		...bottomKeys,
+	};
 
-    return result;
+	return result;
 }
 
 export { sortPackageJson };

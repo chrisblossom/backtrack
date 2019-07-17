@@ -9,77 +9,77 @@ import { packageJsonManager } from '../package-json-manager/package-json-manager
 import log from '../utils/log';
 
 async function start(options?: {}) {
-    const taskName =
-        process.env.RUN_MODE && typeof process.env.RUN_MODE === 'string'
-            ? process.env.RUN_MODE
-            : 'cli-start';
+	const taskName =
+		process.env.RUN_MODE && typeof process.env.RUN_MODE === 'string'
+			? process.env.RUN_MODE
+			: 'cli-start';
 
-    if (!process.env.NODE_ENV) {
-        process.env.NODE_ENV = 'development';
-    }
+	if (!process.env.NODE_ENV) {
+		process.env.NODE_ENV = 'development';
+	}
 
-    const NODE_ENV = process.env.NODE_ENV;
-    const logPrefix = `${taskName}:${NODE_ENV}`;
+	const NODE_ENV = process.env.NODE_ENV;
+	const logPrefix = `${taskName}:${NODE_ENV}`;
 
-    try {
-        const lifecycles = optionsFile();
-        const statsFile = loadStatsFile();
+	try {
+		const lifecycles = optionsFile();
+		const statsFile = loadStatsFile();
 
-        /**
-         * Update package.json
-         */
-        const packageJsonStats = await packageJsonManager(
-            lifecycles,
-            statsFile.packageJson,
-        );
+		/**
+		 * Update package.json
+		 */
+		const packageJsonStats = await packageJsonManager(
+			lifecycles,
+			statsFile.packageJson,
+		);
 
-        /**
-         * Update all files
-         */
-        const filesStats = await fileManager(
-            lifecycles.files,
-            statsFile.fileManager,
-        );
+		/**
+		 * Update all files
+		 */
+		const filesStats = await fileManager(
+			lifecycles.files,
+			statsFile.fileManager,
+		);
 
-        /**
-         * Write stats file
-         */
-        await writeStatsFile(
-            {
-                fileManager: filesStats,
-                packageJson: packageJsonStats,
-            },
-            statsFile,
-        );
+		/**
+		 * Write stats file
+		 */
+		await writeStatsFile(
+			{
+				fileManager: filesStats,
+				packageJson: packageJsonStats,
+			},
+			statsFile,
+		);
 
-        if (
-            process.env.RUN_MODE === '--init' ||
-            process.env.RUN_MODE === 'init'
-        ) {
-            /**
-             * Run clean script initially
-             */
-            if (lifecycles.clean) {
-                await clean(lifecycles.clean);
-            }
+		if (
+			process.env.RUN_MODE === '--init' ||
+			process.env.RUN_MODE === 'init'
+		) {
+			/**
+			 * Run clean script initially
+			 */
+			if (lifecycles.clean) {
+				await clean(lifecycles.clean);
+			}
 
-            log.success('backtrack initialized');
+			log.success('backtrack initialized');
 
-            return;
-        }
+			return;
+		}
 
-        const matchedTask = lifecycles[taskName];
-        if (!matchedTask || matchedTask.length === 0) {
-            throw new Error(`${taskName} not found in preset`);
-        }
+		const matchedTask = lifecycles[taskName];
+		if (!matchedTask || matchedTask.length === 0) {
+			throw new Error(`${taskName} not found in preset`);
+		}
 
-        await run(taskName, matchedTask, options);
-    } catch (error) {
-        await handleError({
-            error,
-            logPrefix,
-        });
-    }
+		await run(taskName, matchedTask, options);
+	} catch (error) {
+		await handleError({
+			error,
+			logPrefix,
+		});
+	}
 }
 
 export { start };

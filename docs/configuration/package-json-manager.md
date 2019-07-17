@@ -8,20 +8,20 @@ For a list of keys that cannot be managed, see [src/presets/package-json-schema.
 
 ```js
 const backtrackConfig = {
-    // ...
-    packageJson: [
-        {
-            // Add precommit to package.json scripts
-            scripts: {
-                precommit: 'lint-staged',
-            },
+	// ...
+	packageJson: [
+		{
+			// Add precommit to package.json scripts
+			scripts: {
+				precommit: 'lint-staged',
+			},
 
-            // Add lint-staged configuration to package.json
-            'lint-staged': {
-                '*.{js,jsx,md,css,scss,json}': ['prettier --write', 'git add'],
-            },
-        },
-    ],
-    // ...
+			// Add lint-staged configuration to package.json
+			'lint-staged': {
+				'*.{js,jsx,md,css,scss,json}': ['prettier --write', 'git add'],
+			},
+		},
+	],
+	// ...
 };
 ```

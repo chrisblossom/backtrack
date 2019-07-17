@@ -26,7 +26,7 @@ Can be used for:
 'use strict';
 
 module.exports = {
-    // backtrack config
+	// backtrack config
 };
 ```
 

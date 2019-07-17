@@ -5,11 +5,11 @@ import { rootPath } from '../config/paths';
 import { Lifecycles } from '../types';
 
 function optionsFile(dirname: string = rootPath): Lifecycles {
-    const baseConfig = loadOptionsFile(dirname);
+	const baseConfig = loadOptionsFile(dirname);
 
-    const config = transformConfig(baseConfig, dirname);
+	const config = transformConfig(baseConfig, dirname);
 
-    return config;
+	return config;
 }
 
 export { optionsFile };

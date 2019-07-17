@@ -4,7 +4,7 @@
 
 ```js
 const backtrackConfig = {
-    presets: ['@backtrack/preset-style'],
-    // ...
+	presets: ['@backtrack/preset-style'],
+	// ...
 };
 ```

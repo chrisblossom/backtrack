@@ -8,85 +8,85 @@ import { mapObjectKeyNames } from '../utils/object-utils';
 import { PackageJson } from '../types';
 
 type Return = Promise<{
-    file: string;
-    filename: string;
+	file: string;
+	filename: string;
 } | void>;
 
 const npmDefaults = {
-    version: '1.0.0',
-    description: '',
-    main: 'index.js',
-    scripts: {
-        test: 'echo "Error: no test specified" && exit 1',
-    },
-    keywords: [],
-    author: '',
-    license: 'ISC',
+	version: '1.0.0',
+	description: '',
+	main: 'index.js',
+	scripts: {
+		test: 'echo "Error: no test specified" && exit 1',
+	},
+	keywords: [],
+	author: '',
+	license: 'ISC',
 };
 
 async function backupPackageJson(
-    packageJson: PackageJson,
-    managedKeys?: PackageJson,
-    previousManagedKeys?: PackageJson,
+	packageJson: PackageJson,
+	managedKeys?: PackageJson,
+	previousManagedKeys?: PackageJson,
 ): Return {
-    const mapManagedKeys = mapObjectKeyNames(managedKeys);
-    /**
-     * backup package.json if any custom managed scripts exist
-     */
+	const mapManagedKeys = mapObjectKeyNames(managedKeys);
+	/**
+	 * backup package.json if any custom managed scripts exist
+	 */
 
-    const shouldBackup = mapManagedKeys
-        .filter((key) => {
-            const matchedMangedKey = get(managedKeys, key);
-            const matchedPackageJson = get(packageJson, key);
-            const matchedPreviousManagedKey = get(previousManagedKeys, key);
-            const matchedDefaultKey = get(npmDefaults, key);
+	const shouldBackup = mapManagedKeys
+		.filter((key) => {
+			const matchedMangedKey = get(managedKeys, key);
+			const matchedPackageJson = get(packageJson, key);
+			const matchedPreviousManagedKey = get(previousManagedKeys, key);
+			const matchedDefaultKey = get(npmDefaults, key);
 
-            /**
-             * Don't backup if package.json key === npm default
-             */
-            if (
-                matchedPreviousManagedKey === undefined &&
-                isEqual(matchedPackageJson, matchedDefaultKey)
-            ) {
-                return false;
-            }
+			/**
+			 * Don't backup if package.json key === npm default
+			 */
+			if (
+				matchedPreviousManagedKey === undefined &&
+				isEqual(matchedPackageJson, matchedDefaultKey)
+			) {
+				return false;
+			}
 
-            // use isEqual to match arrays
-            const result =
-                matchedPackageJson &&
-                isEqual(matchedMangedKey, matchedPackageJson) === false &&
-                isEqual(matchedPreviousManagedKey, matchedPackageJson) ===
-                    false;
+			// use isEqual to match arrays
+			const result =
+				matchedPackageJson &&
+				isEqual(matchedMangedKey, matchedPackageJson) === false &&
+				isEqual(matchedPreviousManagedKey, matchedPackageJson) ===
+					false;
 
-            return result;
-        })
-        .map((backupKeys) => {
-            return backupKeys.join('.');
-        });
+			return result;
+		})
+		.map((backupKeys) => {
+			return backupKeys.join('.');
+		});
 
-    if (shouldBackup.length === 0) {
-        return undefined;
-    }
+	if (shouldBackup.length === 0) {
+		return undefined;
+	}
 
-    const packageJsonFile = path.resolve(rootPath, 'package.json');
-    const backupData = await backupFile(packageJsonFile);
+	const packageJsonFile = path.resolve(rootPath, 'package.json');
+	const backupData = await backupFile(packageJsonFile);
 
-    if (!backupData) {
-        return undefined;
-    }
+	if (!backupData) {
+		return undefined;
+	}
 
-    const relativeBackupFilePath = path.relative(rootPath, backupData.file);
+	const relativeBackupFilePath = path.relative(rootPath, backupData.file);
 
-    log.warn(
-        `Unknown package.json keys: "${shouldBackup.join(
-            ', ',
-        )}". Backing up to: ${relativeBackupFilePath}`,
-    );
+	log.warn(
+		`Unknown package.json keys: "${shouldBackup.join(
+			', ',
+		)}". Backing up to: ${relativeBackupFilePath}`,
+	);
 
-    return {
-        file: backupData.file,
-        filename: backupData.filename,
-    };
+	return {
+		file: backupData.file,
+		filename: backupData.filename,
+	};
 }
 
 export { backupPackageJson };

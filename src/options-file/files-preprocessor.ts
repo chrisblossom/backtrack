@@ -4,29 +4,29 @@ import { toArray } from '../utils/object-utils';
 import { isCopyFileOptions, Files } from '../types';
 
 type Args = {
-    value?: Files;
-    dirname?: string;
+	value?: Files;
+	dirname?: string;
 };
 
 function filesPreprocessor({ value, dirname = '' }: Args = {}) {
-    const resolveSrc = toArray(value).map((files) => {
-        if (typeof files === 'boolean') {
-            return files;
-        }
+	const resolveSrc = toArray(value).map((files) => {
+		if (typeof files === 'boolean') {
+			return files;
+		}
 
-        if (isCopyFileOptions(files)) {
-            return files;
-        }
+		if (isCopyFileOptions(files)) {
+			return files;
+		}
 
-        const src = path.resolve(dirname, files.src);
+		const src = path.resolve(dirname, files.src);
 
-        return {
-            ...files,
-            src,
-        };
-    });
+		return {
+			...files,
+			src,
+		};
+	});
 
-    return resolveSrc;
+	return resolveSrc;
 }
 
 export { filesPreprocessor };

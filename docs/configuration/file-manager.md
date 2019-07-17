@@ -20,102 +20,102 @@ Managed files/directories will be removed when they are no longer managed.
 const backtrackPaths = require('@backtrack/core/paths');
 
 const backtrackConfig = {
-    // ...
-    files: [
-        {
-            /**
-             * Source file
-             *
-             * relative to configuration file
-             */
-            src: 'files/.eslintrc.js',
+	// ...
+	files: [
+		{
+			/**
+			 * Source file
+			 *
+			 * relative to configuration file
+			 */
+			src: 'files/.eslintrc.js',
 
-            /**
-             * Destination file
-             *
-             * relative to project directory
-             */
-            dest: '.eslintrc.js',
+			/**
+			 * Destination file
+			 *
+			 * relative to project directory
+			 */
+			dest: '.eslintrc.js',
 
-            /**
-             * Allow file to be modified
-             * Highly recommended to use the config manager instead
-             *
-             * optional
-             * default: false
-             */
-            allowChanges: false,
+			/**
+			 * Allow file to be modified
+			 * Highly recommended to use the config manager instead
+			 *
+			 * optional
+			 * default: false
+			 */
+			allowChanges: false,
 
-            /**
-             * Allow file to be modified and do not copy
-             * source file changes to -latest
-             *
-             * optional
-             * default: false
-             */
-            ignoreUpdates: false,
-        },
+			/**
+			 * Allow file to be modified and do not copy
+			 * source file changes to -latest
+			 *
+			 * optional
+			 * default: false
+			 */
+			ignoreUpdates: false,
+		},
 
-        /**
-         * Options
-         */
-        {
-            /**
-             * Create directories
-             *
-             * dist and src are created by default
-             */
-            makeDirs: ['static'],
+		/**
+		 * Options
+		 */
+		{
+			/**
+			 * Create directories
+			 *
+			 * dist and src are created by default
+			 */
+			makeDirs: ['static'],
 
-            /**
-             * Do not copy/manage .eslintrc.js, build or source paths
-             */
-            skip: [
-                '.eslintrc.js',
-                backtrackPaths.sourcePath,
-                backtrackPaths.buildPath,
-            ],
+			/**
+			 * Do not copy/manage .eslintrc.js, build or source paths
+			 */
+			skip: [
+				'.eslintrc.js',
+				backtrackPaths.sourcePath,
+				backtrackPaths.buildPath,
+			],
 
-            /**
-             * Allow changes with .eslintrc.js
-             *
-             * After modified, updated source files will
-             * have the name .eslintrc.js-latest.js
-             *
-             * If the file is deleted it will be recreated
-             * with the latest source file.
-             */
-            allowChanges: ['.eslintrc.js'],
+			/**
+			 * Allow changes with .eslintrc.js
+			 *
+			 * After modified, updated source files will
+			 * have the name .eslintrc.js-latest.js
+			 *
+			 * If the file is deleted it will be recreated
+			 * with the latest source file.
+			 */
+			allowChanges: ['.eslintrc.js'],
 
-            /**
-             * Allow changes and completely ignore
-             * source file updates to .prettierrc.js
-             *
-             * If the file is deleted it will be recreated
-             * with the latest source file.
-             */
-            ignoreUpdates: ['.prettierrc.js'],
-        },
+			/**
+			 * Allow changes and completely ignore
+			 * source file updates to .prettierrc.js
+			 *
+			 * If the file is deleted it will be recreated
+			 * with the latest source file.
+			 */
+			ignoreUpdates: ['.prettierrc.js'],
+		},
 
-        {
-            /**
-             * Allow changes with all files
-             *
-             * default: false
-             */
-            allowChanges: true,
-        },
+		{
+			/**
+			 * Allow changes with all files
+			 *
+			 * default: false
+			 */
+			allowChanges: true,
+		},
 
-        {
-            /**
-             * Ignore source file updates to all files
-             *
-             * default: false
-             */
-            ignoreUpdates: true,
-        },
-    ],
-    // ...
+		{
+			/**
+			 * Ignore source file updates to all files
+			 *
+			 * default: false
+			 */
+			ignoreUpdates: true,
+		},
+	],
+	// ...
 };
 ```
 

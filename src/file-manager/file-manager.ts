@@ -16,46 +16,46 @@ type Return = Promise<FileManagerStats>;
 const base = filesPostProcessor();
 
 async function fileManager(
-    files: ParsedFiles = base,
-    previousStats: FileManagerStats = {},
+	files: ParsedFiles = base,
+	previousStats: FileManagerStats = {},
 ): Return {
-    /**
-     * Create Directories
-     */
-    const createDirectories = await makeDirs(files.makeDirs);
+	/**
+	 * Create Directories
+	 */
+	const createDirectories = await makeDirs(files.makeDirs);
 
-    createDirectories.forEach((absolutePath) => {
-        const relativeDir = path.relative(rootPath, absolutePath);
+	createDirectories.forEach((absolutePath) => {
+		const relativeDir = path.relative(rootPath, absolutePath);
 
-        log.info(`Creating directory: ${relativeDir}`);
-    });
+		log.info(`Creating directory: ${relativeDir}`);
+	});
 
-    /**
-     * Backup any user-changed files
-     */
-    await backupChangedFiles(files, previousStats.files);
+	/**
+	 * Backup any user-changed files
+	 */
+	await backupChangedFiles(files, previousStats.files);
 
-    /**
-     * Remove stale files
-     */
-    await removeStaleFiles(files, previousStats.files);
+	/**
+	 * Remove stale files
+	 */
+	await removeStaleFiles(files, previousStats.files);
 
-    /**
-     * Remove stale directories
-     */
-    await removeStaleDirectories(files, previousStats.directories);
+	/**
+	 * Remove stale directories
+	 */
+	await removeStaleDirectories(files, previousStats.directories);
 
-    /**
-     * Copy files
-     */
-    await copyFiles(files, previousStats.files);
+	/**
+	 * Copy files
+	 */
+	await copyFiles(files, previousStats.files);
 
-    /**
-     * Get updated stats
-     */
-    const fileStats = getFileStats(files);
+	/**
+	 * Get updated stats
+	 */
+	const fileStats = getFileStats(files);
 
-    return fileStats;
+	return fileStats;
 }
 
 export { fileManager };

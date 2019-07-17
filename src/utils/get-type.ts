@@ -1,83 +1,83 @@
 import {
-    isArray,
-    isBoolean,
-    isDate,
-    isFunction,
-    isNaN,
-    isNull,
-    isNumber,
-    isPlainObject,
-    isRegExp,
-    isString,
-    isUndefined,
+	isArray,
+	isBoolean,
+	isDate,
+	isFunction,
+	isNaN,
+	isNull,
+	isNumber,
+	isPlainObject,
+	isRegExp,
+	isString,
+	isUndefined,
 } from 'lodash';
 
 type Types =
-    | 'array'
-    | 'boolean'
-    | 'date'
-    | 'function'
-    | 'number'
-    | 'null'
-    | 'plain object'
-    | 'promise'
-    | 'string'
-    | 'undefined'
-    | 'null'
-    | 'NaN'
-    | 'regex'
-    | 'unknown';
+	| 'array'
+	| 'boolean'
+	| 'date'
+	| 'function'
+	| 'number'
+	| 'null'
+	| 'plain object'
+	| 'promise'
+	| 'string'
+	| 'undefined'
+	| 'null'
+	| 'NaN'
+	| 'regex'
+	| 'unknown';
 
 function getType(value?: any): Types {
-    if (isPlainObject(value)) {
-        return 'plain object';
-    }
+	if (isPlainObject(value)) {
+		return 'plain object';
+	}
 
-    if (isArray(value)) {
-        return 'array';
-    }
+	if (isArray(value)) {
+		return 'array';
+	}
 
-    if (isBoolean(value)) {
-        return 'boolean';
-    }
+	if (isBoolean(value)) {
+		return 'boolean';
+	}
 
-    if (isFunction(value)) {
-        return 'function';
-    }
+	if (isFunction(value)) {
+		return 'function';
+	}
 
-    if (isString(value)) {
-        return 'string';
-    }
+	if (isString(value)) {
+		return 'string';
+	}
 
-    if (isNaN(value)) {
-        return 'NaN';
-    }
+	if (isNaN(value)) {
+		return 'NaN';
+	}
 
-    if (isNumber(value)) {
-        return 'number';
-    }
+	if (isNumber(value)) {
+		return 'number';
+	}
 
-    if (isDate(value)) {
-        return 'date';
-    }
+	if (isDate(value)) {
+		return 'date';
+	}
 
-    if (Promise.resolve(value) === value) {
-        return 'promise';
-    }
+	if (Promise.resolve(value) === value) {
+		return 'promise';
+	}
 
-    if (isNull(value)) {
-        return 'null';
-    }
+	if (isNull(value)) {
+		return 'null';
+	}
 
-    if (isUndefined(value)) {
-        return 'undefined';
-    }
+	if (isUndefined(value)) {
+		return 'undefined';
+	}
 
-    if (isRegExp(value)) {
-        return 'regex';
-    }
+	if (isRegExp(value)) {
+		return 'regex';
+	}
 
-    return 'unknown';
+	return 'unknown';
 }
 
 export { getType };

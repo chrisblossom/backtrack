@@ -9,96 +9,96 @@ import { backupFile } from '../utils/backup-file';
 import { ParsedFiles, FileStats } from '../types';
 
 async function removeStaleFiles(
-    files: ParsedFiles,
-    previousStats: FileStats = {},
+	files: ParsedFiles,
+	previousStats: FileStats = {},
 ) {
-    const pending: Promise<unknown>[] = [];
+	const pending: Promise<unknown>[] = [];
 
-    for (const relativeFile of Object.keys(previousStats)) {
-        const previousFileHash = previousStats[relativeFile];
+	for (const relativeFile of Object.keys(previousStats)) {
+		const previousFileHash = previousStats[relativeFile];
 
-        /**
-         * Do nothing if dest file is still managed
-         */
-        if (files.dest.files.includes(relativeFile) === false) {
-            /**
-             * Any file in previousStats not found in files should be removed
-             */
-            const removeFilePath = path.resolve(rootPath, relativeFile);
+		/**
+		 * Do nothing if dest file is still managed
+		 */
+		if (files.dest.files.includes(relativeFile) === false) {
+			/**
+			 * Any file in previousStats not found in files should be removed
+			 */
+			const removeFilePath = path.resolve(rootPath, relativeFile);
 
-            /**
-             * Do nothing if file already has been removed
-             */
-            const exists = existsSync(removeFilePath);
-            if (exists === true) {
-                const removeFileHash = getFileHash(removeFilePath);
+			/**
+			 * Do nothing if file already has been removed
+			 */
+			const exists = existsSync(removeFilePath);
+			if (exists === true) {
+				const removeFileHash = getFileHash(removeFilePath);
 
-                /**
-                 * Remove file if file has not changed
-                 */
-                if (previousFileHash === removeFileHash) {
-                    log.info(`Removing file: ${relativeFile}`);
+				/**
+				 * Remove file if file has not changed
+				 */
+				if (previousFileHash === removeFileHash) {
+					log.info(`Removing file: ${relativeFile}`);
 
-                    const removeFile = del(removeFilePath);
-                    pending.push(removeFile);
-                } else {
-                    /**
-                     * Backup file if changed
-                     */
-                    const backup = backupFile(removeFilePath).then(
-                        (backupResult) => {
-                            if (backupResult) {
-                                const relativeBackupFilePath = path.relative(
-                                    rootPath,
-                                    backupResult.file,
-                                );
+					const removeFile = del(removeFilePath);
+					pending.push(removeFile);
+				} else {
+					/**
+					 * Backup file if changed
+					 */
+					const backup = backupFile(removeFilePath).then(
+						(backupResult) => {
+							if (backupResult) {
+								const relativeBackupFilePath = path.relative(
+									rootPath,
+									backupResult.file,
+								);
 
-                                const relativeFilePath = path.relative(
-                                    rootPath,
-                                    removeFilePath,
-                                );
+								const relativeFilePath = path.relative(
+									rootPath,
+									removeFilePath,
+								);
 
-                                log.warn(
-                                    `'${relativeFilePath}' has been modified and is no longer managed. Moving to '${relativeBackupFilePath}'`,
-                                );
-                            }
+								log.warn(
+									`'${relativeFilePath}' has been modified and is no longer managed. Moving to '${relativeBackupFilePath}'`,
+								);
+							}
 
-                            return backupResult;
-                        },
-                    );
+							return backupResult;
+						},
+					);
 
-                    pending.push(backup);
-                }
-            }
-        }
+					pending.push(backup);
+				}
+			}
+		}
 
-        /**
-         * Handle -latest files for allowChanges
-         */
-        const { base: filename, dir, ext = '' } = path.parse(relativeFile);
-        const latestFilename = `${filename}-latest${ext}`;
-        const latestFilePath = path.resolve(rootPath, dir, latestFilename);
+		/**
+		 * Handle -latest files for allowChanges
+		 */
+		const { base: filename, dir, ext = '' } = path.parse(relativeFile);
+		const latestFilename = `${filename}-latest${ext}`;
+		const latestFilePath = path.resolve(rootPath, dir, latestFilename);
 
-        const latestFileExists = existsSync(latestFilePath);
+		const latestFileExists = existsSync(latestFilePath);
 
-        const destFileIndex = files.dest.files.indexOf(relativeFile);
-        const srcFile = files.src.files[destFileIndex];
-        const srcHash = files.src.hash[srcFile];
-        const destHash = files.dest.hash[relativeFile];
+		const destFileIndex = files.dest.files.indexOf(relativeFile);
+		const srcFile = files.src.files[destFileIndex];
+		const srcHash = files.src.hash[srcFile];
+		const destHash = files.dest.hash[relativeFile];
 
-        /**
-         * Remove -latest file if dest file is equal to source
-         */
-        if (latestFileExists && srcHash === destHash) {
-            const relativeLatestFile = path.relative(dir, latestFilename);
-            log.info(`Removing file: ${relativeLatestFile}`);
+		/**
+		 * Remove -latest file if dest file is equal to source
+		 */
+		if (latestFileExists && srcHash === destHash) {
+			const relativeLatestFile = path.relative(dir, latestFilename);
+			log.info(`Removing file: ${relativeLatestFile}`);
 
-            const removeFile = del(latestFilePath);
-            pending.push(removeFile);
-        }
-    }
+			const removeFile = del(latestFilePath);
+			pending.push(removeFile);
+		}
+	}
 
-    await Promise.all(pending);
+	await Promise.all(pending);
 }
 
 export { removeStaleFiles };

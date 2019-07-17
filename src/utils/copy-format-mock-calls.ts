@@ -10,21 +10,21 @@
 type CopyCalls = [string, string, {}];
 
 function copyFormatMockCalls(calls: ReadonlyArray<CopyCalls>) {
-    const result = calls.reduce((acc, call) => {
-        const src = call[0];
-        const dest = call[1];
-        const options = call[2];
+	const result = calls.reduce((acc, call) => {
+		const src = call[0];
+		const dest = call[1];
+		const options = call[2];
 
-        return {
-            ...acc,
-            [src]: {
-                dest,
-                options,
-            },
-        };
-    }, {});
+		return {
+			...acc,
+			[src]: {
+				dest,
+				options,
+			},
+		};
+	}, {});
 
-    return result;
+	return result;
 }
 
 export { copyFormatMockCalls };

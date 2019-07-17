@@ -6,29 +6,29 @@
 
 ```js
 const backtrackConfig = {
-    // ...
-    clean: [
-        {
-            // delete everything in 'dist/**/*' except .gitignore
-            del: ['**/*', '!.gitignore'],
-            makeDirs: [
-                // create directory 'dist/static/favicons/'
-                'static/favicons',
-            ],
-            copy: [
-                {
-                    // Source file/directory
-                    src: 'static',
-                    // Destination directory dist/static/
-                    dest: 'static',
-                    // Add 8 digit file hash to destination filename
-                    // optional, default: false
-                    hash: true,
-                },
-            ],
-        },
-    ],
-    // ...
+	// ...
+	clean: [
+		{
+			// delete everything in 'dist/**/*' except .gitignore
+			del: ['**/*', '!.gitignore'],
+			makeDirs: [
+				// create directory 'dist/static/favicons/'
+				'static/favicons',
+			],
+			copy: [
+				{
+					// Source file/directory
+					src: 'static',
+					// Destination directory dist/static/
+					dest: 'static',
+					// Add 8 digit file hash to destination filename
+					// optional, default: false
+					hash: true,
+				},
+			],
+		},
+	],
+	// ...
 };
 ```
 
