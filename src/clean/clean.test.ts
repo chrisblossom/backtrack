@@ -1,21 +1,38 @@
 import path from 'path';
+import del from 'del'; // comment out when trying jest.doMock
+//
+import { cleanProcessor } from '../options-file/clean-processor';
+import { cleanPreprocessor } from '../options-file/clean-preprocessor';
+import { clean as rawClean } from './clean';
 
-const rawClean = (args?: any) => require('./clean').clean(args);
-const cleanParser = (args: any) =>
-	require('../options-file/clean-processor').cleanProcessor(args);
-const cleanPreprocessor = (args: any) =>
-	require('../options-file/clean-preprocessor').cleanPreprocessor(args);
+// dynamic requires are needed for jest.doMock to work, jest.mock doesn't work regardless
+// const rawClean = (args?: any) => require('./clean').clean(args);
+// const cleanProcessor = (args: any) =>
+// 	require('../options-file/clean-processor').cleanProcessor(args);
+// const cleanPreprocessor = (args: any) =>
+// 	require('../options-file/clean-preprocessor').cleanPreprocessor(args);
 
 function clean(files: any) {
 	const normalized = cleanPreprocessor({ value: files });
-	const parsed = cleanParser({ value: normalized });
+	const parsed = cleanProcessor({ value: normalized });
 
 	return rawClean(parsed);
 }
 
+jest.mock('del', () =>
+	jest.fn((pattern, options = {}) => {
+		const delActual = jest.requireActual('del');
+
+		return delActual(pattern, {
+			...options,
+			dryRun: true,
+		});
+	}),
+);
+
 describe('clean', () => {
 	const cwd = process.cwd();
-	let del = jest.requireMock('del');
+	// let del = jest.requireMock('del');
 	let ensureDir = jest.requireMock('fs-extra').ensureDir;
 	let copy = jest.requireMock('fs-extra').copy;
 
@@ -27,18 +44,18 @@ describe('clean', () => {
 			success: jest.fn(),
 		}));
 
-		jest.doMock('del', () =>
-			jest.fn((pattern, options = {}) => {
-				const delActual = jest.requireActual('del');
-
-				return delActual(pattern, {
-					...options,
-					dryRun: true,
-				});
-			}),
-		);
-
-		del = jest.requireMock('del');
+		// jest.doMock('del', () =>
+		// 	jest.fn((pattern, options = {}) => {
+		// 		const delActual = jest.requireActual('del');
+		//
+		// 		return delActual(pattern, {
+		// 			...options,
+		// 			dryRun: true,
+		// 		});
+		// 	}),
+		// );
+		//
+		// del = jest.requireMock('del');
 
 		jest.doMock('fs-extra', () => ({
 			ensureDir: jest.fn(() => Promise.resolve()),
@@ -119,7 +136,7 @@ describe('clean', () => {
 		];
 
 		const normalized = cleanPreprocessor({ value: options });
-		const parsed = cleanParser({ value: normalized });
+		const parsed = cleanProcessor({ value: normalized });
 
 		await clean(parsed);
 
