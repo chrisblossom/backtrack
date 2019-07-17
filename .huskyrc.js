@@ -14,13 +14,13 @@ const { Backtrack } = require('@backtrack/core');
 const { configManager } = new Backtrack();
 
 const husky = {
-    hooks: {
-        'pre-commit': 'npm run git-pre-commit',
-        'pre-push': 'npm run git-pre-push',
-    },
+	hooks: {
+		'pre-commit': 'npm run git-pre-commit',
+		'pre-push': 'npm run git-pre-push',
+	},
 };
 
 module.exports = configManager({
-    namespace: 'husky',
-    config: husky,
+	namespace: 'husky',
+	config: husky,
 });

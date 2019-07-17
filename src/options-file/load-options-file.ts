@@ -41,9 +41,7 @@ function transform(result: Result | null) {
         } else {
             // eslint-disable-next-line no-throw-literal
             throw {
-                message: `${
-                    result.filepath
-                } must use default export with ES Modules`,
+                message: `${result.filepath} must use default export with ES Modules`,
                 exitCode: 1,
             };
         }

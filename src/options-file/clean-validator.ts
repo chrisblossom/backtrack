@@ -30,9 +30,7 @@ function cleanValidator({ value }: Args) {
         for (const copy of arg.copy) {
             if (fileIsInsideDir(copy.src, rootPath) === false) {
                 throw new Error(
-                    `copy.src '${
-                        copy.src
-                    }' must be inside project root directory`,
+                    `copy.src '${copy.src}' must be inside project root directory`,
                 );
             }
 
@@ -58,9 +56,7 @@ function cleanValidator({ value }: Args) {
 
             if (isDuplicateWithHashMismatch) {
                 throw new Error(
-                    `copy.src '${
-                        copy.src
-                    }' is duplicated with mismatched hash: true/false`,
+                    `copy.src '${copy.src}' is duplicated with mismatched hash: true/false`,
                 );
             }
 
@@ -70,9 +66,7 @@ function cleanValidator({ value }: Args) {
 
             if (isDuplicateWithSrcMismatch) {
                 throw new Error(
-                    `copy.dest '${
-                        copy.dest
-                    }' is duplicated with mismatched sources`,
+                    `copy.dest '${copy.dest}' is duplicated with mismatched sources`,
                 );
             }
         }
