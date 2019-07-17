@@ -10,73 +10,73 @@ export type NamedTask = Readonly<{
 
 export type AllTaskTypes = ShellCommand | CustomFn | NamedTask;
 
-export type Lifecycle = ReadonlyArray<
-	AllTaskTypes | ReadonlyArray<AllTaskTypes>
->;
+export type Lifecycle = readonly (AllTaskTypes | readonly AllTaskTypes[])[];
 
 export type Task = AllTaskTypes | Lifecycle;
 
-export type Copy = {
+export interface Copy {
 	dest: string;
 	src: string;
 	hash?: boolean;
-};
+}
 
-export type NormalizedClean = {
-	del: Array<string>;
-	makeDirs: Array<string>;
-	copy: Array<Copy>;
-};
+export interface NormalizedClean {
+	del: string[];
+	makeDirs: string[];
+	copy: Copy[];
+}
 
-export type Clean = {
+export interface Clean {
 	del?: string | string[];
 	makeDirs?: string | string[];
 	copy?: Copy | Copy[];
-};
+}
 
-export type CopyFileOptions = {
+export interface CopyFileOptions {
 	makeDirs?: string[] | string;
 	skip?: string[] | string;
 	allowChanges?: string[] | string | boolean;
 	ignoreUpdates?: string[] | string | boolean;
-};
+}
 
 export function isCopyFileOptions(obj: any): obj is CopyFileOptions {
 	return obj.src === undefined && obj.dest === undefined;
 }
 
-export type CopyFile = {
+export interface CopyFile {
 	src: string;
 	dest: string;
 	allowChanges?: boolean;
 	ignoreUpdates?: boolean;
-};
+}
 
 export function isCopyFile(obj: any): obj is CopyFile {
 	return obj.src !== undefined && obj.dest !== undefined;
 }
 
-export type FileManager = Array<CopyFile | CopyFileOptions>;
+export type FileManager = (CopyFile | CopyFileOptions)[];
 
-export type Config = {
+export interface Config {
 	[key: string]: any;
-};
+}
 
 type PresetTask =
 	| AllTaskTypes
 	| false
-	| ReadonlyArray<AllTaskTypes | ReadonlyArray<AllTaskTypes> | false>;
+	| readonly (AllTaskTypes | readonly AllTaskTypes[] | false)[];
 
 export type Files =
 	| CopyFile
 	| CopyFileOptions
 	| false
-	| ReadonlyArray<CopyFile | CopyFileOptions | false>;
+	| readonly (CopyFile | CopyFileOptions | false)[];
 
-export type Resolve = { [key: string]: string };
+export interface Resolve {
+	[key: string]: string;
+}
 
 export type Preset = {
-	presets?: string | ReadonlyArray<string | [string, {}]>;
+	presets?: string | readonly (string | [string, {}])[];
 
 	build?: PresetTask;
 	dev?: PresetTask;
@@ -84,10 +84,10 @@ export type Preset = {
 	format?: PresetTask;
 	test?: PresetTask;
 
-	clean?: Clean | false | ReadonlyArray<Clean | false>;
+	clean?: Clean | false | readonly (Clean | false)[];
 	files?: Files;
-	packageJson?: PackageJson | false | ReadonlyArray<PackageJson | false>;
-	config?: Config | false | ReadonlyArray<Config | false>;
+	packageJson?: PackageJson | false | readonly (PackageJson | false)[];
+	config?: Config | false | readonly (Config | false)[];
 } & { [key: string]: PresetTask };
 
 export type Lifecycles = {
@@ -99,12 +99,12 @@ export type Lifecycles = {
 
 	clean?: NormalizedClean;
 	files?: ParsedFiles;
-	packageJson?: ReadonlyArray<PackageJson>;
-	config?: ReadonlyArray<Config>;
+	packageJson?: readonly PackageJson[];
+	config?: readonly Config[];
 	resolve?: Resolve;
 } & { [key: string]: Lifecycle };
 
-export type ParsedFiles = {
+export interface ParsedFiles {
 	src: {
 		files: string[];
 		absolute: { [key: string]: string };
@@ -118,11 +118,11 @@ export type ParsedFiles = {
 		ignoreUpdates: { [key: string]: boolean };
 	};
 	makeDirs: string[];
-};
+}
 
 export type FileStats = Readonly<{ [key: string]: string }>;
 
-export type DirStats = ReadonlyArray<string>;
+export type DirStats = readonly string[];
 
 export type FileManagerStats = Readonly<{
 	directories?: DirStats;

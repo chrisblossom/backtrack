@@ -1,5 +1,4 @@
 import sortKeys from 'sort-keys';
-
 import { PackageJson } from '../types';
 
 /**

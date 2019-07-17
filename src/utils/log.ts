@@ -24,7 +24,7 @@ function getTime() {
 }
 
 function print(
-	messages: ReadonlyArray<unknown>,
+	messages: readonly unknown[],
 	format: string = '\b',
 	type: string = 'info',
 ) {
@@ -41,23 +41,23 @@ function print(
 	return time;
 }
 
-function info(...messages: Array<unknown>) {
+function info(...messages: unknown[]) {
 	const format = `${bgBlue(white('Info'))}${gray(':')}`;
 	return print(messages, format, 'info');
 }
 const log = info;
 
-function success(...messages: Array<unknown>) {
+function success(...messages: unknown[]) {
 	const format = `${bgGreen(white('Success'))}${gray(':')}`;
 	return print(messages, format, 'info');
 }
 
-function error(...messages: Array<unknown>) {
+function error(...messages: unknown[]) {
 	const format = `${bgRed(white('Error'))}${gray(':')}`;
 	return print(messages, format, 'error');
 }
 
-function warn(...messages: Array<unknown>) {
+function warn(...messages: unknown[]) {
 	const format = `${bgYellow(white('Warning'))}${gray(':')}`;
 	return print(messages, format, 'warn');
 }

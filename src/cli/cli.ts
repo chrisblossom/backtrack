@@ -2,7 +2,6 @@
 
 import 'source-map-support/register';
 import dotenv from 'dotenv';
-
 import { handleError } from '../utils/handle-error';
 
 dotenv.config();

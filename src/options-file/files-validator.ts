@@ -1,13 +1,12 @@
-import Joi from '@hapi/joi';
 import path from 'path';
 import { existsSync } from 'fs';
+import Joi from '@hapi/joi';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
-
 import { isCopyFileOptions, FileManager } from '../types';
 
-type Args = {
+interface Args {
 	value: FileManager;
-};
+}
 
 function filesValidator({ value }: Args) {
 	const { dest, src } = value.reduce(

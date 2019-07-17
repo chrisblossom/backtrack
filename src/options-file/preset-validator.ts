@@ -1,7 +1,6 @@
 import Joi from '@hapi/joi';
-import { packageJsonSchema } from './package-json-schema';
-
 import { Preset } from '../types';
+import { packageJsonSchema } from './package-json-schema';
 
 const copyFilesSchema = Joi.object({
 	src: Joi.string().required(),
@@ -146,9 +145,9 @@ function generateSchema(lifecycles: Preset) {
 	return result;
 }
 
-type Args = {
+interface Args {
 	value: Preset;
-};
+}
 
 function presetValidator({ value = {} }: Args = { value: {} }) {
 	const schema = generateSchema(value);

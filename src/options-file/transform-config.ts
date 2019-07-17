@@ -1,4 +1,6 @@
 import { exConfigSync, Options as exConfigOptions } from 'ex-config';
+import { rootPath } from '../config/paths';
+import { Lifecycles, Preset } from '../types';
 import { Preprocessor } from './preprocessor';
 import { postProcessor } from './post-processor';
 import { presetValidator } from './preset-validator';
@@ -7,10 +9,6 @@ import { cleanValidator } from './clean-validator';
 import { cleanProcessor } from './clean-processor';
 import { filesPreprocessor } from './files-preprocessor';
 import { filesValidator } from './files-validator';
-
-import { rootPath } from '../config/paths';
-
-import { Lifecycles, Preset } from '../types';
 
 function transformConfig(
 	config: Preset,

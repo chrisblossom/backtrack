@@ -1,8 +1,7 @@
 import path from 'path';
 import { existsSync } from 'fs';
-import { getFileHash } from './get-file-hash';
-
 import { rootPath } from '../config/paths';
+import { getFileHash } from './get-file-hash';
 
 type Return = Readonly<{
 	absolute: string;

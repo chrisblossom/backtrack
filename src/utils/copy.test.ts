@@ -2,8 +2,7 @@ import path from 'path';
 import { copyFormatMockCalls } from './copy-format-mock-calls';
 import { File } from './copy';
 
-const copy = (files: ReadonlyArray<File> | File) =>
-	require('./copy').copy(files);
+const copy = (files: readonly File[] | File) => require('./copy').copy(files);
 
 describe('copy', () => {
 	let fseCopySpy: any;

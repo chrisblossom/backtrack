@@ -5,7 +5,6 @@ import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { normalizePathname } from '../utils/normalize-pathname';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
-
 import { ParsedFiles, DirStats } from '../types';
 
 function readDir(pathname: string): Promise<string[]> {

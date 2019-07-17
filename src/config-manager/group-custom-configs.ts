@@ -2,9 +2,9 @@ import { Config } from '../types';
 
 function groupCustomConfigs(
 	namespace: string,
-	customConfigs: ReadonlyArray<Config>,
-): ReadonlyArray<unknown> {
-	const result = customConfigs.reduce((acc: Array<string>, config) => {
+	customConfigs: readonly Config[],
+): readonly unknown[] {
+	const result = customConfigs.reduce((acc: string[], config) => {
 		const matched = config[namespace];
 		if (matched === undefined) {
 			return acc;

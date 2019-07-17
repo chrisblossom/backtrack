@@ -1,6 +1,5 @@
 import { get, isEqual } from 'lodash';
 import { mapObjectKeyNames } from '../utils/object-utils';
-
 import { PackageJson } from '../types';
 
 function shouldUpdate(

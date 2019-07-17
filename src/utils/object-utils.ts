@@ -1,9 +1,7 @@
 import { cloneDeep, isPlainObject, mergeWith, toPath } from 'lodash';
 import deepKeys from 'deep-keys';
 
-function toArray<T>(
-	value: ReadonlyArray<T> | Array<T> | T | null | undefined,
-): Array<T> {
+function toArray<T>(value: readonly T[] | T[] | T | null | undefined): T[] {
 	if (value === undefined || value === null) {
 		return [];
 	}
@@ -21,7 +19,7 @@ function mapObjectKeyNames(object?: {}) {
 		return [];
 	}
 
-	const keyPaths: ReadonlyArray<string> = deepKeys(object);
+	const keyPaths: readonly string[] = deepKeys(object);
 
 	const result = keyPaths.map((path: string) => {
 		/**
@@ -43,7 +41,7 @@ function mapObjectKeyNames(object?: {}) {
 	return result;
 }
 
-function getParentsFromPath(path: ReadonlyArray<string>) {
+function getParentsFromPath(path: readonly string[]) {
 	const basePath = toPath(path);
 
 	const result = basePath
@@ -62,7 +60,7 @@ function getParentsFromPath(path: ReadonlyArray<string>) {
 	return result;
 }
 
-function mergeDeep(...objects: Array<Object>) {
+function mergeDeep(...objects: Record<string, any>[]) {
 	const [first, ...rest] = objects;
 
 	/**

@@ -4,7 +4,6 @@ import { backupFile } from '../utils/backup-file';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { mapObjectKeyNames } from '../utils/object-utils';
-
 import { PackageJson } from '../types';
 
 type Return = Promise<{

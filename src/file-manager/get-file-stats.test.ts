@@ -84,7 +84,7 @@ describe('getFileStats', () => {
 		const dir = path.resolve(__dirname, '__sandbox__/stats1/');
 		process.chdir(dir);
 
-		const value: Array<void> = [];
+		const value: void[] = [];
 
 		const parsedFiles = filesParser({ value });
 

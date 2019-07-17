@@ -1,9 +1,8 @@
 import path from 'path';
 import { existsSync } from 'fs';
 import { move } from 'fs-extra';
-import { getFileHash } from './get-file-hash';
-
 import { rootPath } from '../config/paths';
+import { getFileHash } from './get-file-hash';
 
 type Return = Promise<{
 	file: string;

@@ -1,5 +1,4 @@
 import { merge } from 'lodash';
-
 import { Lifecycles, PackageJson } from '../types';
 
 const customScripts = {

@@ -1,6 +1,8 @@
 import { PackageJson } from '../types';
 
-type CurrentObject = { [key: string]: unknown };
+interface CurrentObject {
+	[key: string]: unknown;
+}
 
 function removeNullValues(packageJson: PackageJson): PackageJson {
 	const removeNull = (object: CurrentObject): PackageJson => {

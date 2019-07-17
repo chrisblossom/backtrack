@@ -1,9 +1,8 @@
 import path from 'path';
 import { existsSync } from 'fs';
-import { normalizeStats } from './normalize-stats';
 import { rootPath } from '../config/paths';
-
 import { StatsFile } from '../types';
+import { normalizeStats } from './normalize-stats';
 
 const statsFilename = '.backtrack-stats.json';
 

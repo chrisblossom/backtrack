@@ -1,3 +1,4 @@
+import { Lifecycles, PackageJson } from '../types';
 import { getManagedKeys } from './get-managed-keys';
 import { shouldUpdate } from './should-update';
 import { updatePackageJson } from './update-package-json';
@@ -6,8 +7,6 @@ import { loadPackageJson } from './load-package-json';
 import { removeNullValues } from './remove-null-values';
 import { sortPackageJson } from './sort-package-json';
 import { writePackageJson } from './write-package-json';
-
-import { Lifecycles, PackageJson } from '../types';
 
 async function packageJsonManager(
 	lifecycles: Lifecycles = {},

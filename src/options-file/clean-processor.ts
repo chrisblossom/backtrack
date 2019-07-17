@@ -9,10 +9,10 @@ const base = {
 	copy: [],
 };
 
-type Args = {
-	value: Array<NormalizedClean>;
+interface Args {
+	value: NormalizedClean[];
 	current?: NormalizedClean;
-};
+}
 
 function cleanProcessor({ value, current = base }: Args) {
 	return value.reduce(

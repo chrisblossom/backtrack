@@ -1,9 +1,7 @@
 import del from 'del';
 import { makeDirs } from '../utils/make-dirs';
 import { copy } from '../utils/copy';
-
 import { buildPath } from '../config/paths';
-
 import { NormalizedClean } from '../types';
 
 const base: NormalizedClean = {

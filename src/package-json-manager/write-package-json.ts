@@ -2,7 +2,6 @@ import path from 'path';
 import { writeFileSync } from 'fs';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
-
 import { PackageJson } from '../types';
 
 function writePackageJson(packageJson: PackageJson) {

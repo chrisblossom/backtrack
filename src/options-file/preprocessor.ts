@@ -1,15 +1,14 @@
 import readPkgUp from 'read-pkg-up';
-
 import { Preset, Lifecycles } from '../types';
 
-type Args = {
+interface Args {
 	value: Preset;
 	dirname: string;
-};
+}
 
 function Preprocessor() {
 	let baseConfig = true;
-	const blacklist: Array<string | void> = [];
+	const blacklist: (string | void)[] = [];
 
 	/**
 	 * The preprocessor is ran up up the chain on each preset

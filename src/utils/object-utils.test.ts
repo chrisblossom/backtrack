@@ -73,7 +73,7 @@ describe('getParentsFromPath', () => {
 	});
 
 	test('handles empty array', () => {
-		const path: Array<string> = [];
+		const path: string[] = [];
 
 		const result = getParentsFromPath(path);
 

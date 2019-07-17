@@ -1,14 +1,13 @@
-import { resolveWithPrefixSync } from 'resolve-with-prefix';
 import path from 'path';
+import { resolveWithPrefixSync } from 'resolve-with-prefix';
 import { toArray } from '../utils/object-utils';
-
 import { Resolve } from '../types';
 
-type Args = {
-	value: Resolve | ReadonlyArray<Resolve>;
+interface Args {
+	value: Resolve | readonly Resolve[];
 	current?: Resolve;
 	dirname: string;
-};
+}
 
 function resolveProcessor(args: Args): Resolve {
 	const { value, current = {}, dirname } = args;

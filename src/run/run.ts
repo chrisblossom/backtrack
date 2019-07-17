@@ -2,10 +2,10 @@
 
 import log from '../utils/log';
 import { handleError } from '../utils/handle-error';
-import { validateTask } from './validate-task';
 import { clean } from '../clean/clean';
 import { toArray } from '../utils/object-utils';
 import { AllTaskTypes, Task } from '../types';
+import { validateTask } from './validate-task';
 import { runShellCommand } from './run-shell-command';
 
 function checkForRun(task: AllTaskTypes, ...options: any[]) {
@@ -35,7 +35,7 @@ function isSingleTask(task: any): task is AllTaskTypes {
 async function runTask(
 	task: Task,
 	...options: any[]
-): Promise<ReadonlyArray<unknown>> {
+): Promise<readonly unknown[]> {
 	/**
 	 * Handle single tasks
 	 */
@@ -71,7 +71,7 @@ async function runTask(
 function run(
 	taskName: string,
 	task: Task,
-	...options: Array<unknown>
+	...options: unknown[]
 ): Promise<unknown> {
 	return new Promise((resolve) => {
 		/**

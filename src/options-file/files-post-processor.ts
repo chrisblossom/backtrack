@@ -2,7 +2,6 @@ import path from 'path';
 import { parseFilePath } from '../utils/parse-file-path';
 import { normalizePathname } from '../utils/normalize-pathname';
 import { toArray } from '../utils/object-utils';
-
 import {
 	FileManager,
 	CopyFile,
@@ -11,7 +10,7 @@ import {
 	ParsedFiles,
 } from '../types';
 
-function shouldSkip(pathname: string, skipFiles: Array<string>) {
+function shouldSkip(pathname: string, skipFiles: string[]) {
 	const split = pathname.split(path.sep);
 
 	let currentPath;
@@ -26,18 +25,18 @@ function shouldSkip(pathname: string, skipFiles: Array<string>) {
 	return false;
 }
 
-type SplitSections = {
+interface SplitSections {
 	copyFiles: CopyFile[];
 	options: CopyFileOptions[];
 	makeDirs: string[];
-};
+}
 
 function splitSections(copyFiles: FileManager): SplitSections {
-	type SectionsAcc = {
+	interface SectionsAcc {
 		copyFiles: CopyFile[];
 		options: CopyFileOptions[];
 		makeDirs: string[];
-	};
+	}
 
 	const sections = copyFiles.reduceRight(
 		(acc: SectionsAcc, file) => {
@@ -74,13 +73,13 @@ function splitSections(copyFiles: FileManager): SplitSections {
 }
 
 function parseOptions(options: CopyFileOptions[]) {
-	type ParseOptionsAcc = {
+	interface ParseOptionsAcc {
 		allowChangesAll: boolean;
 		ignoreUpdatesAll: boolean;
 		allowChanges: string[];
 		ignoreUpdates: string[];
 		skip: string[];
-	};
+	}
 
 	const result = options.reduce(
 		(acc: ParseOptionsAcc, fileOptions) => {
@@ -172,9 +171,9 @@ function getMakeDirs(makeDirs: string[], files: string[], skipFiles: string[]) {
 	return result;
 }
 
-type Args = {
+interface Args {
 	value?: FileManager;
-};
+}
 
 /**
  * Normally this would be a normal processor, but we need to have all results up front

@@ -2,7 +2,6 @@ import path from 'path';
 import { copy } from '../utils/copy';
 import log from '../utils/log';
 import { rootPath } from '../config/paths';
-
 import { ParsedFiles, FileStats } from '../types';
 
 async function copyFiles(files: ParsedFiles, previousStats: FileStats = {}) {

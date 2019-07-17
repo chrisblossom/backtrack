@@ -9,7 +9,7 @@
 
 type CopyCalls = [string, string, {}];
 
-function copyFormatMockCalls(calls: ReadonlyArray<CopyCalls>) {
+function copyFormatMockCalls(calls: readonly CopyCalls[]) {
 	const result = calls.reduce((acc, call) => {
 		const src = call[0];
 		const dest = call[1];

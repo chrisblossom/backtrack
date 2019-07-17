@@ -4,9 +4,7 @@ import { toArray } from './object-utils';
 /**
  * See https://github.com/jprichardson/node-fs-extra/blob/master/docs/ensureDir.md#ensuredirdir-callback
  */
-async function makeDirs(
-	dirs: Array<string> | string,
-): Promise<ReadonlyArray<string>> {
+async function makeDirs(dirs: string[] | string): Promise<readonly string[]> {
 	const normalized = toArray(dirs);
 
 	const result = await Promise.all(

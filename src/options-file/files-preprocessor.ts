@@ -1,12 +1,11 @@
 import path from 'path';
 import { toArray } from '../utils/object-utils';
-
 import { isCopyFileOptions, Files } from '../types';
 
-type Args = {
+interface Args {
 	value?: Files;
 	dirname?: string;
-};
+}
 
 function filesPreprocessor({ value, dirname = '' }: Args = {}) {
 	const resolveSrc = toArray(value).map((files) => {

@@ -1,7 +1,7 @@
 import path from 'path';
 import { realpathSync } from 'fs';
-import del from 'del';
 import os from 'os';
+import del from 'del';
 import fse from 'fs-extra';
 import { getRandomInteger } from '../utils/get-random-number';
 import { fileInfo } from './file-test-utils';

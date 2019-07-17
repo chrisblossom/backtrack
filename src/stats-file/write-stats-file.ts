@@ -1,13 +1,12 @@
 import path from 'path';
-import sortKeys from 'sort-keys';
 import { existsSync, writeFileSync } from 'fs';
+import sortKeys from 'sort-keys';
 import { isEqual } from 'lodash';
 import del from 'del';
-import { normalizeStats } from './normalize-stats';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
-
 import { StatsFile } from '../types';
+import { normalizeStats } from './normalize-stats';
 
 const statsFilename = '.backtrack-stats.json';
 

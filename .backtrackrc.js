@@ -23,6 +23,12 @@ module.exports = {
 			return config;
 		},
 
+		eslint: {
+			rules: {
+				'jest/prefer-inline-snapshots': 'off',
+			},
+		},
+
 		wallaby: (config) => {
 			config.files = config.files.filter((pattern) => {
 				return pattern !== '!**/node_modules/**';

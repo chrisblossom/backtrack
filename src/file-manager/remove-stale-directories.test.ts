@@ -1,8 +1,8 @@
 import os from 'os';
 import path from 'path';
+import { realpathSync } from 'fs';
 import del from 'del';
 import fse from 'fs-extra';
-import { realpathSync } from 'fs';
 import { getRandomInteger } from '../utils/get-random-number';
 
 const filesPreprocessor = (args: any) =>
@@ -113,7 +113,7 @@ describe('removeStaleDirectories', () => {
 
 	test('removes full file tree with multiple nested', async () => {
 		const previousFiles = [{ makeDirs: ['dist/static', 'dist/inside'] }];
-		const files: ReadonlyArray<void> = [];
+		const files: readonly void[] = [];
 
 		const { parsedFiles, previousStats } = await dirInfo(
 			files,

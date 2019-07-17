@@ -1,11 +1,10 @@
 import path from 'path';
 import { buildPath, rootPath } from '../config/paths';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
-
 import { NormalizedClean } from '../types';
 
 type Args = Readonly<{
-	value: ReadonlyArray<NormalizedClean>;
+	value: readonly NormalizedClean[];
 }>;
 
 function cleanValidator({ value }: Args) {

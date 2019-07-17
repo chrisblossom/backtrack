@@ -4,7 +4,7 @@ import { mergeDeep } from '../utils/object-utils';
 function mergeCustomConfigs(
 	namespace: string,
 	config: any,
-	customConfigs: ReadonlyArray<any>,
+	customConfigs: readonly any[],
 ) {
 	const expectedType = getType(config);
 	/**

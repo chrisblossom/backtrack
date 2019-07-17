@@ -5,7 +5,6 @@ import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { getFileHash } from '../utils/get-file-hash';
 import { backupFile } from '../utils/backup-file';
-
 import { ParsedFiles, FileStats } from '../types';
 
 async function removeStaleFiles(

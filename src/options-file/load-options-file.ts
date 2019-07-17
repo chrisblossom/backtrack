@@ -2,15 +2,15 @@ import cosmiconfig from 'cosmiconfig';
 import { rootPath } from '../config/paths';
 import { Preset } from '../types';
 
-type ESModule = {
+interface ESModule {
 	__esModule: true;
 	default?: Preset;
-};
+}
 
-type Result = {
+interface Result {
 	config: Preset | ESModule;
 	filepath: string;
-};
+}
 
 function isESModule(obj: any): obj is ESModule {
 	return obj.__esModule === true;

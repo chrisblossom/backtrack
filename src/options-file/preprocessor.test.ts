@@ -1,6 +1,6 @@
 import { Preprocessor } from './preprocessor';
 
-describe('Preprocessor', () => {
+describe('preprocessor', () => {
 	test('removes previous lifecycles when false found', () => {
 		const preprocessor = Preprocessor();
 

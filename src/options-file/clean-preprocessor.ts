@@ -3,13 +3,11 @@ import { toArray } from '../utils/object-utils';
 import { buildPath, rootPath } from '../config/paths';
 import { Clean, NormalizedClean } from '../types';
 
-type Args = {
-	value?: Clean | ReadonlyArray<Clean>;
-};
+interface Args {
+	value?: Clean | readonly Clean[];
+}
 
-function cleanPreprocessor({ value }: Args = {}): ReadonlyArray<
-	NormalizedClean
-> {
+function cleanPreprocessor({ value }: Args = {}): readonly NormalizedClean[] {
 	const allToArray = toArray(value);
 
 	return allToArray.map((arg: Clean) => {

@@ -2,11 +2,11 @@ import path from 'path';
 import { buildPath, sourcePath, rootPath } from '../config/paths';
 import { filesPostProcessor } from './files-post-processor';
 
-type Args = {
+interface Args {
 	value: {
-		files?: ReadonlyArray<Object>;
+		files?: readonly Record<string, any>[];
 	};
-};
+}
 
 function postProcessor({ value }: Args) {
 	const makeDirs = [buildPath, sourcePath].map((dir) => {

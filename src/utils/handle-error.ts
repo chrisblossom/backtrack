@@ -1,11 +1,11 @@
+import { CustomError } from '../types';
 import log from './log';
 import { toArray } from './object-utils';
-import { CustomError } from '../types';
 
 type Errors = Error | CustomError | string;
 
 type HandleError = Readonly<{
-	error: Errors | ReadonlyArray<Errors>;
+	error: Errors | readonly Errors[];
 	logPrefix: string;
 	startTime?: Date;
 }>;
@@ -14,7 +14,7 @@ function isCustomError(error: any): error is CustomError {
 	return typeof error === 'object' && error.exitCode !== undefined;
 }
 
-function getExitCode(errors: ReadonlyArray<Errors>): number {
+function getExitCode(errors: readonly Errors[]): number {
 	// Use reduce because it works better with typescript types
 	const codes = errors.reduce((acc: number[], error) => {
 		if (!isCustomError(error)) {

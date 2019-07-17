@@ -2,7 +2,6 @@ import path from 'path';
 import { rootPath } from '../config/paths';
 import { backupFile } from '../utils/backup-file';
 import log from '../utils/log';
-
 import { ParsedFiles, FileStats } from '../types';
 
 async function backupChangedFiles(

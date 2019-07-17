@@ -1,15 +1,14 @@
 import path from 'path';
+import { makeDirs } from '../utils/make-dirs';
+import log from '../utils/log';
+import { rootPath } from '../config/paths';
+import { filesPostProcessor } from '../options-file/files-post-processor';
+import { ParsedFiles, FileManagerStats } from '../types';
 import { backupChangedFiles } from './backup-changed-files';
 import { removeStaleFiles } from './remove-stale-files';
 import { removeStaleDirectories } from './remove-stale-directories';
 import { copyFiles } from './copy-files';
 import { getFileStats } from './get-file-stats';
-import { makeDirs } from '../utils/make-dirs';
-import log from '../utils/log';
-import { rootPath } from '../config/paths';
-import { filesPostProcessor } from '../options-file/files-post-processor';
-
-import { ParsedFiles, FileManagerStats } from '../types';
 
 type Return = Promise<FileManagerStats>;
 
