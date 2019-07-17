@@ -15,7 +15,7 @@ function checkForRun(task: AllTaskTypes, ...options: any[]) {
 			throw new Error(`'${missing}' is required for run syntax`);
 		}
 
-		// eslint-disable-next-line no-use-before-define
+		// eslint-disable-next-line @typescript-eslint/no-use-before-define
 		return run(task.name, task.task, ...options);
 	}
 	/**

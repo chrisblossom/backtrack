@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-
 type ShellCommand = string;
 type CustomFn = Function;
 

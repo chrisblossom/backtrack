@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import { TempSandbox } from 'temp-sandbox';
 
 const backtrack = () => {

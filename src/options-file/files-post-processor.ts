@@ -141,7 +141,9 @@ function getMakeDirs(makeDirs: string[], files: string[], skipFiles: string[]) {
 	const result = [...filePaths, ...makeDirs]
 		// eslint-disable-next-line arrow-body-style
 		.map((dir) => normalizePathname(dir))
-		.sort()
+		.sort((a, b) => {
+			return a.localeCompare(b);
+		})
 		.reduceRight((acc: string[], dir) => {
 			/**
 			 * remove skipped

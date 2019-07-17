@@ -95,7 +95,6 @@ function handleError(args: HandleError): Promise<void> {
 
 			// eslint-disable-next-line no-process-exit
 			process.exit(exitCode);
-			// eslint-disable-next-line no-unreachable
 			resolve();
 		});
 	});
