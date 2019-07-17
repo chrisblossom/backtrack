@@ -33,6 +33,7 @@
     "mocha"
   ],
   "license": "MIT",
+  "private": false,
   "repository": "chrisblossom/backtrack",
   "homepage": "https://github.com/chrisblossom/backtrack",
   "author": "Chris Blossom",
@@ -62,6 +63,7 @@
     "lint": "backtrack lint",
     "lint.fix": "backtrack lint.fix",
     "prepublishOnly": "backtrack prepublishOnly",
+    "release": "backtrack release",
     "test": "backtrack test",
     "test.ci": "backtrack test.ci",
     "test.ci-pretest": "backtrack test.ci-pretest",
@@ -71,7 +73,7 @@
   },
   "devDependencies": {
     "@backtrack/core": "^0.2.1",
-    "@backtrack/preset-node": "^0.4.4",
+    "@backtrack/preset-node": "^0.6.2",
     "@types/cosmiconfig": "^5.0.3",
     "@types/dotenv": "^6.1.1",
     "@types/execa": "^0.9.0",
