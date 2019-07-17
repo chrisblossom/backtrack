@@ -21,7 +21,7 @@ describe('backupPackageJson', () => {
 		jest.spyOn(console, 'error').mockImplementation(() => undefined);
 		jest.spyOn(console, 'debug').mockImplementation(() => undefined);
 
-		move = require.requireMock('fs-extra').move;
+		move = jest.requireMock('fs-extra').move;
 
 		jest.mock('fs-extra', () => ({
 			move: jest.fn(() => Promise.resolve()),

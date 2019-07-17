@@ -11,10 +11,10 @@ describe('removeStaleFiles', () => {
 	let move: any;
 
 	beforeEach(() => {
-		del = require.requireMock('del');
+		del = jest.requireMock('del');
 		jest.mock('del', () => jest.fn(() => Promise.resolve()));
 
-		move = require.requireMock('fs-extra').move;
+		move = jest.requireMock('fs-extra').move;
 		jest.mock('fs-extra', () => ({
 			move: jest.fn(() => Promise.resolve()),
 		}));

@@ -15,7 +15,7 @@ describe('start', () => {
 			success: jest.fn(),
 		}));
 
-		run = require.requireMock('../run/run').run;
+		run = jest.requireMock('../run/run').run;
 		jest.mock('../run/run', () => ({ run: jest.fn() }));
 		jest.mock('../utils/handle-error', () => ({
 			handleError: jest.fn(),

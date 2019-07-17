@@ -10,7 +10,7 @@ describe('writeStatsFile', () => {
 	let del: any;
 
 	beforeEach(() => {
-		del = require.requireMock('del');
+		del = jest.requireMock('del');
 
 		jest.mock('del', () => jest.fn(() => Promise.resolve()));
 

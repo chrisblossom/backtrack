@@ -10,7 +10,7 @@ describe('copyFiles', () => {
 	let copy: any;
 
 	beforeEach(() => {
-		copy = require.requireMock('fs-extra').copy;
+		copy = jest.requireMock('fs-extra').copy;
 
 		jest.mock('fs-extra', () => ({
 			copy: jest.fn(() => Promise.resolve()),

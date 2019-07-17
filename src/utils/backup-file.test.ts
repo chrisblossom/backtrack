@@ -5,10 +5,10 @@ const backupFile = (file: string) => require('./backup-file').backupFile(file);
 describe('backupFile', () => {
 	const dir = path.resolve(__dirname, '__sandbox__/backup-file/');
 	const cwd = process.cwd();
-	let move = require.requireMock('fs-extra').move;
+	let move = jest.requireMock('fs-extra').move;
 
 	beforeEach(() => {
-		move = require.requireMock('fs-extra').move;
+		move = jest.requireMock('fs-extra').move;
 
 		jest.mock('fs-extra', () => ({
 			move: jest.fn(() => Promise.resolve()),

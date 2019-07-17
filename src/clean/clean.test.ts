@@ -15,9 +15,9 @@ function clean(files: any) {
 
 describe('clean', () => {
 	const cwd = process.cwd();
-	let del = require.requireMock('del');
-	let ensureDir = require.requireMock('fs-extra').ensureDir;
-	let copy = require.requireMock('fs-extra').copy;
+	let del = jest.requireMock('del');
+	let ensureDir = jest.requireMock('fs-extra').ensureDir;
+	let copy = jest.requireMock('fs-extra').copy;
 
 	beforeEach(() => {
 		jest.doMock('../utils/log', () => ({
@@ -29,7 +29,7 @@ describe('clean', () => {
 
 		jest.doMock('del', () =>
 			jest.fn((pattern, options = {}) => {
-				const delActual = require.requireActual('del');
+				const delActual = jest.requireActual('del');
 
 				return delActual(pattern, {
 					...options,
@@ -38,15 +38,15 @@ describe('clean', () => {
 			}),
 		);
 
-		del = require.requireMock('del');
+		del = jest.requireMock('del');
 
 		jest.doMock('fs-extra', () => ({
 			ensureDir: jest.fn(() => Promise.resolve()),
 			copy: jest.fn(() => Promise.resolve()),
 		}));
 
-		ensureDir = require.requireMock('fs-extra').ensureDir;
-		copy = require.requireMock('fs-extra').copy;
+		ensureDir = jest.requireMock('fs-extra').ensureDir;
+		copy = jest.requireMock('fs-extra').copy;
 	});
 
 	afterEach(() => {

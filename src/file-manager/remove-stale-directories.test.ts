@@ -58,10 +58,10 @@ describe('removeStaleDirectories', () => {
 	);
 
 	beforeEach(async () => {
-		delMock = require.requireMock('del');
+		delMock = jest.requireMock('del');
 		jest.mock('del', () =>
 			jest.fn((dirs) => {
-				const delActual = require.requireActual('del');
+				const delActual = jest.requireActual('del');
 
 				return delActual(dirs);
 			}),
