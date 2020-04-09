@@ -7,7 +7,7 @@ async function runShellCommand(command: string) {
 		command,
 		// @ts-ignore
 		{
-			env: { FORCE_COLOR: true },
+			env: { FORCE_COLOR: 'true' },
 			// https://nodejs.org/api/child_process.html#child_process_options_stdio
 			stdio: [
 				// stdin - forward keyboard input
