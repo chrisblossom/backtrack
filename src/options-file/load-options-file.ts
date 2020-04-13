@@ -1,4 +1,4 @@
-import cosmiconfig from 'cosmiconfig';
+import { cosmiconfigSync } from 'cosmiconfig';
 import { rootPath } from '../config/paths';
 import { Preset } from '../types';
 
@@ -54,14 +54,14 @@ function transform(result: Result | null) {
 	};
 }
 
-const explorer = cosmiconfig('backtrack', {
+const explorer = cosmiconfigSync('backtrack', {
 	stopDir: rootPath,
 	transform,
 });
 
 function loadOptionsFile(searchPath: string = rootPath): Preset {
 	// @ts-ignore
-	const { config } = explorer.searchSync(searchPath);
+	const { config } = explorer.search(searchPath);
 
 	return config as Preset;
 }
