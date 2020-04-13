@@ -27,12 +27,13 @@ class Pkg {
 
 		const dirname = this.resolveMap[sourceId];
 
-		if (!dirname) {
+		if (dirname === undefined) {
 			const sources = Object.keys(this.resolveMap).join(', ');
 
 			throw new Error(
-				`sourceId "${sourceId}" is not valid. Available sourceIds: ${sources ||
-					'null'}`,
+				`sourceId "${sourceId}" is not valid. Available sourceIds: ${
+					sources || 'null'
+				}`,
 			);
 		}
 	}
@@ -52,6 +53,7 @@ class Pkg {
 
 		const modulePath = resolveWithPrefixSync(packageId, { dirname });
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return require(modulePath);
 	}
 }

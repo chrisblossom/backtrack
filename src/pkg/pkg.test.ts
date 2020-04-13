@@ -42,7 +42,7 @@ describe('pkg', () => {
 		}
 	});
 
-	test('handles unmatched resolve source with none available ', () => {
+	test('handles unmatched resolve source with none available', () => {
 		try {
 			expect.hasAssertions();
 

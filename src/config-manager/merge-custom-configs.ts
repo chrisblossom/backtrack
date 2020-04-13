@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import { getType } from '../utils/get-type';
 import { mergeDeep } from '../utils/object-utils';
 
@@ -18,8 +20,10 @@ function mergeCustomConfigs(
 			let fnResult;
 
 			try {
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 				fnResult = currentConfig(acc);
 			} catch (error) {
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 				error.message +=
 					// eslint-disable-next-line no-useless-concat
 					'\n' + `config namespace context: ${namespace}`;

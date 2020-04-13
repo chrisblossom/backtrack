@@ -7,6 +7,10 @@ module.exports = {
 		files: ['dist/', 'paths.js'],
 	},
 
+	files: {
+		allowChanges: 'tsconfig.json',
+	},
+
 	config: {
 		babel: (config) => {
 			const presetEnvConfig = config.presets.find((preset) => {
@@ -29,6 +33,12 @@ module.exports = {
 			},
 			overrides: [
 				{
+					files: ['./paths.js'],
+					rules: {
+						'import/no-unresolved': 'off',
+					},
+				},
+				{
 					files: ['*.{ts,tsx}', '.*.{ts,tsx}'],
 					rules: {
 						// TODO: enable
@@ -46,6 +56,17 @@ module.exports = {
 						'promise/prefer-await-to-then': 'off',
 						'@typescript-eslint/no-floating-promises': 'off',
 						'@typescript-eslint/no-var-requires': 'off',
+
+						'@typescript-eslint/strict-boolean-expressions': [
+							'off',
+							// {
+							// 	allowNullable: true,
+							// 	allowSafe: true,
+							// 	ignoreRhs: true,
+							// },
+						],
+						'@typescript-eslint/no-throw-literal': 'off',
+						'jest/no-export': 'off',
 					},
 				},
 			],

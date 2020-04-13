@@ -56,7 +56,7 @@
             "test.ci": "backtrack test.ci",
             "test.ci-pretest": "backtrack test.ci-pretest",
             "test.update": "jest --update-snapshot",
-            "test.watch": "jest --watch",
+            "test.watch": "jest --watch --pass-with-no-tests",
             "typescript": "backtrack typescript"
         },
         "types": "dist/core.d.ts"

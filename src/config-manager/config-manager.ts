@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return */
+
 import { groupCustomConfigs } from './group-custom-configs';
 import { mergeCustomConfigs } from './merge-custom-configs';
 

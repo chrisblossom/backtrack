@@ -27,14 +27,17 @@ function Preprocessor() {
 				if (Array.isArray(task)) {
 					task = task.reduceRight((acc2, currentTask) => {
 						if (skipTask === true) {
+							// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 							return acc2;
 						}
 
 						if (currentTask === false) {
 							skipTask = true;
+							// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 							return acc2;
 						}
 
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 						return [currentTask, ...acc2];
 					}, []);
 				}

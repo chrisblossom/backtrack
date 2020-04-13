@@ -6,7 +6,7 @@ import { DirStats, StatsFile, FileStats } from '../types';
  * Normalize all paths to be compatible with current operating system
  */
 function normalizeStats(stats: StatsFile, type: 'load' | 'write') {
-	if (!stats.fileManager) {
+	if (stats.fileManager === undefined) {
 		return stats;
 	}
 
@@ -24,7 +24,7 @@ function normalizeStats(stats: StatsFile, type: 'load' | 'write') {
 		files?: FileStats;
 	} = {};
 
-	if (directories) {
+	if (directories !== undefined) {
 		normalizedFileManager.directories = directories.map((dir) => {
 			const normalizedDir = normalizer(dir);
 
@@ -32,7 +32,7 @@ function normalizeStats(stats: StatsFile, type: 'load' | 'write') {
 		});
 	}
 
-	if (files) {
+	if (files !== undefined) {
 		normalizedFileManager.files = Object.keys(files).reduce((acc, dir) => {
 			const checksum = files[dir];
 			const normalizedKey = normalizer(dir);

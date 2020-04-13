@@ -10,9 +10,12 @@ import { runShellCommand } from './run-shell-command';
 
 function checkForRun(task: AllTaskTypes, ...options: any[]) {
 	if (typeof task === 'object') {
-		if (!task.name || !task.task) {
-			const missing = !task.name ? 'name' : 'task';
-			throw new Error(`'${missing}' is required for run syntax`);
+		if (typeof task.name !== 'string' || task.name === '') {
+			throw new Error(`'name' is required for run syntax`);
+		}
+
+		if (!task.task) {
+			throw new Error(`'task' is required for run syntax`);
 		}
 
 		// eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -25,6 +28,7 @@ function checkForRun(task: AllTaskTypes, ...options: any[]) {
 		return runShellCommand(task);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return task(...options);
 }
 
@@ -42,6 +46,7 @@ async function runTask(
 	if (isSingleTask(task)) {
 		const result = await checkForRun(task, ...options);
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return [result];
 	}
 
@@ -57,6 +62,7 @@ async function runTask(
 		} else {
 			const taskDone = await Promise.all(
 				currentTask.map((task1) => {
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 					return checkForRun(task1, ...options);
 				}),
 			);
@@ -65,6 +71,7 @@ async function runTask(
 		}
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return result;
 }
 
@@ -78,7 +85,7 @@ function run(
 		 * push to back of stack for correct starting/finishing logging order
 		 */
 		setImmediate(() => {
-			const NODE_ENV = process.env.NODE_ENV || 'undefined';
+			const NODE_ENV = process.env.NODE_ENV ?? 'undefined';
 			const logPrefix = `${taskName || 'run'}:${NODE_ENV}`;
 
 			validateTask(taskName);
@@ -110,7 +117,10 @@ function run(
 						process.nextTick(() => {
 							const end = new Date();
 							const time = end.getTime() - start.getTime();
-							log.info(logPrefix, `Finished after ${time} ms`);
+							log.info(
+								logPrefix,
+								`Finished after ${time.toString()} ms`,
+							);
 
 							innerResolve(taskResult);
 						});

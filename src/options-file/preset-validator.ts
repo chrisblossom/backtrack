@@ -10,26 +10,19 @@ const copyFilesSchema = Joi.object({
 });
 
 const filesOptionsSchema = Joi.object({
-	skip: Joi.array()
-		.items(Joi.string())
-		.single(true),
+	skip: Joi.array().items(Joi.string()).single(true),
 
 	allowChanges: [
-		Joi.array()
-			.items(Joi.string())
-			.single(true),
+		//
+		Joi.array().items(Joi.string()).single(true),
 		Joi.boolean(),
 	],
 	ignoreUpdates: [
-		Joi.array()
-			.items(Joi.string())
-			.single(true),
+		Joi.array().items(Joi.string()).single(true),
 		Joi.boolean(),
 	],
 
-	makeDirs: Joi.array()
-		.items(Joi.string())
-		.single(true),
+	makeDirs: Joi.array().items(Joi.string()).single(true),
 });
 
 const filesSchema = Joi.array()
@@ -71,14 +64,8 @@ const cleanCopySchema = Joi.array()
 const cleanSchema = Joi.array()
 	.items(
 		Joi.object({
-			del: Joi.array()
-				.items(Joi.string())
-				.single(true)
-				.min(1),
-			makeDirs: Joi.array()
-				.items(Joi.string())
-				.single(true)
-				.min(1),
+			del: Joi.array().items(Joi.string()).single(true).min(1),
+			makeDirs: Joi.array().items(Joi.string()).single(true).min(1),
 			copy: cleanCopySchema,
 		}).min(1),
 	)
@@ -98,9 +85,7 @@ const configSchema = Joi.array()
 	.single(true)
 	.label('config');
 
-const resolveSchema = Joi.object()
-	.pattern(/.*/, Joi.string())
-	.label('resolve');
+const resolveSchema = Joi.object().pattern(/.*/, Joi.string()).label('resolve');
 
 function generateSchema(lifecycles: Preset) {
 	const managedLifecycles = {

@@ -18,8 +18,9 @@ async function writeStatsFile(
 
 	const filterEmptySections: StatsFile = Object.keys(sections).reduce(
 		(acc, section) => {
-			// @ts-ignore
-			const matchedSection = sections[section] || {};
+			const matchedSection =
+				// @ts-ignore
+				sections[section] !== undefined ? sections[section] : {};
 
 			if (Object.keys(matchedSection).length === 0) {
 				return acc;

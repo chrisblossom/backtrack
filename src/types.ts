@@ -37,7 +37,9 @@ export interface CopyFileOptions {
 	ignoreUpdates?: string[] | string | boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function isCopyFileOptions(obj: any): obj is CopyFileOptions {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return obj.src === undefined && obj.dest === undefined;
 }
 
@@ -48,7 +50,9 @@ export interface CopyFile {
 	ignoreUpdates?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function isCopyFile(obj: any): obj is CopyFile {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return obj.src !== undefined && obj.dest !== undefined;
 }
 

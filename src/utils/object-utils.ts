@@ -14,8 +14,8 @@ function toArray<T>(value: readonly T[] | T[] | T | null | undefined): T[] {
 	return [value];
 }
 
-function mapObjectKeyNames(object?: {}) {
-	if (!object || Object.keys(object).length === 0) {
+function mapObjectKeyNames(object: Record<string, unknown> = {}) {
+	if (Object.keys(object).length === 0) {
 		return [];
 	}
 
@@ -68,6 +68,7 @@ function mergeDeep(...objects: Record<string, any>[]) {
 	 */
 	const firstCopy = cloneDeep(first);
 
+	/* eslint-disable @typescript-eslint/no-unsafe-return */
 	return mergeWith(firstCopy, ...rest, (objValue: any, srcValue: any) => {
 		if (Array.isArray(objValue)) {
 			return objValue.concat(srcValue);
@@ -79,6 +80,7 @@ function mergeDeep(...objects: Record<string, any>[]) {
 
 		return srcValue;
 	});
+	/* eslint-enable @typescript-eslint/no-unsafe-return */
 }
 
 function hasProperty<O>(object: O, property: string): boolean {

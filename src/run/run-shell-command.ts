@@ -36,12 +36,15 @@ async function runShellCommand(command: string) {
 
 	try {
 		await runningCommand;
-	} catch (error) {
+	} catch (err) {
+		const error: execa.ExecaError = err;
+
 		/**
 		 * An error stack is not relevant here because it is an external command
 		 *
 		 * More detailed command not found error
 		 */
+		// @ts-ignore
 		if (error.code === 'ENOENT') {
 			throw {
 				message: `Command not found: ${error.cmd}`,
@@ -50,7 +53,7 @@ async function runShellCommand(command: string) {
 		}
 
 		const code = error.code;
-		const exitCode = code === 0 || code ? parseInt(code, 10) : 1;
+		const exitCode = code === 0 || code ? code : 1;
 
 		throw {
 			message: `Command failed: ${error.cmd}`,

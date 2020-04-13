@@ -43,7 +43,7 @@ async function backupFile(file: string): Return {
 				previouslyBackedUp = true;
 			}
 
-			backupFilename = `${filename}-backup-${shortHash}-${count}${ext}`;
+			backupFilename = `${filename}-backup-${shortHash}-${count.toString()}${ext}`;
 			backupFilePath = path.resolve(dir, backupFilename);
 
 			backupFileExists = existsSync(backupFilePath);

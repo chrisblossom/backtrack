@@ -54,7 +54,7 @@ describe('removeStaleDirectories', () => {
 	const dir = path.resolve(
 		realpathSync(os.tmpdir()),
 		'backtrack',
-		`cwd_${getRandomInteger()}`,
+		`cwd_${getRandomInteger().toString()}`,
 	);
 
 	beforeEach(async () => {

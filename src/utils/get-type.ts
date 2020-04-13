@@ -18,7 +18,6 @@ type Types =
 	| 'date'
 	| 'function'
 	| 'number'
-	| 'null'
 	| 'plain object'
 	| 'promise'
 	| 'string'

@@ -24,9 +24,7 @@ const disallowed = [
 ].reduce((acc, key) => {
 	return {
 		...acc,
-		[key]: Joi.any()
-			.forbidden()
-			.label(`package.json managedKey: ${key}`),
+		[key]: Joi.any().forbidden().label(`package.json managedKey: ${key}`),
 	};
 }, {});
 

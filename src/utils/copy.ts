@@ -5,10 +5,10 @@ import { readDirDeep } from 'read-dir-deep';
 import { getFileHash } from './get-file-hash';
 import { toArray } from './object-utils';
 
-function stat(pathname: string) {
+function stat(pathname: string): Promise<fs.Stats> {
 	return new Promise((resolve, reject) => {
 		fs.stat(pathname, (error, stats) => {
-			if (error) {
+			if (error !== undefined && error !== null) {
 				reject(error);
 
 				return;
@@ -70,7 +70,6 @@ function copy(files: readonly File[] | File): Promise<void> {
 
 		let dest = file.dest;
 
-		// @ts-ignore
 		const isDirectory: boolean = (await stat(src)).isDirectory();
 		if (isDirectory) {
 			const deepFileList: string[] = await readDirDeep(src);

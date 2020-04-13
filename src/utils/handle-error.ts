@@ -1,4 +1,4 @@
-import { CustomError } from '../types';
+import type { CustomError } from '../types';
 import log from './log';
 import { toArray } from './object-utils';
 
@@ -11,6 +11,7 @@ type HandleError = Readonly<{
 }>;
 
 function isCustomError(error: any): error is CustomError {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return typeof error === 'object' && error.exitCode !== undefined;
 }
 
@@ -74,23 +75,25 @@ function handleError(args: HandleError): Promise<void> {
 					err !== null &&
 					Array.isArray(err) === false
 				) {
-					const message =
-						// @ts-ignore
-						err.stack ||
-						// move to next line for above ts-ignore
-						err.message ||
-						err;
+					let message;
+					if ((err as Error).stack !== undefined) {
+						message = (err as Error).stack;
+					} else if ((err as Error).message !== undefined) {
+						message = err.message;
+					} else {
+						message = err;
+					}
 
 					log.error(logPrefix, message);
-				} else if (err) {
+				} else {
 					log.error(logPrefix, err);
 				}
 			});
 
-			if (startTime) {
+			if (startTime !== undefined) {
 				const endTime = new Date();
 				const time = endTime.getTime() - startTime.getTime();
-				log.error(logPrefix, `Finished after ${time} ms`);
+				log.error(logPrefix, `Finished after ${time.toString()} ms`);
 			}
 
 			// eslint-disable-next-line no-process-exit

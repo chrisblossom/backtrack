@@ -43,12 +43,11 @@ if (require.main === module && process.argv.length > 2) {
 	}
 
 	const taskName =
-		process.env.RUN_MODE && typeof process.env.RUN_MODE === 'string'
+		typeof process.env.RUN_MODE === 'string' && process.env.RUN_MODE !== ''
 			? process.env.RUN_MODE
 			: 'cli-init';
 
-	const NODE_ENV = process.env.NODE_ENV || 'undefined';
-	const logPrefix = `${taskName}:${NODE_ENV}`;
+	const logPrefix = `${taskName}:${process.env.NODE_ENV}`;
 
 	import('./start')
 		.then((module) => {

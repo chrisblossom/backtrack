@@ -13,6 +13,7 @@ interface Result {
 }
 
 function isESModule(obj: any): obj is ESModule {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return obj.__esModule === true;
 }
 
@@ -62,7 +63,7 @@ function loadOptionsFile(searchPath: string = rootPath): Preset {
 	// @ts-ignore
 	const { config } = explorer.searchSync(searchPath);
 
-	return config;
+	return config as Preset;
 }
 
 export { loadOptionsFile };

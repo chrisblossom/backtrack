@@ -12,6 +12,8 @@ function loadPackageJson(): PackageJson {
 	}
 
 	const load = require(file);
+
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return load;
 }
 

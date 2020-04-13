@@ -29,6 +29,6 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true
 	},
-	"include": ["src", "global.d.ts"],
+	"include": ["src", "global.d.ts", "e2e-tests"],
 	"exclude": ["dist", "node_modules", "**/__sandbox__/**/*"]
 }

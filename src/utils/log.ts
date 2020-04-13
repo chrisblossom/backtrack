@@ -1,15 +1,14 @@
-/* eslint no-console:0 */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types,no-console */
 
-// @ts-ignore
 import { bgBlue, bgGreen, bgRed, bgYellow, gray, white } from 'chalk';
 
 function getTime() {
 	const addZero = (time: number) => {
 		if (time < 10) {
-			return `0${time}`;
+			return `0${time.toString()}`;
 		}
 
-		return time;
+		return time.toString();
 	};
 
 	const now = new Date();
@@ -23,10 +22,12 @@ function getTime() {
 	};
 }
 
+type ConsoleTypes = 'info' | 'warn' | 'error';
+
 function print(
 	messages: readonly unknown[],
-	format: string = '\b',
-	type: string = 'info',
+	format = '\b',
+	type: ConsoleTypes = 'info',
 ) {
 	const time = getTime();
 	const meta = `${time.message} ${format}`;
@@ -35,7 +36,6 @@ function print(
 		return white(message);
 	});
 
-	// @ts-ignore
 	console[type](meta, ...coloredMessages);
 
 	return time;

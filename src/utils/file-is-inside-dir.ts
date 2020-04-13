@@ -22,7 +22,7 @@ const getRealPath = (file: string) => {
  * Assumes rootPath if not specified
  */
 function fileIsInsideDir(file: string, dir: string = rootPath): boolean {
-	if (!file) {
+	if (file === '') {
 		return false;
 	}
 
