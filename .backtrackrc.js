@@ -7,10 +7,6 @@ module.exports = {
 		files: ['dist/', 'paths.js'],
 	},
 
-	files: {
-		allowChanges: 'tsconfig.json',
-	},
-
 	config: {
 		babel: (config) => {
 			const presetEnvConfig = config.presets.find((preset) => {
@@ -66,6 +62,7 @@ module.exports = {
 							// },
 						],
 						'@typescript-eslint/no-throw-literal': 'off',
+						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'jest/no-export': 'off',
 					},
 				},
