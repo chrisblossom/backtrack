@@ -1,8 +1,8 @@
 /**
  * This file is managed by backtrack
  *
- * source: @backtrack/preset-git-hooks
- * namespace: husky
+ * source: @backtrack/preset-style
+ * namespace: lintStaged
  *
  * DO NOT MODIFY
  */
@@ -13,14 +13,11 @@ const { Backtrack } = require('@backtrack/core');
 
 const { configManager } = new Backtrack();
 
-const husky = {
-	hooks: {
-		'pre-commit': 'npm run git-pre-commit',
-		'pre-push': 'npm run git-pre-push',
-	},
+const lintStaged = {
+	'*': ['prettier --ignore-unknown --write'],
 };
 
 module.exports = configManager({
-	namespace: 'husky',
-	config: husky,
+	namespace: 'lintStaged',
+	config: lintStaged,
 });
