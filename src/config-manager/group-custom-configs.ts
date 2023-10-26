@@ -11,7 +11,10 @@ function groupCustomConfigs(
 		}
 
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-		return [...acc, matched];
+		return [
+			...acc,
+			matched,
+		];
 	}, []);
 
 	return result;

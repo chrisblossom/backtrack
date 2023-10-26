@@ -32,7 +32,10 @@ describe('mergeCustomConfigs', () => {
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
 		expect(result).toEqual({
-			extends: ['airbnb-base', 'other-custom-preset'],
+			extends: [
+				'airbnb-base',
+				'other-custom-preset',
+			],
 			rules: {
 				semi: 'always',
 			},
@@ -105,11 +108,20 @@ describe('mergeCustomConfigs', () => {
 
 	test('merges arrays', () => {
 		const config = ['one'];
-		const customConfigs = [['two', 'three']];
+		const customConfigs = [
+			[
+				'two',
+				'three',
+			],
+		];
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
-		expect(result).toEqual(['one', 'two', 'three']);
+		expect(result).toEqual([
+			'one',
+			'two',
+			'three',
+		]);
 	});
 
 	test('handles string', () => {
@@ -125,7 +137,10 @@ describe('mergeCustomConfigs', () => {
 	test('handles numbers', () => {
 		const config = 1;
 
-		const customConfigs = [2, 3];
+		const customConfigs = [
+			2,
+			3,
+		];
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -135,7 +150,10 @@ describe('mergeCustomConfigs', () => {
 	test('finds invalid preset', () => {
 		const config = {};
 
-		const customConfigs = [{}, []];
+		const customConfigs = [
+			{},
+			[],
+		];
 
 		try {
 			expect.hasAssertions();

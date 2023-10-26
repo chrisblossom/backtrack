@@ -361,7 +361,10 @@ test('correctly handles removing array values from managed package.json key', as
 			'backtrack.config.js',
 			`module.exports = ${JSON.stringify({
 				packageJson: {
-					files: ['one/', 'two/'],
+					files: [
+						'one/',
+						'two/',
+					],
 				},
 			})}`,
 		),

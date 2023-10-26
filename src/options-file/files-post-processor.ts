@@ -54,7 +54,10 @@ function splitSections(copyFiles: FileManager): SplitSections {
 
 				return {
 					...acc,
-					copyFiles: [file, ...acc.copyFiles],
+					copyFiles: [
+						file,
+						...acc.copyFiles,
+					],
 				};
 			}
 
@@ -62,8 +65,14 @@ function splitSections(copyFiles: FileManager): SplitSections {
 
 			return {
 				...acc,
-				options: [options, ...acc.options],
-				makeDirs: [...makeDirs, ...acc.makeDirs],
+				options: [
+					options,
+					...acc.options,
+				],
+				makeDirs: [
+					...makeDirs,
+					...acc.makeDirs,
+				],
 			};
 		},
 		{ copyFiles: [], options: [], makeDirs: [] },
@@ -138,7 +147,10 @@ function getMakeDirs(makeDirs: string[], files: string[], skipFiles: string[]) {
 		})
 		.filter(Boolean);
 
-	const result = [...filePaths, ...makeDirs]
+	const result = [
+		...filePaths,
+		...makeDirs,
+	]
 		// eslint-disable-next-line arrow-body-style
 		.map((dir) => normalizePathname(dir))
 		.sort((a, b) => {
@@ -167,7 +179,10 @@ function getMakeDirs(makeDirs: string[], files: string[], skipFiles: string[]) {
 				}
 			}
 
-			return [dir, ...acc];
+			return [
+				dir,
+				...acc,
+			];
 		}, []);
 
 	return result;

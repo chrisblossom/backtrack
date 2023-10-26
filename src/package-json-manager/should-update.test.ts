@@ -14,14 +14,20 @@ describe('shouldUpdate', () => {
 		const packageJson = {
 			scripts: { one: 'script', dev: 'backtrack dev' },
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const managedKeys = {
 			scripts: { dev: 'backtrack dev' },
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
@@ -34,21 +40,30 @@ describe('shouldUpdate', () => {
 		const packageJson = {
 			scripts: { one: 'script', dev: 'backtrack dev' },
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const managedKeys = {
 			scripts: { dev: 'backtrack dev' },
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const previousManagedKeys = {
 			scripts: { dev: 'backtrack dev', test: 'backtrack test' },
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
@@ -86,13 +101,19 @@ describe('shouldUpdate', () => {
 
 		const managedKeys = {
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const previousManagedKeys = {
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 

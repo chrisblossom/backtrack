@@ -38,7 +38,13 @@ describe('mapObjectKeyNames', () => {
 		};
 
 		const result = mapObjectKeyNames(object);
-		expect(result).toEqual([['a', 'b'], ['c']]);
+		expect(result).toEqual([
+			[
+				'a',
+				'b',
+			],
+			['c'],
+		]);
 	});
 
 	test('handles periods in key', () => {
@@ -50,7 +56,13 @@ describe('mapObjectKeyNames', () => {
 		};
 
 		const result = mapObjectKeyNames(object);
-		expect(result).toEqual([['a.e', 'b.d'], ['c']]);
+		expect(result).toEqual([
+			[
+				'a.e',
+				'b.d',
+			],
+			['c'],
+		]);
 	});
 
 	test('handles undefined', () => {
@@ -89,25 +101,47 @@ describe('getParentsFromPath', () => {
 	});
 
 	test('returns object paths', () => {
-		const path = ['one', 'two', 'three'];
+		const path = [
+			'one',
+			'two',
+			'three',
+		];
 
 		const result = getParentsFromPath(path);
 
 		expect(result).toEqual([
-			['one', 'two', 'three'],
-			['one', 'two'],
+			[
+				'one',
+				'two',
+				'three',
+			],
+			[
+				'one',
+				'two',
+			],
 			['one'],
 		]);
 	});
 
 	test('handles escaped paths', () => {
-		const path = ['o.ne', 'split.path', 'th.ree'];
+		const path = [
+			'o.ne',
+			'split.path',
+			'th.ree',
+		];
 
 		const result = getParentsFromPath(path);
 
 		expect(result).toEqual([
-			['o.ne', 'split.path', 'th.ree'],
-			['o.ne', 'split.path'],
+			[
+				'o.ne',
+				'split.path',
+				'th.ree',
+			],
+			[
+				'o.ne',
+				'split.path',
+			],
 			['o.ne'],
 		]);
 	});
@@ -154,7 +188,11 @@ describe('mergeDeep', () => {
 			two: {
 				inside1: 'one',
 				inside2: {
-					inside1: ['1', '2', '3'],
+					inside1: [
+						'1',
+						'2',
+						'3',
+					],
 					inside2: '2',
 					inside3: 3,
 				},

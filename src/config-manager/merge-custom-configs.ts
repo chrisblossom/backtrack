@@ -51,7 +51,10 @@ function mergeCustomConfigs(
 
 		if (typeof currentConfig === 'object' && currentConfig !== null) {
 			if (Array.isArray(currentConfig)) {
-				return [...acc, ...currentConfig];
+				return [
+					...acc,
+					...currentConfig,
+				];
 			}
 
 			return mergeDeep(acc, currentConfig);

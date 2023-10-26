@@ -9,14 +9,20 @@ interface Args {
 }
 
 function postProcessor({ value }: Args) {
-	const makeDirs = [buildPath, sourcePath].map((dir) => {
+	const makeDirs = [
+		buildPath,
+		sourcePath,
+	].map((dir) => {
 		return path.relative(rootPath, dir);
 	});
 
 	const currentFiles = value.files ? value.files : [];
 
 	const files = filesPostProcessor({
-		value: [{ makeDirs }, ...currentFiles],
+		value: [
+			{ makeDirs },
+			...currentFiles,
+		],
 	});
 
 	return {

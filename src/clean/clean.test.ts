@@ -69,7 +69,10 @@ describe('clean', () => {
 
 		const options = {
 			del: ['**/*'],
-			makeDirs: ['nested/', 'another_nested/folder'],
+			makeDirs: [
+				'nested/',
+				'another_nested/folder',
+			],
 			copy: [
 				{
 					src: 'static',
@@ -92,8 +95,14 @@ describe('clean', () => {
 
 		const options = [
 			{
-				del: ['**/*', '!.git'],
-				makeDirs: ['nested/', 'another_nested/folder'],
+				del: [
+					'**/*',
+					'!.git',
+				],
+				makeDirs: [
+					'nested/',
+					'another_nested/folder',
+				],
 				copy: [
 					{
 						src: 'static',
@@ -134,7 +143,10 @@ describe('clean', () => {
 
 		const options = [
 			{
-				makeDirs: ['nested/', 'another_nested/folder'],
+				makeDirs: [
+					'nested/',
+					'another_nested/folder',
+				],
 			},
 		];
 
@@ -166,8 +178,16 @@ describe('clean', () => {
 
 		const options = [
 			{
-				del: ['duplicate/file', 'unique/file', 'duplicate/file'],
-				makeDirs: ['duplicate/dir', 'unique/dir', 'duplicate/dir'],
+				del: [
+					'duplicate/file',
+					'unique/file',
+					'duplicate/file',
+				],
+				makeDirs: [
+					'duplicate/dir',
+					'unique/dir',
+					'duplicate/dir',
+				],
 			},
 		];
 

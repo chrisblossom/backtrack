@@ -10,7 +10,10 @@ const backtrackConfig = {
 	clean: [
 		{
 			// delete everything in 'dist/**/*' except .gitignore
-			del: ['**/*', '!.gitignore'],
+			del: [
+				'**/*',
+				'!.gitignore',
+			],
 			makeDirs: [
 				// create directory 'dist/static/favicons/'
 				'static/favicons',

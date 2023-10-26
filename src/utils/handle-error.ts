@@ -31,7 +31,10 @@ function getExitCode(errors: readonly Errors[]): number {
 			return acc;
 		}
 
-		return [...acc, exitCode];
+		return [
+			...acc,
+			exitCode,
+		];
 	}, []);
 
 	/**

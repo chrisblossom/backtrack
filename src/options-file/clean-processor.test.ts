@@ -14,7 +14,10 @@ function getValue(value: any) {
 describe('cleanProcessor', () => {
 	test('merges args together and completes resolves path', () => {
 		const current = {
-			del: ['first', 'second'],
+			del: [
+				'first',
+				'second',
+			],
 			makeDirs: [
 				path.resolve(buildPath, 'first'),
 				path.resolve(buildPath, 'second'),

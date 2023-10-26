@@ -17,7 +17,12 @@ describe('presetValidator', () => {
 
 	test('preset passes with options', () => {
 		const value = {
-			presets: [['./__sandbox__/preset-01', { options: true }]],
+			presets: [
+				[
+					'./__sandbox__/preset-01',
+					{ options: true },
+				],
+			],
 		};
 
 		// @ts-ignore

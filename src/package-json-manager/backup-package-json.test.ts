@@ -172,19 +172,28 @@ describe('backupPackageJson', () => {
 		const packageJson = {
 			name: 'testing',
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const managedKeys = {
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const previousManagedKeys = {
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
@@ -208,13 +217,19 @@ describe('backupPackageJson', () => {
 
 		const managedKeys = {
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 
 		const previousManagedKeys = {
 			'lint-staged': {
-				'*.{js,md,json}': ['prettier --write', 'git add'],
+				'*.{js,md,json}': [
+					'prettier --write',
+					'git add',
+				],
 			},
 		};
 

@@ -38,7 +38,10 @@ const cmdType = Joi.string().label('cmd');
 const fnType = Joi.func().label('function');
 const objType = Joi.object({
 	name: Joi.string().required(),
-	task: [fnType.required(), cmdType.required()],
+	task: [
+		fnType.required(),
+		cmdType.required(),
+	],
 });
 
 const functionLifecycles = Joi.array()

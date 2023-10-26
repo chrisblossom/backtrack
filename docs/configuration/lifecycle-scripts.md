@@ -66,7 +66,10 @@ const backtrackConfig = {
 		/**
 		 * Run multiple tasks at the same time
 		 */
-		[() => Promise.resolve('function2'), 'backtrack lint'],
+		[
+			() => Promise.resolve('function2'),
+			'backtrack lint',
+		],
 	],
 
 	/**
@@ -77,7 +80,10 @@ const backtrackConfig = {
 	/**
 	 * Disable and replace lifecycle found in preset
 	 */
-	lint: [false, 'eslint .'],
+	lint: [
+		false,
+		'eslint .',
+	],
 	// ...
 };
 ```

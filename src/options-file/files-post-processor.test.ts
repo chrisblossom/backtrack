@@ -317,7 +317,15 @@ describe('filesPostProcessor', () => {
 		);
 		process.chdir(dir);
 
-		const value = [{ makeDirs: ['dist', 'src'] }, { makeDirs: ['dist'] }];
+		const value = [
+			{
+				makeDirs: [
+					'dist',
+					'src',
+				],
+			},
+			{ makeDirs: ['dist'] },
+		];
 
 		const result = filesPostProcessor({ value });
 
@@ -332,8 +340,18 @@ describe('filesPostProcessor', () => {
 		process.chdir(dir);
 
 		const value = [
-			{ makeDirs: ['src', 'dist'] },
-			{ makeDirs: [path.resolve(dir, 'src'), path.resolve(dir, 'dist')] },
+			{
+				makeDirs: [
+					'src',
+					'dist',
+				],
+			},
+			{
+				makeDirs: [
+					path.resolve(dir, 'src'),
+					path.resolve(dir, 'dist'),
+				],
+			},
 		];
 
 		const result = filesPostProcessor({ value });
@@ -374,10 +392,17 @@ describe('filesPostProcessor', () => {
 
 		const value = [
 			{
-				makeDirs: ['src', 'dist', 'static'],
+				makeDirs: [
+					'src',
+					'dist',
+					'static',
+				],
 			},
 			{
-				skip: ['src/', 'dist'],
+				skip: [
+					'src/',
+					'dist',
+				],
 			},
 		];
 
@@ -395,7 +420,11 @@ describe('filesPostProcessor', () => {
 
 		const value = [
 			{
-				makeDirs: ['dist', 'dist/static', 'src'],
+				makeDirs: [
+					'dist',
+					'dist/static',
+					'src',
+				],
 			},
 			{
 				skip: ['dist/static'],
@@ -416,7 +445,11 @@ describe('filesPostProcessor', () => {
 
 		const value = [
 			{
-				makeDirs: ['dist', 'dist/static', 'src'],
+				makeDirs: [
+					'dist',
+					'dist/static',
+					'src',
+				],
 			},
 			{
 				skip: ['dist'],
@@ -441,7 +474,11 @@ describe('filesPostProcessor', () => {
 				dest: 'nested/other.js',
 			},
 			{
-				makeDirs: ['dist', 'dist/static', 'src'],
+				makeDirs: [
+					'dist',
+					'dist/static',
+					'src',
+				],
 			},
 			{
 				skip: ['nested'],
@@ -466,7 +503,11 @@ describe('filesPostProcessor', () => {
 				dest: 'nested/inside/other.js',
 			},
 			{
-				makeDirs: ['dist', 'dist/static', 'src'],
+				makeDirs: [
+					'dist',
+					'dist/static',
+					'src',
+				],
 			},
 			{
 				skip: ['nested/outside'],
@@ -503,7 +544,11 @@ describe('filesPostProcessor', () => {
 				dest: 'nested/outside/other.js',
 			},
 			{
-				makeDirs: ['dist', 'dist/static', 'src'],
+				makeDirs: [
+					'dist',
+					'dist/static',
+					'src',
+				],
 				skip: ['nested/outside'],
 			},
 		];

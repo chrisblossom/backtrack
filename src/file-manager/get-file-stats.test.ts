@@ -34,7 +34,10 @@ describe('getFileStats', () => {
 				dest: 'file1.js',
 			},
 			{
-				makeDirs: ['dist', 'src'],
+				makeDirs: [
+					'dist',
+					'src',
+				],
 			},
 		];
 
@@ -51,7 +54,10 @@ describe('getFileStats', () => {
 
 		const value = [
 			{
-				makeDirs: ['dist', 'src'],
+				makeDirs: [
+					'dist',
+					'src',
+				],
 			},
 		];
 

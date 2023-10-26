@@ -112,7 +112,14 @@ describe('removeStaleDirectories', () => {
 	});
 
 	test('removes full file tree with multiple nested', async () => {
-		const previousFiles = [{ makeDirs: ['dist/static', 'dist/inside'] }];
+		const previousFiles = [
+			{
+				makeDirs: [
+					'dist/static',
+					'dist/inside',
+				],
+			},
+		];
 		const files: readonly void[] = [];
 
 		const { parsedFiles, previousStats } = await dirInfo(

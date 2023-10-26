@@ -16,8 +16,14 @@ function filesValidator({ value }: Args) {
 			}
 
 			return {
-				dest: [...acc.dest, file.dest],
-				src: [...acc.src, file.src],
+				dest: [
+					...acc.dest,
+					file.dest,
+				],
+				src: [
+					...acc.src,
+					file.src,
+				],
 			};
 		},
 		{ dest: [], src: [] },

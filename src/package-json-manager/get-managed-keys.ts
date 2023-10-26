@@ -18,9 +18,12 @@ function getManagedKeys(lifecycles: Lifecycles = {}): PackageJson {
 			 * Remove internally managed tasks
 			 */
 			if (
-				['packageJson', 'config', 'files', 'resolve'].includes(
-					currentLifecycle,
-				)
+				[
+					'packageJson',
+					'config',
+					'files',
+					'resolve',
+				].includes(currentLifecycle)
 			) {
 				return acc;
 			}

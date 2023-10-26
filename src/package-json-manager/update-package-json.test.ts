@@ -87,7 +87,10 @@ describe('updatePackageJson', () => {
 	test('removes item from array when item removed', () => {
 		const packageJson = {
 			name: 'backtrack',
-			files: ['one', 'two'],
+			files: [
+				'one',
+				'two',
+			],
 		};
 
 		const managedKeys = {
@@ -95,7 +98,10 @@ describe('updatePackageJson', () => {
 		};
 
 		const previouslyManagedKeys = {
-			files: ['one', 'two'],
+			files: [
+				'one',
+				'two',
+			],
 		};
 
 		const result = updatePackageJson(

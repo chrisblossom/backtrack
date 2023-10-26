@@ -20,7 +20,10 @@ describe('groupCustomConfigs', () => {
 
 		const result = groupCustomConfigs('config-1', customConfigs);
 
-		expect(result).toEqual([1, 3]);
+		expect(result).toEqual([
+			1,
+			3,
+		]);
 	});
 
 	test('return empty array when none are matched', () => {

@@ -5,41 +5,51 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const formatOptions = (options: unknown[]) =>
 	options.length ? `|${options.join('|')}` : '';
 
-const asyncResolve = (ms: number) => async (...options: unknown[]) => {
-	await sleep(ms);
+const asyncResolve =
+	(ms: number) =>
+	async (...options: unknown[]) => {
+		await sleep(ms);
 
-	const opts = formatOptions(options);
+		const opts = formatOptions(options);
 
-	return `asyncResolve_${ms + opts}`;
-};
+		return `asyncResolve_${ms + opts}`;
+	};
 
-const asyncThrow = (ms: number) => async (...options: unknown[]) => {
-	await sleep(ms);
+const asyncThrow =
+	(ms: number) =>
+	async (...options: unknown[]) => {
+		await sleep(ms);
 
-	const opts = formatOptions(options);
+		const opts = formatOptions(options);
 
-	throw new Error(`asyncThrow_${ms + opts}`);
-};
+		throw new Error(`asyncThrow_${ms + opts}`);
+	};
 
-const asyncReject = (ms: number) => async (...options: unknown[]) => {
-	await sleep(ms);
+const asyncReject =
+	(ms: number) =>
+	async (...options: unknown[]) => {
+		await sleep(ms);
 
-	const opts = formatOptions(options);
+		const opts = formatOptions(options);
 
-	return Promise.reject(new Error(`asyncReject_${ms + opts}`));
-};
+		return Promise.reject(new Error(`asyncReject_${ms + opts}`));
+	};
 
-const syncFn = (id: number) => (...options: unknown[]) => {
-	const opts = formatOptions(options);
+const syncFn =
+	(id: number) =>
+	(...options: unknown[]) => {
+		const opts = formatOptions(options);
 
-	return `syncFn_${id + opts}`;
-};
+		return `syncFn_${id + opts}`;
+	};
 
-const syncThrow = (id: number) => (...options: unknown[]) => {
-	const opts = formatOptions(options);
+const syncThrow =
+	(id: number) =>
+	(...options: unknown[]) => {
+		const opts = formatOptions(options);
 
-	throw new Error(`syncThrow_${id + opts}`);
-};
+		throw new Error(`syncThrow_${id + opts}`);
+	};
 
 describe('runTask', () => {
 	let infoSpy: any;
@@ -150,7 +160,11 @@ describe('runTask', () => {
 	test('runs array of tasks', async () => {
 		expect.hasAssertions();
 
-		const tasks = [asyncResolve(10), asyncResolve(1), asyncResolve(5)];
+		const tasks = [
+			asyncResolve(10),
+			asyncResolve(1),
+			asyncResolve(5),
+		];
 
 		const result = await runTask(tasks);
 
@@ -162,7 +176,11 @@ describe('runTask', () => {
 
 		const tasks = [
 			asyncResolve(20),
-			[asyncResolve(10), asyncResolve(1), asyncResolve(20)],
+			[
+				asyncResolve(10),
+				asyncResolve(1),
+				asyncResolve(20),
+			],
 			asyncResolve(1),
 		];
 
@@ -177,7 +195,10 @@ describe('runTask', () => {
 		const tasks = [
 			asyncResolve(10),
 			syncFn(2),
-			[asyncResolve(10), syncFn(1)],
+			[
+				asyncResolve(10),
+				syncFn(1),
+			],
 			asyncResolve(5),
 		];
 
@@ -189,7 +210,11 @@ describe('runTask', () => {
 	test('handles async thrown errors', async () => {
 		expect.hasAssertions();
 
-		const tasks = [asyncResolve(20), asyncThrow(5), asyncResolve(10)];
+		const tasks = [
+			asyncResolve(20),
+			asyncThrow(5),
+			asyncResolve(10),
+		];
 
 		try {
 			await runTask(tasks);
@@ -201,7 +226,11 @@ describe('runTask', () => {
 	test('handles sync thrown errors', async () => {
 		expect.hasAssertions();
 
-		const tasks = [asyncResolve(20), syncThrow(1), asyncResolve(10)];
+		const tasks = [
+			asyncResolve(20),
+			syncThrow(1),
+			asyncResolve(10),
+		];
 
 		try {
 			await runTask(tasks);
@@ -213,7 +242,11 @@ describe('runTask', () => {
 	test('handles async rejected errors', async () => {
 		expect.hasAssertions();
 
-		const tasks = [asyncResolve(20), asyncReject(5), asyncResolve(10)];
+		const tasks = [
+			asyncResolve(20),
+			asyncReject(5),
+			asyncResolve(10),
+		];
 
 		try {
 			await runTask(tasks);
@@ -227,7 +260,11 @@ describe('runTask', () => {
 
 		const tasks = [
 			asyncResolve(15),
-			[asyncResolve(10), asyncReject(5), asyncResolve(20)],
+			[
+				asyncResolve(10),
+				asyncReject(5),
+				asyncResolve(20),
+			],
 			asyncResolve(1),
 		];
 
@@ -243,7 +280,11 @@ describe('runTask', () => {
 
 		const tasks = [
 			asyncResolve(15),
-			[asyncResolve(10), syncThrow(5), asyncResolve(20)],
+			[
+				asyncResolve(10),
+				syncThrow(5),
+				asyncResolve(20),
+			],
 			asyncResolve(1),
 		];
 
@@ -260,7 +301,10 @@ describe('runTask', () => {
 		const tasks = [
 			asyncResolve(10),
 			syncFn(2),
-			[asyncResolve(10), syncFn(1)],
+			[
+				asyncResolve(10),
+				syncFn(1),
+			],
 			asyncResolve(5),
 		];
 
@@ -317,7 +361,12 @@ describe('runTask', () => {
 
 			{
 				name: 'asyncResolve_10|syncFn_1',
-				task: [[asyncResolve(10), syncFn(1)]],
+				task: [
+					[
+						asyncResolve(10),
+						syncFn(1),
+					],
+				],
 			},
 
 			asyncResolve(5),

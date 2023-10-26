@@ -88,7 +88,10 @@ function sortPackageJson(packageJson: PackageJson): PackageJson {
 	/**
 	 * Get keys not explicitly sorted
 	 */
-	const mergedTopBottom = [...top, ...bottom];
+	const mergedTopBottom = [
+		...top,
+		...bottom,
+	];
 	const rest = Object.keys(initialSort).reduce((acc, key) => {
 		if (mergedTopBottom.includes(key)) {
 			return acc;

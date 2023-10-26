@@ -44,9 +44,11 @@ async function copyFiles(files: ParsedFiles, previousStats: FileStats = {}) {
 					const allowChanges = dest.allowChanges[destFile];
 					if (allowChanges === true && destHash !== previousHash) {
 						const destAbsolute = dest.absolute[destFile];
-						const { base: filename, dir, ext = '' } = path.parse(
-							destAbsolute,
-						);
+						const {
+							base: filename,
+							dir,
+							ext = '',
+						} = path.parse(destAbsolute);
 
 						const updatedFilename = `${filename}-latest${ext}`;
 
@@ -77,7 +79,10 @@ async function copyFiles(files: ParsedFiles, previousStats: FileStats = {}) {
 							dest: updatedFileAbsolute,
 						};
 
-						return [...acc, copyFile];
+						return [
+							...acc,
+							copyFile,
+						];
 					}
 
 					log.info(`Updating file: ${destFile}`);
@@ -91,7 +96,10 @@ async function copyFiles(files: ParsedFiles, previousStats: FileStats = {}) {
 					dest: destAbsolute,
 				};
 
-				return [...acc, copyFile];
+				return [
+					...acc,
+					copyFile,
+				];
 			}
 
 			return acc;

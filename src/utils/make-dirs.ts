@@ -8,12 +8,10 @@ async function makeDirs(dirs: string[] | string): Promise<readonly string[]> {
 	const normalized = toArray(dirs);
 
 	const result = await Promise.all(
-		normalized.map(
-			(dir): Promise<string | void> => {
-				// @ts-ignore ensure dir does not have correct TS signature
-				return fse.ensureDir(dir);
-			},
-		),
+		normalized.map((dir): Promise<string | void> => {
+			// @ts-ignore ensure dir does not have correct TS signature
+			return fse.ensureDir(dir);
+		}),
 	);
 
 	// Use reduce instead of filter to appease TS
@@ -22,7 +20,10 @@ async function makeDirs(dirs: string[] | string): Promise<readonly string[]> {
 			return acc;
 		}
 
-		return [...acc, dir];
+		return [
+			...acc,
+			dir,
+		];
 	}, []);
 
 	return removeVoid;

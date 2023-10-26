@@ -18,7 +18,10 @@ describe('transformConfig', () => {
 			presets: ['01'],
 			clean: [
 				{
-					del: ['**/*', '!.gitignore'],
+					del: [
+						'**/*',
+						'!.gitignore',
+					],
 					makeDirs: ['static/favicons'],
 					copy: [
 						{
@@ -56,7 +59,10 @@ describe('transformConfig', () => {
 
 		const config = {
 			presets: ['01'],
-			clean: [false, { del: 'static' }],
+			clean: [
+				false,
+				{ del: 'static' },
+			],
 		};
 
 		const result = transformConfig(config);

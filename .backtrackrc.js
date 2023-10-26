@@ -1,10 +1,18 @@
 'use strict';
 
 module.exports = {
-	presets: [['@backtrack/node', { mode: 'module', syntax: 'typescript' }]],
+	presets: [
+		[
+			'@backtrack/node',
+			{ mode: 'module', syntax: 'typescript' },
+		],
+	],
 
 	packageJson: {
-		files: ['dist/', 'paths.js'],
+		files: [
+			'dist/',
+			'paths.js',
+		],
 	},
 
 	config: {
@@ -35,7 +43,10 @@ module.exports = {
 					},
 				},
 				{
-					files: ['*.{ts,tsx}', '.*.{ts,tsx}'],
+					files: [
+						'*.{ts,tsx}',
+						'.*.{ts,tsx}',
+					],
 					rules: {
 						// TODO: enable
 						'@typescript-eslint/explicit-function-return-type':

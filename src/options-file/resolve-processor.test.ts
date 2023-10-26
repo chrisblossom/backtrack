@@ -11,7 +11,10 @@ describe('resolveProcessor', () => {
 	});
 
 	test('resolves multiple presets', () => {
-		const value = ['backtrack-preset-01', 'backtrack-preset-02'];
+		const value = [
+			'backtrack-preset-01',
+			'backtrack-preset-02',
+		];
 		const dirname = path.resolve(__dirname, '__sandbox__/app1/');
 		process.chdir(dirname);
 

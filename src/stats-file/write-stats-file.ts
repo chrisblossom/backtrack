@@ -45,7 +45,10 @@ async function writeStatsFile(
 				return acc;
 			}
 
-			return [...acc, Object.keys(matchedSection).length];
+			return [
+				...acc,
+				Object.keys(matchedSection).length,
+			];
 		},
 		[],
 	);

@@ -51,9 +51,15 @@ function getParentsFromPath(path: readonly string[]) {
 			}
 
 			const previousSubPath = toArray(acc[index - 1]);
-			const joinWithPrevious = [...previousSubPath, subPath];
+			const joinWithPrevious = [
+				...previousSubPath,
+				subPath,
+			];
 
-			return [...acc, joinWithPrevious];
+			return [
+				...acc,
+				joinWithPrevious,
+			];
 		}, [])
 		.reverse();
 
@@ -61,7 +67,10 @@ function getParentsFromPath(path: readonly string[]) {
 }
 
 function mergeDeep(...objects: Record<string, any>[]) {
-	const [first, ...rest] = objects;
+	const [
+		first,
+		...rest
+	] = objects;
 
 	/**
 	 * lodash.merge mutates first object. Perform a deep copy to prevent this

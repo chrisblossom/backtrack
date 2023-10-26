@@ -38,7 +38,10 @@ function Preprocessor() {
 						}
 
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-						return [currentTask, ...acc2];
+						return [
+							currentTask,
+							...acc2,
+						];
 					}, []);
 				}
 

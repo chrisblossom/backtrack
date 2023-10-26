@@ -87,8 +87,9 @@ describe('configManager', () => {
 	test('handles nested config file', () => {
 		const dir = path.resolve(__dirname, '__sandbox__/custom-config-1/');
 		process.chdir(dir);
-		jest.doMock('parent-module', () => () =>
-			path.join(dir, 'nested/testing.js'),
+		jest.doMock(
+			'parent-module',
+			() => () => path.join(dir, 'nested/testing.js'),
 		);
 
 		const config = {

@@ -45,7 +45,10 @@ describe('preprocessor', () => {
 		const preprocessor = Preprocessor();
 
 		const value = {
-			dev: [false, 'eslint'],
+			dev: [
+				false,
+				'eslint',
+			],
 			files: [{ allowChanges: false }],
 		};
 
@@ -62,7 +65,10 @@ describe('preprocessor', () => {
 		const preprocessor = Preprocessor();
 
 		const value = {
-			dev: [false, 'eslint'],
+			dev: [
+				false,
+				'eslint',
+			],
 			files: [{ allowChanges: false }],
 		};
 
