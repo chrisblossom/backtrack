@@ -1,58 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`cleanPreprocessor converts all values to arrays and adds missing keys 1`] = `
-Array [
-  Object {
-    "copy": Array [],
-    "del": Array [
+[
+  {
+    "copy": [],
+    "del": [
       "*",
     ],
-    "makeDirs": Array [],
+    "makeDirs": [],
   },
-  Object {
-    "copy": Array [],
-    "del": Array [],
-    "makeDirs": Array [
+  {
+    "copy": [],
+    "del": [],
+    "makeDirs": [
       "<PROJECT_ROOT>/dist/test",
     ],
   },
-  Object {
-    "copy": Array [
-      Object {
+  {
+    "copy": [
+      {
         "dest": "<PROJECT_ROOT>/dist/static-1",
         "hash": true,
         "src": "<PROJECT_ROOT>/static-1",
       },
     ],
-    "del": Array [],
-    "makeDirs": Array [],
+    "del": [],
+    "makeDirs": [],
   },
-  Object {
-    "copy": Array [
-      Object {
+  {
+    "copy": [
+      {
         "dest": "<PROJECT_ROOT>/dist/static-2",
         "src": "<PROJECT_ROOT>/static-2",
       },
     ],
-    "del": Array [],
-    "makeDirs": Array [],
+    "del": [],
+    "makeDirs": [],
   },
-  Object {
-    "copy": Array [],
-    "del": Array [],
-    "makeDirs": Array [],
+  {
+    "copy": [],
+    "del": [],
+    "makeDirs": [],
   },
-  Object {
-    "copy": Array [
-      Object {
+  {
+    "copy": [
+      {
         "dest": "<PROJECT_ROOT>/dist/static-3",
         "src": "<PROJECT_ROOT>/static-3",
       },
     ],
-    "del": Array [
+    "del": [
       "*",
     ],
-    "makeDirs": Array [
+    "makeDirs": [
       "<PROJECT_ROOT>/dist/test",
     ],
   },

@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`backupFile appends -NUM to file when backed up file is modified 1`] = `
-Object {
+{
   "file": "<PROJECT_ROOT>/file3.js-backup-c4d0e78e-2.js",
   "filename": "file3.js-backup-c4d0e78e-2.js",
 }
 `;
 
 exports[`backupFile appends -NUM to file when backed up file is modified 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/file3.js",
     "<PROJECT_ROOT>/file3.js-backup-c4d0e78e-2.js",
-    Object {
+    {
       "overwrite": false,
     },
   ],
@@ -20,18 +20,18 @@ Array [
 `;
 
 exports[`backupFile backups file 1`] = `
-Object {
+{
   "file": "<PROJECT_ROOT>/file1.js-backup-7fea248e.js",
   "filename": "file1.js-backup-7fea248e.js",
 }
 `;
 
 exports[`backupFile backups file 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/file1.js",
     "<PROJECT_ROOT>/file1.js-backup-7fea248e.js",
-    Object {
+    {
       "overwrite": false,
     },
   ],
@@ -39,18 +39,18 @@ Array [
 `;
 
 exports[`backupFile backups file inside nested folder 1`] = `
-Object {
+{
   "file": "<PROJECT_ROOT>/nested/nested-file1.js-backup-c990b9ac.js",
   "filename": "nested-file1.js-backup-c990b9ac.js",
 }
 `;
 
 exports[`backupFile backups file inside nested folder 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/nested/nested-file1.js",
     "<PROJECT_ROOT>/nested/nested-file1.js-backup-c990b9ac.js",
-    Object {
+    {
       "overwrite": false,
     },
   ],

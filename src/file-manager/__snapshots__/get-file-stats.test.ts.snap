@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getFileStats removes files when none exist 1`] = `
-Object {
-  "directories": Array [
+{
+  "directories": [
     "dist",
     "src",
   ],
@@ -10,23 +10,23 @@ Object {
 `;
 
 exports[`getFileStats removes makeDirs when none exist 1`] = `
-Object {
-  "files": Object {
+{
+  "files": {
     "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
   },
 }
 `;
 
-exports[`getFileStats returns empty object when no stats 1`] = `Object {}`;
+exports[`getFileStats returns empty object when no stats 1`] = `{}`;
 
 exports[`getFileStats returns file stats 1`] = `
-Object {
-  "directories": Array [
+{
+  "directories": [
     "dist",
     "nested/two",
     "src",
   ],
-  "files": Object {
+  "files": {
     "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
     "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
     "nested/two/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",

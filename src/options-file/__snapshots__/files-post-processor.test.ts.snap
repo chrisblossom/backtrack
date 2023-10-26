@@ -1,50 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`filesPostProcessor adds file paths to makeDirs 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "dist/file2.js": "<PROJECT_ROOT>/dist/file2.js",
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside/other.js": "<PROJECT_ROOT>/nested/inside/other.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "dist/file2.js": false,
       "file1.js": false,
       "nested/inside/other.js": false,
     },
-    "files": Array [
+    "files": [
       "dist/file2.js",
       "file1.js",
       "nested/inside/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "dist/file2.js": "",
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside/other.js": "",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "dist/file2.js": false,
       "file1.js": false,
       "nested/inside/other.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist/static",
     "nested/inside",
     "src",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside/other.js": "<PROJECT_ROOT>/nested/inside/other.js",
     },
-    "files": Array [
+    "files": [
       "file1.js",
       "file1.js",
       "nested/inside/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside/other.js": "",
     },
@@ -53,37 +53,37 @@ Object {
 `;
 
 exports[`filesPostProcessor do not skip files if directory does not match 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "nested/inside/other.js": "<PROJECT_ROOT>/nested/inside/other.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "nested/inside/other.js": false,
     },
-    "files": Array [
+    "files": [
       "nested/inside/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "nested/inside/other.js": "",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "nested/inside/other.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist/static",
     "nested/inside",
     "src",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "nested/inside/other.js": "<PROJECT_ROOT>/nested/inside/other.js",
     },
-    "files": Array [
+    "files": [
       "nested/inside/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "nested/inside/other.js": "",
     },
   },
@@ -91,49 +91,49 @@ Object {
 `;
 
 exports[`filesPostProcessor handles allowChangesAll 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "file1.js": true,
       "nested/inside.js": true,
       "nested/other.js": true,
     },
-    "files": Array [
+    "files": [
       "file1.js",
       "nested/inside.js",
       "nested/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "file1.js": false,
       "nested/inside.js": false,
       "nested/other.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
     },
-    "files": Array [
+    "files": [
       "file1.js",
       "nested/inside.js",
       "nested/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
@@ -143,33 +143,33 @@ Object {
 `;
 
 exports[`filesPostProcessor handles ignoreUpdates 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "file1.js": true,
     },
-    "files": Array [
+    "files": [
       "file1.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "file1.js": true,
     },
   },
-  "makeDirs": Array [],
-  "src": Object {
-    "absolute": Object {
+  "makeDirs": [],
+  "src": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
     },
-    "files": Array [
+    "files": [
       "file1.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "ignoreUpdates",
     },
   },
@@ -177,49 +177,49 @@ Object {
 `;
 
 exports[`filesPostProcessor handles ignoreUpdatesAll 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "file1.js": true,
       "nested/inside.js": true,
       "nested/other.js": true,
     },
-    "files": Array [
+    "files": [
       "file1.js",
       "nested/inside.js",
       "nested/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "file1.js": true,
       "nested/inside.js": true,
       "nested/other.js": true,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
     },
-    "files": Array [
+    "files": [
       "file1.js",
       "nested/inside.js",
       "nested/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "ignoreUpdates",
       "nested/inside.js": "ignoreUpdates",
       "nested/other.js": "ignoreUpdates",
@@ -229,72 +229,72 @@ Object {
 `;
 
 exports[`filesPostProcessor handles makeDirs 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist/other/nested",
     "dist/static",
     "src",
     "static",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor handles options 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "nested/inside.js": true,
       "nested/other.js": false,
       "z-file2.js": true,
     },
-    "files": Array [
+    "files": [
       "nested/inside.js",
       "nested/other.js",
       "z-file2.js",
     ],
-    "hash": Object {
+    "hash": {
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
       "z-file2.js": "447ad688b0d3b7449000199a9e766ee03965da1ab15a961756a90dcff3a810e3",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "nested/inside.js": false,
       "nested/other.js": false,
       "z-file2.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "files": Array [
+    "files": [
       "nested/inside.js",
       "nested/other.js",
       "z-file2.js",
     ],
-    "hash": Object {
+    "hash": {
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
       "z-file2.js": "447ad688b0d3b7449000199a9e766ee03965da1ab15a961756a90dcff3a810e3",
@@ -304,37 +304,37 @@ Object {
 `;
 
 exports[`filesPostProcessor handles single options 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "ignore-updates-1.js": "<PROJECT_ROOT>/ignore-updates-1.js",
       "ignore-updates-2.js": "<PROJECT_ROOT>/ignore-updates-2.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "ignore-updates-1.js": true,
       "ignore-updates-2.js": true,
       "nested/inside.js": true,
       "nested/other.js": false,
       "z-file2.js": true,
     },
-    "files": Array [
+    "files": [
       "nested/inside.js",
       "nested/other.js",
       "ignore-updates-1.js",
       "ignore-updates-2.js",
       "z-file2.js",
     ],
-    "hash": Object {
+    "hash": {
       "ignore-updates-1.js": "",
       "ignore-updates-2.js": "",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
       "z-file2.js": "447ad688b0d3b7449000199a9e766ee03965da1ab15a961756a90dcff3a810e3",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "ignore-updates-1.js": true,
       "ignore-updates-2.js": true,
       "nested/inside.js": false,
@@ -342,25 +342,25 @@ Object {
       "z-file2.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "nested/ignore-updates-1.js": "<PROJECT_ROOT>/nested/ignore-updates-1.js",
       "nested/ignore-updates-2.js": "<PROJECT_ROOT>/nested/ignore-updates-2.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "files": Array [
+    "files": [
       "nested/inside.js",
       "nested/other.js",
       "nested/ignore-updates-1.js",
       "nested/ignore-updates-2.js",
       "z-file2.js",
     ],
-    "hash": Object {
+    "hash": {
       "nested/ignore-updates-1.js": "ignoreUpdates",
       "nested/ignore-updates-2.js": "ignoreUpdates",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
@@ -372,122 +372,122 @@ Object {
 `;
 
 exports[`filesPostProcessor handles undefined 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "makeDirs": [],
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor makeDirs normalizes paths 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "src",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor makeDirs skip remove last tree when both are specified 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist",
     "src",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor makeDirs skip remove whole tree when base specified 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "src",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor removes duplicate dest 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "file1.js": true,
       "nested/other.js": false,
     },
-    "files": Array [
+    "files": [
       "file1.js",
       "nested/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "file1.js": true,
       "nested/other.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "fake/dir",
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "files": Array [
+    "files": [
       "z-file2.js",
       "nested/other.js",
     ],
-    "hash": Object {
+    "hash": {
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
       "z-file2.js": "ignoreUpdates",
     },
@@ -496,98 +496,98 @@ Object {
 `;
 
 exports[`filesPostProcessor removes duplicate makeDirs 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist",
     "src",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor removes duplicate makeDirs with exact path 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist",
     "src",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor returns empty hash when file does not exist 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "missing.js": "<PROJECT_ROOT>/missing.js",
       "nested/missing.js": "<PROJECT_ROOT>/nested/missing.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "file1.js": false,
       "missing.js": false,
       "nested/missing.js": false,
       "nested/other.js": false,
     },
-    "files": Array [
+    "files": [
       "nested/other.js",
       "nested/missing.js",
       "missing.js",
       "file1.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "missing.js": "",
       "nested/missing.js": "",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "file1.js": false,
       "missing.js": false,
       "nested/missing.js": false,
       "nested/other.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "missing.js": "<PROJECT_ROOT>/missing.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/missing.js": "<PROJECT_ROOT>/nested/missing.js",
     },
-    "files": Array [
+    "files": [
       "nested/missing.js",
       "nested/inside.js",
       "missing.js",
       "file1.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "missing.js": "",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
@@ -598,56 +598,56 @@ Object {
 `;
 
 exports[`filesPostProcessor returns new object 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {
+{
+  "dest": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "allowChanges": Object {
+    "allowChanges": {
       "file1.js": false,
       "nested/inside.js": false,
       "nested/other.js": false,
       "z-file2.js": false,
     },
-    "files": Array [
+    "files": [
       "nested/other.js",
       "nested/inside.js",
       "z-file2.js",
       "file1.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
       "z-file2.js": "447ad688b0d3b7449000199a9e766ee03965da1ab15a961756a90dcff3a810e3",
     },
-    "ignoreUpdates": Object {
+    "ignoreUpdates": {
       "file1.js": false,
       "nested/inside.js": false,
       "nested/other.js": false,
       "z-file2.js": false,
     },
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "nested",
   ],
-  "src": Object {
-    "absolute": Object {
+  "src": {
+    "absolute": {
       "file1.js": "<PROJECT_ROOT>/file1.js",
       "nested/inside.js": "<PROJECT_ROOT>/nested/inside.js",
       "nested/other.js": "<PROJECT_ROOT>/nested/other.js",
       "z-file2.js": "<PROJECT_ROOT>/z-file2.js",
     },
-    "files": Array [
+    "files": [
       "nested/other.js",
       "nested/inside.js",
       "z-file2.js",
       "file1.js",
     ],
-    "hash": Object {
+    "hash": {
       "file1.js": "971eb09e78cb5dca6dd4fba0284b996b624df850e0e27d2933280271d3a7b856",
       "nested/inside.js": "46234eada9c51bae5d7a671fbb939e6efd1dda8b524f2b8b015aa4bce7746c29",
       "nested/other.js": "44c09b273fa7e0ffcb87b76cf882a5c7cdeba79e80b8bc814d3909a2a58ad995",
@@ -658,42 +658,42 @@ Object {
 `;
 
 exports[`filesPostProcessor skip files if inside skipped dir 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "dist/static",
     "src",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;
 
 exports[`filesPostProcessor skip works with makeDirs 1`] = `
-Object {
-  "dest": Object {
-    "absolute": Object {},
-    "allowChanges": Object {},
-    "files": Array [],
-    "hash": Object {},
-    "ignoreUpdates": Object {},
+{
+  "dest": {
+    "absolute": {},
+    "allowChanges": {},
+    "files": [],
+    "hash": {},
+    "ignoreUpdates": {},
   },
-  "makeDirs": Array [
+  "makeDirs": [
     "static",
   ],
-  "src": Object {
-    "absolute": Object {},
-    "files": Array [],
-    "hash": Object {},
+  "src": {
+    "absolute": {},
+    "files": [],
+    "hash": {},
   },
 }
 `;

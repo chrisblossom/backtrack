@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`copyFiles allowChanges - copies if destFile has not been modified 1`] = `
-Object {
-  "<PROJECT_ROOT>/nested/other.js": Object {
+{
+  "<PROJECT_ROOT>/nested/other.js": {
     "dest": "<PROJECT_ROOT>/nested/inside.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -14,10 +14,10 @@ Object {
 `;
 
 exports[`copyFiles allowChanges - copies if does not exist 1`] = `
-Object {
-  "<PROJECT_ROOT>/nested/other.js": Object {
+{
+  "<PROJECT_ROOT>/nested/other.js": {
     "dest": "<PROJECT_ROOT>/nested/missing.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -27,18 +27,18 @@ Object {
 `;
 
 exports[`copyFiles allowChanges - create file with -latest tag 1`] = `
-Object {
-  "<PROJECT_ROOT>/file1.js": Object {
+{
+  "<PROJECT_ROOT>/file1.js": {
     "dest": "<PROJECT_ROOT>/file11.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
     },
   },
-  "<PROJECT_ROOT>/nested/other.js": Object {
+  "<PROJECT_ROOT>/nested/other.js": {
     "dest": "<PROJECT_ROOT>/nested/inside.js-latest.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -48,18 +48,18 @@ Object {
 `;
 
 exports[`copyFiles copies all if all changed 1`] = `
-Object {
-  "<PROJECT_ROOT>/file1.js": Object {
+{
+  "<PROJECT_ROOT>/file1.js": {
     "dest": "<PROJECT_ROOT>/file11.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
     },
   },
-  "<PROJECT_ROOT>/nested/inside.js": Object {
+  "<PROJECT_ROOT>/nested/inside.js": {
     "dest": "<PROJECT_ROOT>/nested/inside1.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -69,10 +69,10 @@ Object {
 `;
 
 exports[`copyFiles copies only changed files 1`] = `
-Object {
-  "<PROJECT_ROOT>/file1.js": Object {
+{
+  "<PROJECT_ROOT>/file1.js": {
     "dest": "<PROJECT_ROOT>/file11.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -82,10 +82,10 @@ Object {
 `;
 
 exports[`copyFiles ignoreUpdates - copies if no previous stats for file 1`] = `
-Object {
-  "<PROJECT_ROOT>/nested/other.js": Object {
+{
+  "<PROJECT_ROOT>/nested/other.js": {
     "dest": "<PROJECT_ROOT>/nested/missing.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -94,4 +94,4 @@ Object {
 }
 `;
 
-exports[`copyFiles ignoreUpdates - does not copy if has previous stats 1`] = `Object {}`;
+exports[`copyFiles ignoreUpdates - does not copy if has previous stats 1`] = `{}`;

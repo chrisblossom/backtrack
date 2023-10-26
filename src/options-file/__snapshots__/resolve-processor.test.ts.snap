@@ -1,38 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`resolveProcessor adds to current 1`] = `
-Object {
+{
   "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01/index.js",
   "eslint": "/path/to/eslint",
 }
 `;
 
 exports[`resolveProcessor allow for packageId 1`] = `
-Object {
+{
   "renamed": "<PROJECT_ROOT>/node_modules/backtrack-preset-01/index.js",
 }
 `;
 
 exports[`resolveProcessor allow for packagePath 1`] = `
-Object {
+{
   "preset-01": "<PROJECT_ROOT>/preset-01.js",
 }
 `;
 
 exports[`resolveProcessor allows single 1`] = `
-Object {
+{
   "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01/index.js",
 }
 `;
 
 exports[`resolveProcessor overwrites key 1`] = `
-Object {
+{
   "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01/index.js",
 }
 `;
 
 exports[`resolveProcessor resolves multiple presets 1`] = `
-Object {
+{
   "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01/index.js",
   "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02/index.js",
 }

@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`packageJsonManager adds custom scripts when they do not exist prior 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/package.json",
     "{
-  \\"version\\": \\"1.0.0\\",
-  \\"description\\": \\"\\",
-  \\"keywords\\": [],
-  \\"license\\": \\"ISC\\",
-  \\"private\\": true,
-  \\"author\\": \\"\\",
-  \\"main\\": \\"index.js\\",
-  \\"scripts\\": {
-    \\"lint.fix\\": \\"eslint --fix\\",
-    \\"test\\": \\"echo /\\"Error: no test specified/\\" && exit 1\\"
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "private": true,
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "lint.fix": "eslint --fix",
+    "test": "echo /"Error: no test specified/" && exit 1"
   },
-  \\"devDependencies\\": {},
-  \\"dependencies\\": {}
+  "devDependencies": {},
+  "dependencies": {}
 }
 ",
   ],
@@ -25,26 +25,26 @@ Array [
 `;
 
 exports[`packageJsonManager removes empty npm defaults 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/package.json",
     "{
-  \\"version\\": \\"1.0.0\\",
-  \\"description\\": \\"\\",
-  \\"keywords\\": [],
-  \\"license\\": \\"\\",
-  \\"private\\": true,
-  \\"author\\": \\"\\",
-  \\"main\\": \\"index.js\\",
-  \\"scripts\\": {
-    \\"lint.fix\\": \\"eslint --fix\\"
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "",
+  "private": true,
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "lint.fix": "eslint --fix"
   },
-  \\"devDependencies\\": {},
-  \\"dependencies\\": {}
+  "devDependencies": {},
+  "dependencies": {}
 }
 ",
   ],
 ]
 `;
 
-exports[`packageJsonManager setting null does not always update packageJson if already removed 1`] = `Array []`;
+exports[`packageJsonManager setting null does not always update packageJson if already removed 1`] = `[]`;

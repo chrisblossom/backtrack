@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`copy adds hash to dest with hash: true 1`] = `
-Object {
-  "files1/test-file.js": Object {
+{
+  "files1/test-file.js": {
     "dest": "build/static/test-file.b2c22cd6.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -14,26 +14,26 @@ Object {
 `;
 
 exports[`copy copies directory of files 1`] = `
-Object {
-  "<PROJECT_ROOT>/files1/nested/nested-inside/inside.js": Object {
+{
+  "<PROJECT_ROOT>/files1/nested/nested-inside/inside.js": {
     "dest": "<PROJECT_ROOT>/build/static/nested/nested-inside/inside.js",
-    "options": Object {
+    "options": {
       "errorOnExist": false,
       "overwrite": false,
       "preserveTimestamps": false,
     },
   },
-  "<PROJECT_ROOT>/files1/nested/other.js": Object {
+  "<PROJECT_ROOT>/files1/nested/other.js": {
     "dest": "<PROJECT_ROOT>/build/static/nested/other.js",
-    "options": Object {
+    "options": {
       "errorOnExist": false,
       "overwrite": false,
       "preserveTimestamps": false,
     },
   },
-  "<PROJECT_ROOT>/files1/test-file.js": Object {
+  "<PROJECT_ROOT>/files1/test-file.js": {
     "dest": "<PROJECT_ROOT>/build/static/test-file.js",
-    "options": Object {
+    "options": {
       "errorOnExist": false,
       "overwrite": false,
       "preserveTimestamps": false,
@@ -43,26 +43,26 @@ Object {
 `;
 
 exports[`copy copies directory of files with hashes 1`] = `
-Object {
-  "<PROJECT_ROOT>/files1/nested/nested-inside/inside.js": Object {
+{
+  "<PROJECT_ROOT>/files1/nested/nested-inside/inside.js": {
     "dest": "<PROJECT_ROOT>/build/static/nested/nested-inside/inside.f7d8aade.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
     },
   },
-  "<PROJECT_ROOT>/files1/nested/other.js": Object {
+  "<PROJECT_ROOT>/files1/nested/other.js": {
     "dest": "<PROJECT_ROOT>/build/static/nested/other.4a98043a.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
     },
   },
-  "<PROJECT_ROOT>/files1/test-file.js": Object {
+  "<PROJECT_ROOT>/files1/test-file.js": {
     "dest": "<PROJECT_ROOT>/build/static/test-file.b2c22cd6.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -72,10 +72,10 @@ Object {
 `;
 
 exports[`copy copies files 1`] = `
-Object {
-  "<PROJECT_ROOT>/files1/test-file.js": Object {
+{
+  "<PROJECT_ROOT>/files1/test-file.js": {
     "dest": "<PROJECT_ROOT>/build/static/test-file.js",
-    "options": Object {
+    "options": {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -85,10 +85,10 @@ Object {
 `;
 
 exports[`copy passes options to fse.copy 1`] = `
-Object {
-  "files1/test-file.js": Object {
+{
+  "files1/test-file.js": {
     "dest": "build/static/test-file.js",
-    "options": Object {
+    "options": {
       "errorOnExist": false,
       "overwrite": false,
       "preserveTimestamps": false,

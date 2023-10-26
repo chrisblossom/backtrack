@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`updatePackageJson merges keys 1`] = `
-Object {
-  "dependencies": Object {
+{
+  "dependencies": {
     "lodash": "4",
     "underscore": "4",
   },
-  "devDependencies": Object {},
+  "devDependencies": {},
   "name": "package",
-  "optionalDependencies": Object {},
-  "peerDependencies": Object {},
-  "scripts": Object {
+  "optionalDependencies": {},
+  "peerDependencies": {},
+  "scripts": {
     "dev": "backtrack dev",
     "one": "script",
     "test": "jest",

@@ -31,7 +31,7 @@ beforeEach(async () => {
 		handleError: (...args: any[]) => {
 			handleErrorMock(...args);
 
-			const handleError = require.requireActual(
+			const handleError = jest.requireActual(
 				'../src/utils/handle-error',
 			).handleError;
 

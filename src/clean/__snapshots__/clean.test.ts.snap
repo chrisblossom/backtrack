@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`clean handles empty del 1`] = `
-Array [
-  Array [
-    Array [],
-    Object {
+[
+  [
+    [],
+    {
       "cwd": "<PROJECT_ROOT>/dist",
       "dot": true,
     },
@@ -13,23 +13,23 @@ Array [
 `;
 
 exports[`clean handles empty del 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/nested",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist/another_nested/folder",
   ],
 ]
 `;
 
 exports[`clean handles empty makeDirs 1`] = `
-Array [
-  Array [
-    Array [
+[
+  [
+    [
       "**/*",
     ],
-    Object {
+    {
       "cwd": "<PROJECT_ROOT>/dist",
       "dot": true,
     },
@@ -38,14 +38,14 @@ Array [
 `;
 
 exports[`clean handles multiple clean 1`] = `
-Array [
-  Array [
-    Array [
+[
+  [
+    [
       "**/*",
       "!.git",
       "!two.js",
     ],
-    Object {
+    {
       "cwd": "<PROJECT_ROOT>/dist",
       "dot": true,
     },
@@ -54,34 +54,34 @@ Array [
 `;
 
 exports[`clean handles multiple clean 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/nested",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist/another_nested/folder",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist/another_two_nested/folder",
   ],
 ]
 `;
 
 exports[`clean handles multiple clean 3`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/outside-build.js",
     "<PROJECT_ROOT>/dist/static/outside-build.js",
-    Object {
+    {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
     },
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/static/static-1.js",
     "<PROJECT_ROOT>/dist/static/static-1.fade7080.js",
-    Object {
+    {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -91,12 +91,12 @@ Array [
 `;
 
 exports[`clean handles one clean 1`] = `
-Array [
-  Array [
-    Array [
+[
+  [
+    [
       "**/*",
     ],
-    Object {
+    {
       "cwd": "<PROJECT_ROOT>/dist",
       "dot": true,
     },
@@ -105,22 +105,22 @@ Array [
 `;
 
 exports[`clean handles one clean 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/nested",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist/another_nested/folder",
   ],
 ]
 `;
 
 exports[`clean handles one clean 3`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/static/static-1.js",
     "<PROJECT_ROOT>/dist/static/static-1.fade7080.js",
-    Object {
+    {
       "errorOnExist": true,
       "overwrite": true,
       "preserveTimestamps": true,
@@ -130,10 +130,10 @@ Array [
 `;
 
 exports[`clean handles undefined 1`] = `
-Array [
-  Array [
-    Array [],
-    Object {
+[
+  [
+    [],
+    {
       "cwd": "<PROJECT_ROOT>/dist",
       "dot": true,
     },
@@ -142,13 +142,13 @@ Array [
 `;
 
 exports[`clean merges duplicates in correct order 1`] = `
-Array [
-  Array [
-    Array [
+[
+  [
+    [
       "duplicate/file",
       "unique/file",
     ],
-    Object {
+    {
       "cwd": "<PROJECT_ROOT>/dist",
       "dot": true,
     },
@@ -157,11 +157,11 @@ Array [
 `;
 
 exports[`clean merges duplicates in correct order 2`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/duplicate/dir",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist/unique/dir",
   ],
 ]

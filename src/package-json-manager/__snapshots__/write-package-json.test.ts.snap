@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`writePackageJson writes package json 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/package.json",
     "{
-  \\"scripts\\": {
-    \\"dev\\": \\"run dev\\"
+  "scripts": {
+    "dev": "run dev"
   }
 }
 ",

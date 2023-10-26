@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`backtrack 1`] = `
-Object {
+{
   ".backtrack-stats.json": "09cb9ff9b00f2a6e01f2bc28dc9c2b4c",
   "backtrack.config.js": "d6c5fe5495d8f6613008e11f92f88147",
   "dist/static/static-file.js": "72fbbbcf68ee7615495bbe3a18fb1a54",
@@ -15,7 +15,7 @@ Object {
 `;
 
 exports[`backtrack 2`] = `
-Object {
+{
   ".backtrack-stats.json": "dc79259f59b6d7b1f22fc870046b6c1e",
   "backtrack.config.js": "d6c5fe5495d8f6613008e11f92f88147",
   "dist/static/static-file.js": "72fbbbcf68ee7615495bbe3a18fb1a54",
@@ -29,7 +29,7 @@ Object {
 `;
 
 exports[`backtrack 3`] = `
-Object {
+{
   ".backtrack-stats.json": "3bf3712a3484dbecddf020cdd38e869a",
   "backtrack.config.js": "052518d2bd82f4034be10ed8ac211b86",
   "file1.js": "9c6ef0aa1493e772eb5047b023fd1c64",
@@ -41,7 +41,7 @@ Object {
 `;
 
 exports[`backtrack 4`] = `
-Object {
+{
   ".backtrack-stats.json": "6b6c16e551598a31afb4cdb307c906a4",
   "backtrack.config.js": "73c0f77ffd19a4043aca19410be35b8c",
   "files/file1.js": "9c6ef0aa1493e772eb5047b023fd1c64",

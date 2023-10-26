@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`runTask handles Promise.All inside task 1`] = `
-Array [
+[
   "asyncResolve_4",
-  Array [
+  [
     "asyncResolve_10",
     "syncFn_1",
   ],
@@ -12,9 +12,9 @@ Array [
 `;
 
 exports[`runTask handles Promise.All outside task 1`] = `
-Array [
+[
   "asyncResolve_10",
-  Array [
+  [
     "asyncResolve_5",
   ],
   "syncFn_2",
@@ -22,7 +22,7 @@ Array [
 `;
 
 exports[`runTask handles a task array 1`] = `
-Array [
+[
   "asyncResolve_20",
   "asyncResolve_10",
   "asyncResolve_1",
@@ -32,7 +32,7 @@ Array [
 `;
 
 exports[`runTask handles async function 1`] = `
-Array [
+[
   "asyncResolve_1",
 ]
 `;
@@ -52,27 +52,27 @@ exports[`runTask handles missing name 1`] = `[Error: 'name' is required for run 
 exports[`runTask handles missing task 1`] = `[Error: 'task' is required for run syntax]`;
 
 exports[`runTask handles named objects 1`] = `
-Array [
-  Array [
+[
+  [
     "asyncResolve_10",
   ],
 ]
 `;
 
 exports[`runTask handles options 1`] = `
-Array [
+[
   "syncFn_1|1|2|3",
 ]
 `;
 
 exports[`runTask handles sync function 1`] = `
-Array [
+[
   "syncFn_1",
 ]
 `;
 
 exports[`runTask handles sync functions 1`] = `
-Array [
+[
   "asyncResolve_10",
   "syncFn_2",
   "asyncResolve_10",
@@ -88,7 +88,7 @@ exports[`runTask handles sync throw 1`] = `[Error: syncThrow_1]`;
 exports[`runTask handles sync thrown errors 1`] = `[Error: syncThrow_1]`;
 
 exports[`runTask passes options to all functions 1`] = `
-Array [
+[
   "asyncResolve_10|1|2|3",
   "syncFn_2|1|2|3",
   "asyncResolve_10|1|2|3",
@@ -98,7 +98,7 @@ Array [
 `;
 
 exports[`runTask runs array of tasks 1`] = `
-Array [
+[
   "asyncResolve_10",
   "asyncResolve_1",
   "asyncResolve_5",

@@ -1,41 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`removeStaleDirectories does nothing if directory does not exist but removes root 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist",
   ],
 ]
 `;
 
 exports[`removeStaleDirectories removes full file tree 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/static",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist",
   ],
 ]
 `;
 
 exports[`removeStaleDirectories removes full file tree with multiple nested 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/inside",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist/static",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/dist",
   ],
 ]
 `;
 
 exports[`removeStaleDirectories removes top next directory, but leaves sub managed directory 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/dist/static",
   ],
 ]

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`fileManger creates file 1`] = `
-Object {
-  "files": Object {
+{
+  "files": {
     "fake.config.js": "a6a55f434d6dc8a956cd49e7e5e91455deb92f94c5b25d6cdfe678ddfa80792c",
   },
 }

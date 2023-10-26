@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`backupChangedFiles backups files with different hashes 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/nested/other.js",
     "<PROJECT_ROOT>/nested/other.js-backup-44c09b27.js",
-    Object {
+    {
       "overwrite": false,
     },
   ],
@@ -13,11 +13,11 @@ Array [
 `;
 
 exports[`backupChangedFiles no previousStats - backup if file exists 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/nested/other.js",
     "<PROJECT_ROOT>/nested/other.js-backup-44c09b27.js",
-    Object {
+    {
       "overwrite": false,
     },
   ],

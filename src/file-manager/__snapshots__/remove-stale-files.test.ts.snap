@@ -1,30 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`removeStaleFiles allowChanges - removes -latest file when dest is no longer managed 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/file2.js",
   ],
-  Array [
+  [
     "<PROJECT_ROOT>/file2.js-latest.js",
   ],
 ]
 `;
 
 exports[`removeStaleFiles allowChanges - removes -latest file when source and dest hash match 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/file2.js-latest.js",
   ],
 ]
 `;
 
 exports[`removeStaleFiles backup file if removed and destination hash different 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/nested/file1.js",
     "<PROJECT_ROOT>/nested/file1.js-backup-971eb09e.js",
-    Object {
+    {
       "overwrite": false,
     },
   ],
@@ -32,8 +32,8 @@ Array [
 `;
 
 exports[`removeStaleFiles removes stale files 1`] = `
-Array [
-  Array [
+[
+  [
     "<PROJECT_ROOT>/nested/inside.js",
   ],
 ]
