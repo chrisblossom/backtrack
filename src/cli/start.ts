@@ -76,7 +76,7 @@ async function start(options?: {}) {
 		await run(taskName, matchedTask, options);
 	} catch (error) {
 		await handleError({
-			error,
+			error: error as Error,
 			logPrefix,
 		});
 	}

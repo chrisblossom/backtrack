@@ -36,8 +36,8 @@ async function runShellCommand(command: string) {
 
 	try {
 		await runningCommand;
-	} catch (err) {
-		const error: execa.ExecaError = err;
+	} catch (err: unknown) {
+		const error = err as execa.ExecaError;
 
 		/**
 		 * An error stack is not relevant here because it is an external command
