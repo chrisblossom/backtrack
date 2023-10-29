@@ -8,7 +8,7 @@ interface Args {
 	value: FileManager;
 }
 
-function filesValidator({ value }: Args) {
+function filesValidator({ value }: Args): void {
 	const { dest, src } = value.reduce(
 		(acc: { dest: string[]; src: string[] }, file) => {
 			if (isCopyFileOptions(file)) {

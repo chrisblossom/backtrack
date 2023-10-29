@@ -5,9 +5,9 @@ import { mergeDeep } from '../utils/object-utils';
 
 function mergeCustomConfigs(
 	namespace: string,
-	config: any,
+	config: Record<string, unknown>,
 	customConfigs: readonly any[],
-) {
+): Record<string, unknown> {
 	const expectedType = getType(config);
 	/**
 	 * Use reduce right because preset's array order
@@ -23,7 +23,6 @@ function mergeCustomConfigs(
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 				fnResult = currentConfig(acc);
 			} catch (error: unknown) {
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 				// @ts-ignore
 				error.message +=
 					// eslint-disable-next-line no-useless-concat

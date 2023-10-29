@@ -41,10 +41,12 @@ describe('options', () => {
 		const dir = path.resolve(__dirname, '__sandbox__/missing/');
 		process.chdir(dir);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			loadOptionsFile();
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -56,10 +58,12 @@ describe('options', () => {
 		);
 		process.chdir(dir);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			loadOptionsFile();
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -68,10 +72,12 @@ describe('options', () => {
 		const dir = path.resolve(__dirname, '__sandbox__/outside-cwd/cwd/');
 		process.chdir(dir);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			loadOptionsFile();
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

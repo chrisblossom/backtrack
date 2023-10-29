@@ -69,10 +69,12 @@ describe('filesValidator', () => {
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			filesValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -95,10 +97,12 @@ describe('filesValidator', () => {
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			filesValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -117,10 +121,13 @@ describe('filesValidator', () => {
 			},
 		];
 
+		let error;
 		try {
 			expect.hasAssertions();
 			filesValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -139,10 +146,12 @@ describe('filesValidator', () => {
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			filesValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -161,10 +170,12 @@ describe('filesValidator', () => {
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			filesValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

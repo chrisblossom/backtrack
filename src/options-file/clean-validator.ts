@@ -7,7 +7,7 @@ type Args = Readonly<{
 	value: readonly NormalizedClean[];
 }>;
 
-function cleanValidator({ value }: Args) {
+function cleanValidator({ value }: Args): void {
 	for (const arg of value) {
 		for (const pattern of arg.del) {
 			const resolvedPattern = path.resolve(buildPath, pattern);

@@ -32,10 +32,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -49,10 +51,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -67,10 +71,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -85,10 +91,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -103,10 +111,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -126,10 +136,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -149,10 +161,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -172,10 +186,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -199,10 +215,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -228,10 +246,12 @@ describe('cleanValidator', () => {
 			},
 		]);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			cleanValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

@@ -10,7 +10,7 @@ const base: NormalizedClean = {
 	copy: [],
 };
 
-async function clean(args: NormalizedClean = base) {
+async function clean(args: NormalizedClean = base): Promise<void> {
 	/**
 	 * Run all del requests together.
 	 *

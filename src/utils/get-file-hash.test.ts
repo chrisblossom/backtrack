@@ -32,10 +32,12 @@ describe('getFileHash', () => {
 	test('fails when file not found', () => {
 		const file = path.resolve(dir, 'file_not_found.js');
 
+		let error;
 		try {
-			expect.hasAssertions();
 			getFileHash(file);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

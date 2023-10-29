@@ -1,6 +1,6 @@
 import path from 'path';
 
-const fileIsInsideDir = (file: string, dir: string | void) =>
+const fileIsInsideDir = (file: string, dir: string) =>
 	require('./file-is-inside-dir').fileIsInsideDir(file, dir);
 
 describe('fileIsInsideDir', () => {
@@ -17,6 +17,7 @@ describe('fileIsInsideDir', () => {
 
 	test('defaults dir to rootPath', () => {
 		const file = path.resolve(sandboxDir, 'nested/file.js');
+		// @ts-ignore
 		const result = fileIsInsideDir(file);
 
 		expect(result).toEqual(true);
@@ -24,6 +25,7 @@ describe('fileIsInsideDir', () => {
 
 	test('handles empty file - false', () => {
 		const file = '';
+		// @ts-ignore
 		const result = fileIsInsideDir(file);
 
 		expect(result).toEqual(false);
@@ -31,6 +33,7 @@ describe('fileIsInsideDir', () => {
 
 	test('handles relative', () => {
 		const file = '../';
+		// @ts-ignore
 		const result = fileIsInsideDir(file);
 
 		expect(result).toEqual(false);
@@ -38,6 +41,7 @@ describe('fileIsInsideDir', () => {
 
 	test('handles absolute', () => {
 		const file = path.resolve(__dirname, '../');
+		// @ts-ignore
 		const result = fileIsInsideDir(file);
 
 		expect(result).toEqual(false);

@@ -7,9 +7,11 @@
  * meant to be used as a snapshot with jest-serializer-path
  */
 
-type CopyCalls = [string, string, {}];
+type CopyCalls = [string, string, Record<string, unknown>];
 
-function copyFormatMockCalls(calls: readonly CopyCalls[]) {
+function copyFormatMockCalls(
+	calls: readonly CopyCalls[],
+): Record<string, unknown> {
 	const result = calls.reduce((acc, call) => {
 		const src = call[0];
 		const dest = call[1];

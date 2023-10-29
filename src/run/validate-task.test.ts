@@ -8,29 +8,35 @@ describe('validateTask', () => {
 	});
 
 	test('handles undefined task', () => {
+		let error;
 		try {
-			expect.hasAssertions();
 			// @ts-ignore
 			validateTask();
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles empty task', () => {
+		let error;
 		try {
-			expect.hasAssertions();
 			validateTask('');
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles bad input', () => {
+		let error;
 		try {
-			expect.hasAssertions();
 			validateTask(0);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -39,10 +45,12 @@ describe('validateTask', () => {
 		const NODE_ENV = process.env.NODE_ENV;
 		delete process.env.NODE_ENV;
 
+		let error;
 		try {
-			expect.hasAssertions();
 			validateTask('dev');
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 

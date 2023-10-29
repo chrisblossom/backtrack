@@ -27,7 +27,7 @@ type Types =
 	| 'regex'
 	| 'unknown';
 
-function getType(value?: any): Types {
+function getType(value?: unknown): Types {
 	if (isPlainObject(value)) {
 		return 'plain object';
 	}

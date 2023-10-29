@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-function validateTask<T>(task: T) {
+function validateTask<T>(task: T): void {
 	const taskValid = Joi.string()
 		.required()
 		.min(1)

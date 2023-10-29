@@ -36,11 +36,13 @@ describe('presetValidator', () => {
 			invalid1: new Date('2017-12-05T18:02:11.869Z'),
 		};
 
+		let error;
 		try {
-			expect.hasAssertions();
 			// @ts-ignore
 			presetValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -80,11 +82,13 @@ describe('presetValidator', () => {
 			],
 		};
 
+		let error;
 		try {
-			expect.hasAssertions();
 			// @ts-ignore
 			presetValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -98,11 +102,13 @@ describe('presetValidator', () => {
 			],
 		};
 
+		let error;
 		try {
-			expect.hasAssertions();
 			// @ts-ignore
 			presetValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -116,11 +122,13 @@ describe('presetValidator', () => {
 			],
 		};
 
+		let error;
 		try {
-			expect.hasAssertions();
 			// @ts-ignore
 			presetValidator({ value });
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

@@ -25,41 +25,49 @@ describe('pkg', () => {
 	});
 
 	test('handles missing sourceId', () => {
+		let error;
 		try {
-			expect.hasAssertions();
 			pkg.resolve(undefined, 'eslint');
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles missing packageId', () => {
+		let error;
 		try {
-			expect.hasAssertions();
 			pkg.resolve('preset-01');
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles unmatched resolve source with none available', () => {
+		let error;
 		try {
 			expect.hasAssertions();
 
 			pkg.resolveMap = {};
 
 			pkg.resolve('preset-01', 'eslint');
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles unmatched resolve source', () => {
+		let error;
 		try {
-			expect.hasAssertions();
-
 			pkg.resolve('preset-01', 'eslint');
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

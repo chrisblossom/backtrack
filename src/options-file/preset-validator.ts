@@ -107,9 +107,9 @@ function generateSchema(lifecycles: Preset) {
 		// prettier-ignore
 		// @ts-ignore
 		const rule = managedLifecycles[lifecycle]
-            // @ts-ignore
-            ? managedLifecycles[lifecycle]
-            : functionLifecycles.label(lifecycle);
+			// @ts-ignore
+			? managedLifecycles[lifecycle]
+			: functionLifecycles.label(lifecycle);
 
 		return {
 			...acc,
@@ -137,7 +137,7 @@ interface Args {
 	value: Preset;
 }
 
-function presetValidator({ value = {} }: Args = { value: {} }) {
+function presetValidator({ value = {} }: Args = { value: {} }): void {
 	const schema = generateSchema(value);
 	const isValid = Joi.validate(value, schema);
 

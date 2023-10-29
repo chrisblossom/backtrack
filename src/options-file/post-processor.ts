@@ -1,14 +1,19 @@
 import path from 'path';
 import { buildPath, sourcePath, rootPath } from '../config/paths';
+import type { ParsedFiles } from '../types';
 import { filesPostProcessor } from './files-post-processor';
 
 interface Args {
 	value: {
-		files?: readonly Record<string, any>[];
+		files?: readonly Record<string, unknown>[];
 	};
 }
 
-function postProcessor({ value }: Args) {
+interface Return {
+	files: ParsedFiles;
+}
+
+function postProcessor({ value }: Args): Return {
 	const makeDirs = [
 		buildPath,
 		sourcePath,
@@ -25,10 +30,12 @@ function postProcessor({ value }: Args) {
 		],
 	});
 
-	return {
+	const result = {
 		...value,
 		files,
 	};
+
+	return result;
 }
 
 export { postProcessor };

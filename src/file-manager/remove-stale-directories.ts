@@ -1,24 +1,11 @@
 import path from 'path';
-import { existsSync, readdir } from 'fs';
+import { existsSync, promises as fs } from 'fs';
 import del from 'del';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { normalizePathname } from '../utils/normalize-pathname';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
 import { ParsedFiles, DirStats } from '../types';
-
-function readDir(pathname: string): Promise<string[]> {
-	return new Promise((resolve, reject) => {
-		readdir(pathname, (error, list) => {
-			if (error) {
-				reject(error);
-				return;
-			}
-
-			resolve(list);
-		});
-	});
-}
 
 async function shouldDelete(relativeDir: string, makeDirs: string[] = []) {
 	async function goUpOne() {
@@ -50,7 +37,7 @@ async function shouldDelete(relativeDir: string, makeDirs: string[] = []) {
 		return;
 	}
 
-	const directoryList = await readDir(absolutePath);
+	const directoryList = await fs.readdir(absolutePath);
 	if (directoryList.length !== 0) {
 		log.info(`Directory not empty: ${relativeDir}`);
 
@@ -71,7 +58,7 @@ async function shouldDelete(relativeDir: string, makeDirs: string[] = []) {
 async function removeStaleDirectories(
 	parsedFiles: ParsedFiles,
 	previousStats: DirStats = [],
-) {
+): Promise<void> {
 	for (const dir of previousStats) {
 		const normalizedDir = normalizePathname(dir);
 

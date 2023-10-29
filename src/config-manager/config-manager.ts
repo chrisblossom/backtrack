@@ -8,7 +8,20 @@ export type ConfigManager = Readonly<{
 	namespace?: string;
 }>;
 
-function configManager({ config, namespace }: ConfigManager = {}) {
+export type ConfigManagerReturn = Record<string, unknown>;
+
+/**
+ * Config manager
+ *
+ * @param {object} config - Config object
+ * @param {string} namespace - Namespace of config
+ *
+ * @returns {object} - Merged config object
+ */
+function configManager({
+	config,
+	namespace,
+}: ConfigManager = {}): ConfigManagerReturn {
 	/**
 	 * Validate args
 	 */

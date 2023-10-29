@@ -25,10 +25,12 @@ describe('loadPackageJson', () => {
 		);
 		process.chdir(dir);
 
+		let error;
 		try {
-			expect.hasAssertions();
 			loadPackageJson();
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

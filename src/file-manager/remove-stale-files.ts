@@ -10,7 +10,7 @@ import { ParsedFiles, FileStats } from '../types';
 async function removeStaleFiles(
 	files: ParsedFiles,
 	previousStats: FileStats = {},
-) {
+): Promise<void> {
 	const pending: Promise<unknown>[] = [];
 
 	for (const relativeFile of Object.keys(previousStats)) {

@@ -14,7 +14,7 @@ interface Args {
 	current?: NormalizedClean;
 }
 
-function cleanProcessor({ value, current = base }: Args) {
+function cleanProcessor({ value, current = base }: Args): NormalizedClean {
 	return value.reduce(
 		(acc, arg) => {
 			arg.del.forEach((pattern) => {

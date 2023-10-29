@@ -14,7 +14,7 @@ function toArray<T>(value: readonly T[] | T[] | T | null | undefined): T[] {
 	return [value];
 }
 
-function mapObjectKeyNames(object: Record<string, unknown> = {}) {
+function mapObjectKeyNames(object: Record<string, unknown> = {}): string[][] {
 	if (Object.keys(object).length === 0) {
 		return [];
 	}
@@ -41,7 +41,7 @@ function mapObjectKeyNames(object: Record<string, unknown> = {}) {
 	return result;
 }
 
-function getParentsFromPath(path: readonly string[]) {
+function getParentsFromPath(path: readonly string[]): string[][] {
 	const basePath = toPath(path);
 
 	const result = basePath
@@ -66,7 +66,10 @@ function getParentsFromPath(path: readonly string[]) {
 	return result;
 }
 
-function mergeDeep(...objects: Record<string, any>[]) {
+// TODO: Replace with https://github.com/voodoocreation/ts-deepmerge
+function mergeDeep(
+	...objects: Record<string, unknown>[]
+): Record<string, unknown> {
 	const [
 		first,
 		...rest

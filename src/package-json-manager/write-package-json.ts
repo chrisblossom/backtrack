@@ -4,7 +4,7 @@ import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { PackageJson } from '../types';
 
-function writePackageJson(packageJson: PackageJson) {
+function writePackageJson(packageJson: PackageJson): void {
 	const packageJsonFile = path.resolve(rootPath, 'package.json');
 
 	writeFileSync(

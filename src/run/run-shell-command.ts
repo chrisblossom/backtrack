@@ -2,7 +2,7 @@
 
 import execa from 'execa';
 
-async function runShellCommand(command: string) {
+async function runShellCommand(command: string): Promise<void> {
 	const runningCommand = execa.shell(
 		command,
 		// @ts-ignore

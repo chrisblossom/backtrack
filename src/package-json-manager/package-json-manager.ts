@@ -9,6 +9,7 @@ import { sortPackageJson } from './sort-package-json';
 import { writePackageJson } from './write-package-json';
 
 async function packageJsonManager(
+	// eslint-disable-next-line default-param-last
 	lifecycles: Lifecycles = {},
 	previousManagedKeys?: PackageJson,
 ): Promise<PackageJson> {

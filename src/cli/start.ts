@@ -8,7 +8,7 @@ import { fileManager } from '../file-manager/file-manager';
 import { packageJsonManager } from '../package-json-manager/package-json-manager';
 import log from '../utils/log';
 
-async function start(options?: {}) {
+async function start(options?: Record<string, unknown>): Promise<void> {
 	const taskName =
 		process.env.RUN_MODE && typeof process.env.RUN_MODE === 'string'
 			? process.env.RUN_MODE

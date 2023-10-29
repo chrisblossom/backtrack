@@ -7,14 +7,14 @@ interface ESModule {
 	default?: Preset;
 }
 
-interface Result {
-	config: Preset | ESModule;
-	filepath: string;
-}
-
 function isESModule(obj: any): obj is ESModule {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return obj.__esModule === true;
+}
+
+interface Result {
+	config: Preset | ESModule;
+	filepath: string;
 }
 
 function transform(result: Result | null) {

@@ -36,13 +36,15 @@ describe('configManager', () => {
 			extends: ['airbnb-base'],
 		};
 
+		let error;
 		try {
-			expect.hasAssertions();
 			configManager({
 				config,
 				namespace: 'backtrack-config-missing',
 			});
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

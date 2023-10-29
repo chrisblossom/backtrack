@@ -64,10 +64,12 @@ describe('backupFile', () => {
 	test('will fail if count >= 10', async () => {
 		const file = path.resolve(dir, 'existing/file4.js');
 
+		let error;
 		try {
-			expect.hasAssertions();
 			await backupFile(file);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 			expect(move.mock.calls).toEqual([]);
 		}

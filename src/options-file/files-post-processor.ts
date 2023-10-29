@@ -10,7 +10,7 @@ import {
 	ParsedFiles,
 } from '../types';
 
-function shouldSkip(pathname: string, skipFiles: string[]) {
+function shouldSkip(pathname: string, skipFiles: string[]): boolean {
 	const split = pathname.split(path.sep);
 
 	let currentPath;

@@ -1,7 +1,10 @@
 const runTask = (task: any, ...options: unknown[]) =>
 	require('./run').runTask(task, ...options);
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) =>
+	new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
 const formatOptions = (options: unknown[]) =>
 	options.length ? `|${options.join('|')}` : '';
 
@@ -77,9 +80,8 @@ describe('runTask', () => {
 	/**
 	 * single functions
 	 */
+	// eslint-disable-next-line jest/no-commented-out-tests
 	// it('handles shell command', async () => {
-	//     expect.hasAssertions();
-	//
 	//     const task = 'eslint';
 	//
 	//     const result = await runTask(task);
@@ -89,67 +91,61 @@ describe('runTask', () => {
 	// });
 
 	test('handles sync function', async () => {
-		expect.hasAssertions();
-
 		const task = syncFn(1);
-
 		const result = await runTask(task);
 
 		expect(result).toMatchSnapshot();
 	});
 
 	test('handles options', async () => {
-		expect.hasAssertions();
-
 		const task = syncFn(1);
-
 		const result = await runTask(task, 1, 2, 3);
 
 		expect(result).toMatchSnapshot();
 	});
 
 	test('handles sync throw', async () => {
-		expect.hasAssertions();
-
 		const task = syncThrow(1);
 
+		let error;
 		try {
 			await runTask(task);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles async function', async () => {
-		expect.hasAssertions();
-
 		const task = asyncResolve(1);
-
 		const result = await runTask(task);
 
 		expect(result).toMatchSnapshot();
 	});
 
 	test('handles async reject', async () => {
-		expect.hasAssertions();
-
 		const task = asyncReject(1);
 
+		let error;
 		try {
 			await runTask(task);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles async throw', async () => {
-		expect.hasAssertions();
-
 		const task = asyncThrow(1);
 
+		let error;
 		try {
 			await runTask(task);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -158,8 +154,6 @@ describe('runTask', () => {
 	 * Array of tasks
 	 */
 	test('runs array of tasks', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(10),
 			asyncResolve(1),
@@ -167,13 +161,10 @@ describe('runTask', () => {
 		];
 
 		const result = await runTask(tasks);
-
 		expect(result).toMatchSnapshot();
 	});
 
 	test('handles a task array', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(20),
 			[
@@ -185,13 +176,10 @@ describe('runTask', () => {
 		];
 
 		const result = await runTask(tasks);
-
 		expect(result).toMatchSnapshot();
 	});
 
 	test('handles sync functions', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(10),
 			syncFn(2),
@@ -203,61 +191,61 @@ describe('runTask', () => {
 		];
 
 		const result = await runTask(tasks);
-
 		expect(result).toMatchSnapshot();
 	});
 
 	test('handles async thrown errors', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(20),
 			asyncThrow(5),
 			asyncResolve(10),
 		];
 
+		let error;
 		try {
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles sync thrown errors', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(20),
 			syncThrow(1),
 			asyncResolve(10),
 		];
 
+		let error;
 		try {
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles async rejected errors', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(20),
 			asyncReject(5),
 			asyncResolve(10),
 		];
 
+		let error;
 		try {
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles async task array errors', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(15),
 			[
@@ -268,16 +256,17 @@ describe('runTask', () => {
 			asyncResolve(1),
 		];
 
+		let error;
 		try {
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles sync task array errors', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(15),
 			[
@@ -288,16 +277,17 @@ describe('runTask', () => {
 			asyncResolve(1),
 		];
 
+		let error;
 		try {
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('passes options to all functions', async () => {
-		expect.hasAssertions();
-
 		const tasks = [
 			asyncResolve(10),
 			syncFn(2),
@@ -309,7 +299,6 @@ describe('runTask', () => {
 		];
 
 		const result = await runTask(tasks, 1, 2, 3);
-
 		expect(result).toMatchSnapshot();
 	});
 
@@ -317,7 +306,6 @@ describe('runTask', () => {
 	 * named objects
 	 */
 	test('handles named objects', async () => {
-		expect.hasAssertions();
 		const tasks = [
 			{
 				name: 'asyncResolve_10',
@@ -338,7 +326,6 @@ describe('runTask', () => {
 	});
 
 	test('handles Promise.All outside task', async () => {
-		expect.hasAssertions();
 		const tasks = [
 			asyncResolve(10),
 			[
@@ -355,7 +342,6 @@ describe('runTask', () => {
 	});
 
 	test('handles Promise.All inside task', async () => {
-		expect.hasAssertions();
 		const tasks = [
 			asyncResolve(4),
 
@@ -383,26 +369,29 @@ describe('runTask', () => {
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('handles missing task', async () => {
-		expect.hasAssertions();
 		const tasks = [
 			{
 				name: 'asyncResolve_10',
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			await runTask(tasks);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

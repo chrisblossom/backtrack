@@ -4,7 +4,10 @@ import log from '../utils/log';
 import { rootPath } from '../config/paths';
 import { ParsedFiles, FileStats } from '../types';
 
-async function copyFiles(files: ParsedFiles, previousStats: FileStats = {}) {
+async function copyFiles(
+	files: ParsedFiles,
+	previousStats: FileStats = {},
+): Promise<void> {
 	const src = files.src;
 	const dest = files.dest;
 

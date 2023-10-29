@@ -7,7 +7,7 @@ import { ParsedFiles, FileStats } from '../types';
 async function backupChangedFiles(
 	files: ParsedFiles,
 	previousStats: FileStats = {},
-) {
+): Promise<void> {
 	const backupNewFiles = files.dest.files
 		.map((destFile) => {
 			/**

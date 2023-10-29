@@ -6,15 +6,16 @@ interface Args {
 	dirname: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function Preprocessor() {
 	let baseConfig = true;
-	const blacklist: (string | void)[] = [];
+	const blacklist: string[] = [];
 
 	/**
 	 * The preprocessor is ran up up the chain on each preset
 	 * After all tasks are processed starting from the top of the preset chain
 	 */
-	return function preprocessor({ value, dirname }: Args) {
+	return function preprocessor({ value, dirname }: Args): Lifecycles {
 		const filtered: Lifecycles = Object.keys(value).reduce(
 			(acc, lifecycle) => {
 				let task = value[lifecycle];

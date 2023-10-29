@@ -16,7 +16,7 @@ class Pkg {
 		this.require = this.require.bind(this);
 	}
 
-	validator(sourceId: string, packageId: string) {
+	validator(sourceId: string, packageId: string): void {
 		if (!sourceId) {
 			throw new Error('sourceId is required');
 		}
@@ -38,7 +38,7 @@ class Pkg {
 		}
 	}
 
-	resolve(sourceId: string, packageId: string) {
+	resolve(sourceId: string, packageId: string): string {
 		this.validator(sourceId, packageId);
 
 		const dirname = this.resolveMap[sourceId];
@@ -46,14 +46,13 @@ class Pkg {
 		return resolveWithPrefixSync(packageId, { dirname });
 	}
 
-	require(sourceId: string, packageId: string) {
+	require(sourceId: string, packageId: string): any {
 		this.validator(sourceId, packageId);
 
 		const dirname = this.resolveMap[sourceId];
 
 		const modulePath = resolveWithPrefixSync(packageId, { dirname });
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return require(modulePath);
 	}
 }

@@ -126,7 +126,6 @@ describe('mergeCustomConfigs', () => {
 
 	test('handles string', () => {
 		const config = '1';
-
 		const customConfigs = ['2'];
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
@@ -149,29 +148,31 @@ describe('mergeCustomConfigs', () => {
 
 	test('finds invalid preset', () => {
 		const config = {};
-
 		const customConfigs = [
 			{},
 			[],
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			mergeCustomConfigs(namespace, config, customConfigs);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
 
 	test('finds invalid preset function', () => {
 		const config = {};
-
 		const customConfigs = [() => ''];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			mergeCustomConfigs(namespace, config, customConfigs);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});
@@ -195,17 +196,18 @@ describe('mergeCustomConfigs', () => {
 
 	test('catches thrown errors', () => {
 		const config = {};
-
 		const customConfigs = [
 			() => {
 				throw new Error('broken fn');
 			},
 		];
 
+		let error;
 		try {
-			expect.hasAssertions();
 			mergeCustomConfigs(namespace, config, customConfigs);
-		} catch (error) {
+		} catch (e) {
+			error = e;
+		} finally {
 			expect(error).toMatchSnapshot();
 		}
 	});

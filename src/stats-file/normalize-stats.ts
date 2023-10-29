@@ -5,7 +5,7 @@ import { DirStats, StatsFile, FileStats } from '../types';
 /**
  * Normalize all paths to be compatible with current operating system
  */
-function normalizeStats(stats: StatsFile, type: 'load' | 'write') {
+function normalizeStats(stats: StatsFile, type: 'load' | 'write'): StatsFile {
 	if (stats.fileManager === undefined) {
 		return stats;
 	}

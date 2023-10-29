@@ -3,7 +3,11 @@ import parentModule from 'parent-module';
 import { optionsFile } from '../options-file/options-file';
 import { Pkg } from '../pkg/pkg';
 import { Lifecycles } from '../types';
-import { configManager, ConfigManager } from '../config-manager/config-manager';
+import {
+	configManager,
+	ConfigManager,
+	ConfigManagerReturn,
+} from '../config-manager/config-manager';
 
 class Initialize {
 	config: Lifecycles;
@@ -25,8 +29,7 @@ class Initialize {
 		this.configManager = this.configManager.bind(this);
 	}
 
-	configManager(args: ConfigManager) {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+	configManager(args: ConfigManager): ConfigManagerReturn {
 		return configManager.bind(this)(args);
 	}
 }

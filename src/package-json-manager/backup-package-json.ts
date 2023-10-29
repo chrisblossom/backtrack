@@ -6,10 +6,13 @@ import log from '../utils/log';
 import { mapObjectKeyNames } from '../utils/object-utils';
 import { PackageJson } from '../types';
 
-type Return = Promise<{
-	file: string;
-	filename: string;
-} | void>;
+type Return = Promise<
+	| {
+			file: string;
+			filename: string;
+	  }
+	| undefined
+>;
 
 const npmDefaults = {
 	version: '1.0.0',

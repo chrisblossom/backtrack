@@ -99,7 +99,7 @@ function handleError(args: HandleError): Promise<void> {
 				log.error(logPrefix, `Finished after ${time.toString()} ms`);
 			}
 
-			// eslint-disable-next-line no-process-exit
+			// eslint-disable-next-line n/no-process-exit
 			process.exit(exitCode);
 			resolve();
 		});

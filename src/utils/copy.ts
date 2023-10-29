@@ -1,28 +1,13 @@
 import path from 'path';
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import fse from 'fs-extra';
 import { readDirDeep } from 'read-dir-deep';
 import { getFileHash } from './get-file-hash';
 import { toArray } from './object-utils';
 
-function stat(pathname: string): Promise<fs.Stats> {
-	return new Promise((resolve, reject) => {
-		fs.stat(pathname, (error, stats) => {
-			if (error !== undefined && error !== null) {
-				reject(error);
-
-				return;
-			}
-
-			resolve(stats);
-		});
-	});
-}
-
 export type File = Readonly<{
 	src: string;
 	dest: string;
-
 	hash?: boolean;
 
 	/**
@@ -49,7 +34,7 @@ function getHashedName(source: string, dest: string) {
  * See https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md#copysrc-dest-options-callback
  * for options
  */
-function copy(files: readonly File[] | File): Promise<void> {
+async function copy(files: readonly File[] | File): Promise<void> {
 	const normalized = toArray(files);
 
 	const copyFilesResult = normalized.map(async (file) => {
@@ -70,7 +55,7 @@ function copy(files: readonly File[] | File): Promise<void> {
 
 		let dest = file.dest;
 
-		const isDirectory: boolean = (await stat(src)).isDirectory();
+		const isDirectory: boolean = (await fs.stat(src)).isDirectory();
 		if (isDirectory) {
 			const deepFileList: string[] = await readDirDeep(src);
 
@@ -123,12 +108,7 @@ function copy(files: readonly File[] | File): Promise<void> {
 		return fse.copy(src, dest, fseCopyOptions);
 	});
 
-	return Promise.all(copyFilesResult).then(() => {
-		/**
-		 * fse.copy does not return any values. explicitly return undefined for promise.all
-		 */
-		return undefined;
-	});
+	await Promise.all(copyFilesResult);
 }
 
 export { copy };

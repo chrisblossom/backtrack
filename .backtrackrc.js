@@ -75,6 +75,8 @@ module.exports = {
 						'@typescript-eslint/no-throw-literal': 'off',
 						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'jest/no-export': 'off',
+
+						'@typescript-eslint/ban-ts-comment': 'off',
 					},
 				},
 			],

@@ -1,13 +1,15 @@
 import path from 'path';
 import { toArray } from '../utils/object-utils';
-import { isCopyFileOptions, Files } from '../types';
+import { isCopyFileOptions, Files, CopyFile, CopyFileOptions } from '../types';
 
 interface Args {
 	value?: Files;
 	dirname?: string;
 }
 
-function filesPreprocessor({ value, dirname = '' }: Args = {}) {
+type Return = (CopyFile | CopyFileOptions | false)[];
+
+function filesPreprocessor({ value, dirname = '' }: Args = {}): Return {
 	const resolveSrc = toArray(value).map((files) => {
 		if (typeof files === 'boolean') {
 			return files;
@@ -19,10 +21,12 @@ function filesPreprocessor({ value, dirname = '' }: Args = {}) {
 
 		const src = path.resolve(dirname, files.src);
 
-		return {
+		const result: CopyFile = {
 			...files,
 			src,
 		};
+
+		return result;
 	});
 
 	return resolveSrc;

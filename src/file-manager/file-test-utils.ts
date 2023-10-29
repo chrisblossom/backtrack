@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call */
 
-import { FileManager } from '../types';
+import { FileManager, FileManagerStats } from '../types';
 
 const filesPreprocessor = (args: any) =>
 	require('../options-file/files-preprocessor').filesPreprocessor(args);
@@ -9,7 +9,7 @@ const filesParser = (args: any) =>
 const getFileStats = (parsedFiles: any) =>
 	require('./get-file-stats').getFileStats(parsedFiles);
 
-function fileStats(previousFiles: FileManager) {
+function fileStats(previousFiles: FileManager): FileManagerStats {
 	const normalize = filesPreprocessor({ value: previousFiles });
 
 	const parsedPreviousFiles = filesParser({ value: normalize });
@@ -19,7 +19,15 @@ function fileStats(previousFiles: FileManager) {
 	return previousStats;
 }
 
-function fileInfo(files: FileManager = [], previousFiles: FileManager = []) {
+interface FileInfo {
+	previousStats: FileManagerStats;
+	parsedFiles: FileManager;
+}
+
+function fileInfo(
+	files: FileManager = [],
+	previousFiles: FileManager = [],
+): FileInfo {
 	const previousStats = fileStats(previousFiles);
 	const normalize = filesPreprocessor({ value: files });
 

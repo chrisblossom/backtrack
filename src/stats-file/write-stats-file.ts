@@ -11,9 +11,10 @@ import { normalizeStats } from './normalize-stats';
 const statsFilename = '.backtrack-stats.json';
 
 async function writeStatsFile(
+	// eslint-disable-next-line default-param-last
 	sections: StatsFile = {},
 	previousStats?: StatsFile,
-) {
+): Promise<void> {
 	const statsFile = path.resolve(rootPath, statsFilename);
 
 	const filterEmptySections: StatsFile = Object.keys(sections).reduce(

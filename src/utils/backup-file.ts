@@ -4,10 +4,13 @@ import { move } from 'fs-extra';
 import { rootPath } from '../config/paths';
 import { getFileHash } from './get-file-hash';
 
-type Return = Promise<{
-	file: string;
-	filename: string;
-} | void>;
+type Return = Promise<
+	| {
+			file: string;
+			filename: string;
+	  }
+	| undefined
+>;
 
 async function backupFile(file: string): Return {
 	const hash = getFileHash(file);

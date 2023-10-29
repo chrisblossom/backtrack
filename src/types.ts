@@ -1,4 +1,6 @@
+/* eslint-disable no-use-before-define */
 type ShellCommand = string;
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomFn = Function;
 
 export type NamedTask = Readonly<{
@@ -38,9 +40,9 @@ export interface CopyFileOptions {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function isCopyFileOptions(obj: any): obj is CopyFileOptions {
+export function isCopyFileOptions(value: any): value is CopyFileOptions {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-	return obj.src === undefined && obj.dest === undefined;
+	return value.src === undefined && value.dest === undefined;
 }
 
 export interface CopyFile {
@@ -78,7 +80,7 @@ export interface Resolve {
 }
 
 export type Preset = {
-	presets?: string | readonly (string | [string, {}])[];
+	presets?: string | readonly (string | [string, Record<string, unknown>])[];
 
 	build?: PresetTask;
 	dev?: PresetTask;
