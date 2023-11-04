@@ -1,16 +1,20 @@
 import { cloneDeep, isPlainObject, mergeWith, toPath } from 'lodash';
 import deepKeys from 'deep-keys';
 
-function toArray<T>(value: readonly T[] | T[] | T | null | undefined): T[] {
-	if (value === undefined || value === null) {
+function isReadonlyArray<T>(value: unknown): value is readonly T[] {
+	return Array.isArray(value);
+}
+
+// removes readonly from array
+function toArray<T>(value?: readonly T[] | T): T[] {
+	if (value == null) {
 		return [];
 	}
 
-	if (Array.isArray(value)) {
-		return value;
+	if (isReadonlyArray(value)) {
+		return [...value];
 	}
 
-	// @ts-ignore
 	return [value];
 }
 

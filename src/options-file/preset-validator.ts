@@ -90,7 +90,7 @@ const configSchema = Joi.array()
 
 const resolveSchema = Joi.object().pattern(/.*/, Joi.string()).label('resolve');
 
-function generateSchema(lifecycles: Preset) {
+function generateSchema(lifecycles: Preset): Joi.ObjectSchema {
 	const managedLifecycles = {
 		clean: cleanSchema,
 		files: filesSchema,
@@ -103,19 +103,21 @@ function generateSchema(lifecycles: Preset) {
 	 * Although all lifecycles can be false to be disabled, they are removed before validation
 	 * Do not not test for this because it will return poor error messages
 	 */
-	const allLifecycles = Object.keys(lifecycles).reduce((acc, lifecycle) => {
-		// prettier-ignore
-		// @ts-ignore
-		const rule = managedLifecycles[lifecycle]
-			// @ts-ignore
-			? managedLifecycles[lifecycle]
-			: functionLifecycles.label(lifecycle);
+	type ManagedLifecycles = keyof typeof managedLifecycles;
+	const allLifeCyclesKeys = Object.keys(lifecycles) as ManagedLifecycles[];
+	const allLifecycles = allLifeCyclesKeys.reduce(
+		(acc, lifecycle: ManagedLifecycles) => {
+			const rule = managedLifecycles[lifecycle]
+				? managedLifecycles[lifecycle]
+				: functionLifecycles.label(lifecycle);
 
-		return {
-			...acc,
-			[lifecycle]: [rule],
-		};
-	}, {});
+			return {
+				...acc,
+				[lifecycle]: [rule],
+			};
+		},
+		{},
+	) as Record<ManagedLifecycles, Joi.Schema>;
 
 	const result = Joi.object({
 		...allLifecycles,

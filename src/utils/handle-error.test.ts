@@ -24,7 +24,7 @@ describe('getExitCode', () => {
 
 	test('defaults to 1', () => {
 		const errors = [
-			// @ts-ignore
+			// @ts-expect-error
 			new ErrorWithProcessExitCode(''),
 		];
 
@@ -51,7 +51,7 @@ describe('getExitCode', () => {
 
 	test('works with undefined', () => {
 		const errors = [
-			// @ts-ignore
+			// @ts-expect-error
 			new ErrorWithProcessExitCode(''),
 			new ErrorWithProcessExitCode('', 0),
 			new ErrorWithProcessExitCode('', 2),

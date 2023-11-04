@@ -25,7 +25,7 @@ describe('presetValidator', () => {
 			],
 		};
 
-		// @ts-ignore
+		// @ts-expect-error
 		const validated = presetValidator({ value });
 
 		expect(validated).toEqual(undefined);
@@ -38,7 +38,7 @@ describe('presetValidator', () => {
 
 		let error;
 		try {
-			// @ts-ignore
+			// @ts-expect-error
 			presetValidator({ value });
 		} catch (e) {
 			error = e;
@@ -84,7 +84,7 @@ describe('presetValidator', () => {
 
 		let error;
 		try {
-			// @ts-ignore
+			// @ts-expect-error
 			presetValidator({ value });
 		} catch (e) {
 			error = e;
@@ -104,7 +104,7 @@ describe('presetValidator', () => {
 
 		let error;
 		try {
-			// @ts-ignore
+			// @ts-expect-error
 			presetValidator({ value });
 		} catch (e) {
 			error = e;
@@ -124,7 +124,7 @@ describe('presetValidator', () => {
 
 		let error;
 		try {
-			// @ts-ignore
+			// @ts-expect-error
 			presetValidator({ value });
 		} catch (e) {
 			error = e;
@@ -149,7 +149,7 @@ describe('presetValidator', () => {
 			],
 		};
 
-		// @ts-ignore
+		// @ts-expect-error
 		const validated = presetValidator({ value });
 
 		expect(validated).toEqual(undefined);
@@ -203,7 +203,7 @@ describe('presetValidator', () => {
 			],
 		};
 
-		// @ts-ignore
+		// @ts-expect-error
 		const validated = presetValidator({ value });
 		expect(validated).toEqual(undefined);
 	});
@@ -215,7 +215,7 @@ describe('presetValidator', () => {
 			},
 		};
 
-		// @ts-ignore
+		// @ts-expect-error
 		const validated = presetValidator({ value });
 		expect(validated).toEqual(undefined);
 	});

@@ -12,10 +12,7 @@ interface Args {
 function resolveProcessor(args: Args): Resolve {
 	const { value, current = {}, dirname } = args;
 
-	const normalizeValue: Resolve[] = toArray(
-		// @ts-ignore
-		value,
-	);
+	const normalizeValue: Resolve[] = toArray(value);
 
 	const result = normalizeValue.reduce((acc, packageId) => {
 		let id;

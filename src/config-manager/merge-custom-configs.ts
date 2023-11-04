@@ -22,11 +22,11 @@ function mergeCustomConfigs(
 			try {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 				fnResult = currentConfig(acc);
-			} catch (error: unknown) {
-				// @ts-ignore
-				error.message +=
-					// eslint-disable-next-line no-useless-concat
-					'\n' + `config namespace context: ${namespace}`;
+			} catch (e: unknown) {
+				const error = e as Error;
+
+				error.message += '\n';
+				error.message += `config namespace context: ${namespace}`;
 
 				throw error;
 			}

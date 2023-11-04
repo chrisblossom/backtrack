@@ -74,7 +74,13 @@ module.exports = {
 						],
 						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'jest/no-export': 'off',
-
+					},
+				},
+				{
+					files: [
+						'*.test.{ts,tsx}',
+					],
+					rules: {
 						'@typescript-eslint/ban-ts-comment': 'off',
 					},
 				},

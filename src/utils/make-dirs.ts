@@ -9,7 +9,7 @@ async function makeDirs(dirs: string[] | string): Promise<readonly string[]> {
 
 	const result = await Promise.all(
 		normalized.map((dir): Promise<string | undefined | null> => {
-			// @ts-ignore ensure dir does not have correct TS signature
+			// @ts-expect-error ensure dir does not have correct TS signature as of @types/fs-extra v8.1.0
 			return fse.ensureDir(dir);
 		}),
 	);

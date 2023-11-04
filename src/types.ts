@@ -144,3 +144,10 @@ export type PackageJson = Readonly<{
 	scripts?: Scripts;
 }> &
 	Readonly<{ [key: string]: unknown }>;
+
+export function plainObjectHasKey<O extends object>(
+	obj: O,
+	key: keyof any,
+): key is keyof O {
+	return key in obj;
+}

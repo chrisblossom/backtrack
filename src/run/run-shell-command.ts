@@ -39,7 +39,7 @@ async function runShellCommand(command: string): Promise<void> {
 		 *
 		 * More detailed command not found error
 		 */
-		// @ts-ignore
+		// @ts-expect-error - execa.ExecaError can throw an error with a code of ENOENT
 		if (error.code === 'ENOENT') {
 			const message = `Command not found: ${error.cmd}`;
 			const exitCode = 1;

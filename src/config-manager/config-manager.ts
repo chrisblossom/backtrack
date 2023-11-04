@@ -18,10 +18,10 @@ export type ConfigManagerReturn = Record<string, unknown>;
  *
  * @returns {object} - Merged config object
  */
-function configManager({
-	config,
-	namespace,
-}: ConfigManager = {}): ConfigManagerReturn {
+function configManager(
+	this: ConfigManager,
+	{ config, namespace }: ConfigManager = {},
+): ConfigManagerReturn {
 	/**
 	 * Validate args
 	 */
@@ -30,7 +30,6 @@ function configManager({
 	}
 
 	const backtrackConfigArray =
-		// @ts-ignore
 		this.config !== undefined ? this.config.config : undefined;
 
 	/**

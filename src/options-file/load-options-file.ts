@@ -13,12 +13,12 @@ function isESModule(obj: any): obj is ESModule {
 	return obj.__esModule === true;
 }
 
-interface Result {
+interface TransformResult {
 	config: Preset | ESModule;
 	filepath: string;
 }
 
-function transform(result: Result | null) {
+function transform(result: TransformResult | null) {
 	/**
 	 * Handle missing config file
 	 *
@@ -57,10 +57,11 @@ const explorer = cosmiconfigSync('backtrack', {
 });
 
 function loadOptionsFile(searchPath: string = rootPath): Preset {
-	// @ts-ignore
-	const { config } = explorer.search(searchPath);
+	const result = explorer.search(searchPath);
 
-	return config as Preset;
+	const config: Preset = result?.config;
+
+	return config;
 }
 
 export { loadOptionsFile };

@@ -14,9 +14,8 @@ describe('preprocessor', () => {
 		};
 
 		const result = preprocessor({
-			// @ts-ignore
+			// @ts-expect-error
 			value,
-			// @ts-ignore
 			config,
 			dirname: __dirname,
 		});
@@ -33,7 +32,7 @@ describe('preprocessor', () => {
 		};
 
 		const result = preprocessor({
-			// @ts-ignore
+			// @ts-expect-error
 			value,
 			dirname: __dirname,
 		});
@@ -53,7 +52,7 @@ describe('preprocessor', () => {
 		};
 
 		const result = preprocessor({
-			// @ts-ignore
+			// @ts-expect-error
 			value,
 			dirname: __dirname,
 		});
@@ -73,7 +72,7 @@ describe('preprocessor', () => {
 		};
 
 		const result = preprocessor({
-			// @ts-ignore
+			// @ts-expect-error
 			value,
 			dirname: __dirname,
 		});

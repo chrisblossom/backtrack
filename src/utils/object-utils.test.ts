@@ -21,8 +21,13 @@ describe('toArray', () => {
 	});
 
 	test('returns empty array when undefined', () => {
-		// @ts-ignore
 		const result = toArray();
+
+		expect(result).toEqual([]);
+	});
+
+	test('returns empty array when null', () => {
+		const result = toArray(null);
 
 		expect(result).toEqual([]);
 	});
@@ -78,7 +83,7 @@ describe('mapObjectKeyNames', () => {
 
 describe('getParentsFromPath', () => {
 	test('handles undefined', () => {
-		// @ts-ignore
+		// @ts-expect-error
 		const result = getParentsFromPath();
 
 		expect(result).toEqual([]);

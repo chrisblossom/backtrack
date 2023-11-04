@@ -10,7 +10,7 @@ describe('validateTask', () => {
 	test('handles undefined task', () => {
 		let error;
 		try {
-			// @ts-ignore
+			// @ts-expect-error
 			validateTask();
 		} catch (e) {
 			error = e;

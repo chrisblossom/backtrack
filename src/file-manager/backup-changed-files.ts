@@ -128,7 +128,6 @@ async function backupChangedFiles(
 		})
 		.filter(Boolean);
 
-	// @ts-ignore
 	await Promise.all([
 		...backupNewFiles,
 		...backupOldFiles,
