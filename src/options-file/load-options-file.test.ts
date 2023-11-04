@@ -16,7 +16,7 @@ describe('options', () => {
 
 		const opts = loadOptionsFile();
 
-		expect(opts).toMatchSnapshot();
+		expect(opts).toEqual({ presets: ['module_exports'] });
 	});
 
 	test('handles module.exports - .backtrackrc.js', () => {
@@ -25,7 +25,7 @@ describe('options', () => {
 
 		const opts = loadOptionsFile();
 
-		expect(opts).toMatchSnapshot();
+		expect(opts).toEqual({ presets: ['module_exports_rc'] });
 	});
 
 	test('loads ES Modules config', () => {
@@ -34,7 +34,7 @@ describe('options', () => {
 
 		const opts = loadOptionsFile();
 
-		expect(opts).toMatchSnapshot();
+		expect(opts).toEqual({ presets: ['es_modules'] });
 	});
 
 	test('throws on missing config', () => {
@@ -47,7 +47,10 @@ describe('options', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toHaveProperty('exitCode', 1);
+			expect(error).toMatchInlineSnapshot(
+				`[Error: backtrack config not found]`,
+			);
 		}
 	});
 
@@ -64,7 +67,10 @@ describe('options', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toHaveProperty('exitCode', 1);
+			expect(error).toMatchInlineSnapshot(
+				`[Error: <PROJECT_ROOT>/backtrack.config.js must use default export with ES Modules]`,
+			);
 		}
 	});
 
@@ -75,10 +81,13 @@ describe('options', () => {
 		let error;
 		try {
 			loadOptionsFile();
-		} catch (e) {
+		} catch (e: unknown) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toHaveProperty('exitCode', 1);
+			expect(error).toMatchInlineSnapshot(
+				`[Error: backtrack config not found]`,
+			);
 		}
 	});
 
@@ -87,6 +96,6 @@ describe('options', () => {
 
 		const opts = loadOptionsFile(dir);
 
-		expect(opts).toMatchSnapshot();
+		expect(opts).toEqual({ presets: ['module_exports'] });
 	});
 });

@@ -1,24 +1,19 @@
-/* eslint-disable no-throw-literal */
-
 import execa from 'execa';
+import { ErrorWithProcessExitCode } from '../utils/error-with-process-exit-code';
 
 async function runShellCommand(command: string): Promise<void> {
-	const runningCommand = execa.shell(
-		command,
-		// @ts-ignore
-		{
-			env: { FORCE_COLOR: 'true' },
-			// https://nodejs.org/api/child_process.html#child_process_options_stdio
-			stdio: [
-				// stdin - forward keyboard input
-				process.stdin,
-				// stdout
-				'pipe',
-				// stderr
-				'pipe',
-			],
-		},
-	);
+	const runningCommand = execa.shell(command, {
+		env: { FORCE_COLOR: 'true' },
+		// https://nodejs.org/api/child_process.html#child_process_options_stdio
+		stdio: [
+			// stdin - forward keyboard input
+			process.stdin,
+			// stdout
+			'pipe',
+			// stderr
+			'pipe',
+		],
+	});
 
 	const logStream = runningCommand.stdout;
 	const logErrorStream = runningCommand.stderr;
@@ -46,19 +41,17 @@ async function runShellCommand(command: string): Promise<void> {
 		 */
 		// @ts-ignore
 		if (error.code === 'ENOENT') {
-			throw {
-				message: `Command not found: ${error.cmd}`,
-				exitCode: 1,
-			};
+			const message = `Command not found: ${error.cmd}`;
+			const exitCode = 1;
+
+			throw new ErrorWithProcessExitCode(message, exitCode);
 		}
 
 		const code = error.code;
 		const exitCode = code === 0 || code ? code : 1;
+		const message = `Command failed: ${error.cmd}`;
 
-		throw {
-			message: `Command failed: ${error.cmd}`,
-			exitCode,
-		};
+		throw new ErrorWithProcessExitCode(message, exitCode);
 	}
 }
 

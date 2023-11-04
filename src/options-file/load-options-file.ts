@@ -1,4 +1,5 @@
 import { cosmiconfigSync } from 'cosmiconfig';
+import { ErrorWithProcessExitCode } from '../utils/error-with-process-exit-code';
 import { rootPath } from '../config/paths';
 import { Preset } from '../types';
 
@@ -24,11 +25,9 @@ function transform(result: Result | null) {
 	 * TODO: ask to create default backtrack config file with found presets in package.json
 	 */
 	if (result === null) {
-		// eslint-disable-next-line no-throw-literal
-		throw {
-			message: 'backtrack config not found',
-			exitCode: 1,
-		};
+		const message = 'backtrack config not found';
+		const exitCode = 1;
+		throw new ErrorWithProcessExitCode(message, exitCode);
 	}
 
 	let config = result.config;
@@ -40,11 +39,9 @@ function transform(result: Result | null) {
 		if (config.default) {
 			config = config.default;
 		} else {
-			// eslint-disable-next-line no-throw-literal
-			throw {
-				message: `${result.filepath} must use default export with ES Modules`,
-				exitCode: 1,
-			};
+			const message = `${result.filepath} must use default export with ES Modules`;
+			const exitCode = 1;
+			throw new ErrorWithProcessExitCode(message, exitCode);
 		}
 	}
 

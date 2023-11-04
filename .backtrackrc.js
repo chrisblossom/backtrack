@@ -72,7 +72,6 @@ module.exports = {
 							// 	ignoreRhs: true,
 							// },
 						],
-						'@typescript-eslint/no-throw-literal': 'off',
 						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'jest/no-export': 'off',
 
@@ -90,6 +89,17 @@ module.exports = {
 			config.files.push('!node_modules/**');
 
 			return config;
+		},
+
+		/**
+		 * Jest v29 does not support prettier v3.
+		 *
+		 * Remove this when Jest v30 is released.
+		 *
+		 * https://jestjs.io/docs/configuration/#prettierpath-string
+		 */
+		jest: {
+			prettierPath: null,
 		},
 	},
 };

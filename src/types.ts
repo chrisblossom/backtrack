@@ -144,8 +144,3 @@ export type PackageJson = Readonly<{
 	scripts?: Scripts;
 }> &
 	Readonly<{ [key: string]: unknown }>;
-
-export type CustomError = Readonly<{
-	message: string;
-	exitCode: number;
-}>;

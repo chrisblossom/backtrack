@@ -1,8 +1,11 @@
+import { ErrorWithProcessExitCode } from './error-with-process-exit-code';
 import { getExitCode } from './handle-error';
 
 describe('getExitCode', () => {
 	test('single exit 2', () => {
-		const errors = [{ message: '', exitCode: 2 }];
+		const errors = [
+			new ErrorWithProcessExitCode('', 2),
+		];
 
 		const exitCode = getExitCode(errors);
 
@@ -11,8 +14,8 @@ describe('getExitCode', () => {
 
 	test('multiple exit codes with 0 starting', () => {
 		const errors = [
-			{ message: '', exitCode: 0 },
-			{ message: '', exitCode: 2 },
+			new ErrorWithProcessExitCode('', 0),
+			new ErrorWithProcessExitCode('', 2),
 		];
 
 		const exitCode = getExitCode(errors);
@@ -20,15 +23,17 @@ describe('getExitCode', () => {
 	});
 
 	test('defaults to 1', () => {
-		const errors = [{ message: '' }];
+		const errors = [
+			// @ts-ignore
+			new ErrorWithProcessExitCode(''),
+		];
 
-		// @ts-ignore
 		const exitCode = getExitCode(errors);
 		expect(exitCode).toEqual(1);
 	});
 
 	test('works with 0', () => {
-		const errors = [{ message: '', exitCode: 0 }];
+		const errors = [new ErrorWithProcessExitCode('', 0)];
 
 		const exitCode = getExitCode(errors);
 		expect(exitCode).toEqual(0);
@@ -36,8 +41,8 @@ describe('getExitCode', () => {
 
 	test('works with two 0', () => {
 		const errors = [
-			{ message: '', exitCode: 0 },
-			{ message: '', exitCode: 0 },
+			new ErrorWithProcessExitCode('', 0),
+			new ErrorWithProcessExitCode('', 0),
 		];
 
 		const exitCode = getExitCode(errors);
@@ -46,12 +51,12 @@ describe('getExitCode', () => {
 
 	test('works with undefined', () => {
 		const errors = [
-			{ message: '', exitCode: undefined },
-			{ message: '', exitCode: 0 },
-			{ message: '', exitCode: 2 },
+			// @ts-ignore
+			new ErrorWithProcessExitCode(''),
+			new ErrorWithProcessExitCode('', 0),
+			new ErrorWithProcessExitCode('', 2),
 		];
 
-		// @ts-ignore
 		const exitCode = getExitCode(errors);
 		expect(exitCode).toEqual(2);
 	});
@@ -74,7 +79,7 @@ describe('getExitCode', () => {
 		const errors = [
 			new Error('hello'),
 			'testing',
-			{ message: '', exitCode: 2 },
+			new ErrorWithProcessExitCode('', 2),
 		];
 
 		const exitCode = getExitCode(errors);

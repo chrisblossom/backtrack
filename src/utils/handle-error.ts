@@ -1,24 +1,13 @@
-import type { CustomError } from '../types';
+import { ErrorWithProcessExitCode } from './error-with-process-exit-code';
 import log from './log';
 import { toArray } from './object-utils';
 
-type Errors = Error | CustomError | string;
-
-type HandleError = Readonly<{
-	error: Errors | readonly Errors[];
-	logPrefix: string;
-	startTime?: Date;
-}>;
-
-function isCustomError(error: any): error is CustomError {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-	return typeof error === 'object' && error.exitCode !== undefined;
-}
+type Errors = Error | ErrorWithProcessExitCode | string;
 
 function getExitCode(errors: readonly Errors[]): number {
 	// Use reduce because it works better with typescript types
 	const codes = errors.reduce((acc: number[], error) => {
-		if (!isCustomError(error)) {
+		if (!(error instanceof ErrorWithProcessExitCode)) {
 			return acc;
 		}
 
@@ -38,14 +27,14 @@ function getExitCode(errors: readonly Errors[]): number {
 	}, []);
 
 	/**
-	 * By default, exit with error code 1
+	 * By default, exit with code "1"
 	 */
 	if (codes.length === 0) {
 		return 1;
 	}
 
 	/**
-	 * Only allow 0 exit code if it is the only exit code
+	 * Only allow "0" exit code if it is the only exit code
 	 */
 	if (codes.length === 1) {
 		return codes[0];
@@ -60,6 +49,12 @@ function getExitCode(errors: readonly Errors[]): number {
 	 */
 	return removeZeros[0];
 }
+
+type HandleError = Readonly<{
+	error: Errors | readonly Errors[];
+	logPrefix: string;
+	startTime?: Date;
+}>;
 
 function handleError(args: HandleError): Promise<void> {
 	return new Promise((resolve) => {
