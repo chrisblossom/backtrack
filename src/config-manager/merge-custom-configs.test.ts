@@ -159,7 +159,9 @@ describe('mergeCustomConfigs', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: merge_custom_configs_test config failed. Mismatched type. Expected: 'plain object', Actual: 'array']`,
+			);
 		}
 	});
 
@@ -173,7 +175,9 @@ describe('mergeCustomConfigs', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: merge_custom_configs_test config failed with custom function. Mismatched type. Expected: 'plain object', Actual: 'string']`,
+			);
 		}
 	});
 
@@ -208,7 +212,10 @@ describe('mergeCustomConfigs', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(`
+[Error: broken fn
+config namespace context: merge_custom_configs_test]
+`);
 		}
 	});
 });

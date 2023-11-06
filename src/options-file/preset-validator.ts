@@ -1,5 +1,5 @@
 import Joi from '@hapi/joi';
-import { Preset } from '../types';
+import { BacktrackConfig } from '../types';
 import { packageJsonSchema } from './package-json-schema';
 
 const copyFilesSchema = Joi.object({
@@ -90,7 +90,7 @@ const configSchema = Joi.array()
 
 const resolveSchema = Joi.object().pattern(/.*/, Joi.string()).label('resolve');
 
-function generateSchema(lifecycles: Preset): Joi.ObjectSchema {
+function generateSchema(lifecycles: BacktrackConfig): Joi.ObjectSchema {
 	const managedLifecycles = {
 		clean: cleanSchema,
 		files: filesSchema,
@@ -136,7 +136,7 @@ function generateSchema(lifecycles: Preset): Joi.ObjectSchema {
 }
 
 interface Args {
-	value: Preset;
+	value: BacktrackConfig;
 }
 
 function presetValidator({ value = {} }: Args = { value: {} }): void {

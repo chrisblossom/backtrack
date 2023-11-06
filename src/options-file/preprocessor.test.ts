@@ -10,7 +10,9 @@ describe('preprocessor', () => {
 
 		const value = {
 			dev: false,
-			files: [{ allowChanges: false }],
+			files: [
+				{ allowChanges: false },
+			],
 		};
 
 		const result = preprocessor({
@@ -20,7 +22,11 @@ describe('preprocessor', () => {
 			dirname: __dirname,
 		});
 
-		expect(result).toMatchSnapshot();
+		expect(result).toEqual({
+			files: [
+				{ allowChanges: false },
+			],
+		});
 	});
 
 	test('removes removes lifecycle with no config', () => {
@@ -28,7 +34,9 @@ describe('preprocessor', () => {
 
 		const value = {
 			dev: false,
-			files: [{ allowChanges: false }],
+			files: [
+				{ allowChanges: false },
+			],
 		};
 
 		const result = preprocessor({
@@ -37,7 +45,11 @@ describe('preprocessor', () => {
 			dirname: __dirname,
 		});
 
-		expect(result).toMatchSnapshot();
+		expect(result).toEqual({
+			files: [
+				{ allowChanges: false },
+			],
+		});
 	});
 
 	test('removes previous lifecycles but keeps new', () => {
@@ -48,7 +60,9 @@ describe('preprocessor', () => {
 				false,
 				'eslint',
 			],
-			files: [{ allowChanges: false }],
+			files: [
+				{ allowChanges: false },
+			],
 		};
 
 		const result = preprocessor({
@@ -57,7 +71,12 @@ describe('preprocessor', () => {
 			dirname: __dirname,
 		});
 
-		expect(result).toMatchSnapshot();
+		expect(result).toEqual({
+			dev: ['eslint'],
+			files: [
+				{ allowChanges: false },
+			],
+		});
 	});
 
 	test('removes previous lifecycles with no config', () => {
@@ -68,7 +87,9 @@ describe('preprocessor', () => {
 				false,
 				'eslint',
 			],
-			files: [{ allowChanges: false }],
+			files: [
+				{ allowChanges: false },
+			],
 		};
 
 		const result = preprocessor({
@@ -77,6 +98,42 @@ describe('preprocessor', () => {
 			dirname: __dirname,
 		});
 
-		expect(result).toMatchSnapshot();
+		expect(result).toEqual({
+			dev: ['eslint'],
+			files: [
+				{ allowChanges: false },
+			],
+		});
+	});
+
+	test('handles concurrent tasks', () => {
+		const preprocessor = Preprocessor();
+
+		const value = {
+			dev: [
+				[
+					'task1',
+					'task2',
+				],
+				'task3',
+			],
+			build: ['task4'],
+		};
+
+		const result = preprocessor({
+			value,
+			dirname: __dirname,
+		});
+
+		expect(result).toEqual({
+			build: ['task4'],
+			dev: [
+				[
+					'task1',
+					'task2',
+				],
+				'task3',
+			],
+		});
 	});
 });

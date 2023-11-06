@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
-import { plainObjectHasKey, Lifecycles, PackageJson } from '../types';
+import type { Lifecycles, PackageJson } from '../types';
+import { objectHasKey } from '../utils/object-utils';
 
 const customScripts = {
 	dev: 'backtrack dev --development',
@@ -40,7 +41,7 @@ function getManagedKeys(lifecycles: Lifecycles = {}): PackageJson {
 		/**
 		 * call backtrack LIFECYCLE unless modified
 		 */
-		if (plainObjectHasKey(customScripts, currentLifecycle)) {
+		if (objectHasKey(customScripts, currentLifecycle)) {
 			const matched = customScripts[currentLifecycle];
 
 			return {
@@ -56,7 +57,7 @@ function getManagedKeys(lifecycles: Lifecycles = {}): PackageJson {
 	const scripts =
 		Object.keys(getScripts).length !== 0 ? { scripts: getScripts } : {};
 
-	const mergePackageJson = merge({}, ...packageJson);
+	const mergePackageJson = merge({}, ...packageJson) as PackageJson;
 	const mergedKeys: PackageJson = merge(scripts, mergePackageJson);
 
 	return mergedKeys;

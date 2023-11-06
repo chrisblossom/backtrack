@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`configManager throws when backtrack config is not found 1`] = `[Error: backtrack config not found]`;

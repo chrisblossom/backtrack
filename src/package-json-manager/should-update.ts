@@ -13,8 +13,8 @@ function shouldUpdate(
 	 * update if managedKeys and packageJson do not match
 	 */
 	const hasUpdatedKeys = mapManagedKeys.some((key) => {
-		const matchedMangedKey = get(managedKeys, key);
-		const matchedPackageJson = get(packageJson, key);
+		const matchedMangedKey: unknown = get(managedKeys, key);
+		const matchedPackageJson: unknown = get(packageJson, key);
 
 		/**
 		 * Key has not been changed if it does not exist and it is managed as null
@@ -36,8 +36,8 @@ function shouldUpdate(
 		 */
 		const mapPreviousManagedKeys = mapObjectKeyNames(previousManagedKeys);
 		const hasRemovedKeys = mapPreviousManagedKeys.some((key) => {
-			const matchedMangedKey = get(managedKeys, key);
-			const matchedPackageJson = get(packageJson, key);
+			const matchedMangedKey: unknown = get(managedKeys, key);
+			const matchedPackageJson: unknown = get(packageJson, key);
 
 			return (
 				matchedMangedKey === undefined &&

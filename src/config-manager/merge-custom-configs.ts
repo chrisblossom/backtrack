@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
+import type { Config } from '../types';
 import { getType } from '../utils/get-type';
 import { mergeDeep } from '../utils/object-utils';
 
 function mergeCustomConfigs(
 	namespace: string,
-	config: Record<string, unknown>,
-	customConfigs: readonly any[],
+	config: Config,
+	customConfigs: Config[],
 ): Record<string, unknown> {
 	const expectedType = getType(config);
 	/**
@@ -20,7 +21,6 @@ function mergeCustomConfigs(
 			let fnResult;
 
 			try {
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 				fnResult = currentConfig(acc);
 			} catch (e: unknown) {
 				const error = e as Error;

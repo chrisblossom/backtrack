@@ -1,4 +1,4 @@
-/* eslint-disable arrow-body-style,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call */
+/* eslint-disable arrow-body-style,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment */
 
 import { FileManager, FileManagerStats } from '../types';
 

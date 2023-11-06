@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+
 type ShellCommand = string;
 // eslint-disable-next-line @typescript-eslint/ban-types
 type CustomFn = Function;
@@ -39,12 +40,6 @@ export interface CopyFileOptions {
 	ignoreUpdates?: string[] | string | boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function isCopyFileOptions(value: any): value is CopyFileOptions {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-	return value.src === undefined && value.dest === undefined;
-}
-
 export interface CopyFile {
 	src: string;
 	dest: string;
@@ -52,22 +47,25 @@ export interface CopyFile {
 	ignoreUpdates?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-member-access */
+export function isCopyFileOptions(value: any): value is CopyFileOptions {
+	return value.src === undefined && value.dest === undefined;
+}
+
 export function isCopyFile(obj: any): obj is CopyFile {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return obj.src !== undefined && obj.dest !== undefined;
 }
 
+/* eslint-enable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-member-access */
+
 export type FileManager = (CopyFile | CopyFileOptions)[];
 
-export interface Config {
-	[key: string]: any;
-}
+export type Config = Record<string, unknown>;
 
 type PresetTask =
 	| AllTaskTypes
 	| false
-	| readonly (AllTaskTypes | readonly AllTaskTypes[] | false)[];
+	| (AllTaskTypes | AllTaskTypes[] | false)[];
 
 export type Files =
 	| CopyFile
@@ -79,8 +77,9 @@ export interface Resolve {
 	[key: string]: string;
 }
 
-export type Preset = {
-	presets?: string | readonly (string | [string, Record<string, unknown>])[];
+// Backtrack Config Files
+export type BacktrackConfig = {
+	presets?: string | (string | [string, Record<string, unknown>])[];
 
 	build?: PresetTask;
 	dev?: PresetTask;
@@ -90,9 +89,9 @@ export type Preset = {
 
 	clean?: Clean | false | readonly (Clean | false)[];
 	files?: Files;
-	packageJson?: PackageJson | false | readonly (PackageJson | false)[];
-	config?: Config | false | readonly (Config | false)[];
-} & { [key: string]: PresetTask };
+	packageJson?: PackageJson | false | (PackageJson | false)[];
+	config?: Config | false | (Config | false)[];
+} & Record<string, PresetTask>;
 
 export type Lifecycles = {
 	build?: Lifecycle;
@@ -104,9 +103,9 @@ export type Lifecycles = {
 	clean?: NormalizedClean;
 	files?: ParsedFiles;
 	packageJson?: readonly PackageJson[];
-	config?: readonly Config[];
+	config?: Config[];
 	resolve?: Resolve;
-} & { [key: string]: Lifecycle };
+} & Record<string, Lifecycle>;
 
 export interface ParsedFiles {
 	src: {
@@ -124,7 +123,7 @@ export interface ParsedFiles {
 	makeDirs: string[];
 }
 
-export type FileStats = Readonly<{ [key: string]: string }>;
+export type FileStats = Readonly<Record<string, string>>;
 
 export type DirStats = readonly string[];
 
@@ -138,16 +137,8 @@ export type StatsFile = Readonly<{
 	packageJson?: PackageJson;
 }>;
 
-export type Scripts = Readonly<{ [key: string]: string | null }>;
-
-export type PackageJson = Readonly<{
-	scripts?: Scripts;
-}> &
-	Readonly<{ [key: string]: unknown }>;
-
-export function plainObjectHasKey<O extends object>(
-	obj: O,
-	key: keyof any,
-): key is keyof O {
-	return key in obj;
-}
+export type Scripts = Readonly<Record<string, string | null>>;
+// prettier-ignore
+export type PackageJson =
+	Readonly<{ scripts?: Scripts }> &
+	Readonly<Record<string, unknown>>;

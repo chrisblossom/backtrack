@@ -8,7 +8,7 @@ import { AllTaskTypes, Task } from '../types';
 import { validateTask } from './validate-task';
 import { runShellCommand } from './run-shell-command';
 
-function checkForRun(task: AllTaskTypes, ...options: any[]) {
+function checkForRun(task: AllTaskTypes, ...options: any[]): unknown {
 	if (typeof task === 'object') {
 		if (typeof task.name !== 'string' || task.name === '') {
 			throw new Error(`'name' is required for run syntax`);
@@ -28,7 +28,6 @@ function checkForRun(task: AllTaskTypes, ...options: any[]) {
 		return runShellCommand(task);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return task(...options);
 }
 
@@ -38,7 +37,7 @@ function isSingleTask(task: any): task is AllTaskTypes {
 
 async function runTask(
 	task: Task,
-	...options: any[]
+	...options: unknown[]
 ): Promise<readonly unknown[]> {
 	/**
 	 * Handle single tasks
@@ -46,7 +45,6 @@ async function runTask(
 	if (isSingleTask(task)) {
 		const result = await checkForRun(task, ...options);
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return [result];
 	}
 
@@ -62,7 +60,6 @@ async function runTask(
 		} else {
 			const taskDone = await Promise.all(
 				currentTask.map((task1) => {
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 					return checkForRun(task1, ...options);
 				}),
 			);
@@ -71,7 +68,6 @@ async function runTask(
 		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return result;
 }
 
@@ -126,7 +122,9 @@ function run(
 						});
 					});
 				})
-				.catch((error) => {
+				.catch((e: unknown) => {
+					const error = e as Error;
+
 					return handleError({
 						error,
 						logPrefix,

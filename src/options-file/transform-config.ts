@@ -1,6 +1,6 @@
 import { exConfigSync, Options as exConfigOptions } from 'ex-config';
 import { rootPath } from '../config/paths';
-import { Lifecycles, Preset } from '../types';
+import { Lifecycles, BacktrackConfig } from '../types';
 import { Preprocessor } from './preprocessor';
 import { postProcessor } from './post-processor';
 import { presetValidator } from './preset-validator';
@@ -11,7 +11,7 @@ import { filesPreprocessor } from './files-preprocessor';
 import { filesValidator } from './files-validator';
 
 function transformConfig(
-	config: Preset,
+	config: BacktrackConfig,
 	dirname: string = rootPath,
 ): Lifecycles {
 	/**

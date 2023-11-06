@@ -1,13 +1,12 @@
 import readPkgUp from 'read-pkg-up';
-import { Preset, Lifecycles } from '../types';
+import type { AllTaskTypes, BacktrackConfig, Lifecycles } from '../types';
 
 interface Args {
-	value: Preset;
+	value: BacktrackConfig;
 	dirname: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function Preprocessor() {
+function Preprocessor(): (args: Args) => Lifecycles {
 	let baseConfig = true;
 	const blacklist: string[] = [];
 
@@ -16,58 +15,60 @@ function Preprocessor() {
 	 * After all tasks are processed starting from the top of the preset chain
 	 */
 	return function preprocessor({ value, dirname }: Args): Lifecycles {
-		const filtered: Lifecycles = Object.keys(value).reduce(
-			(acc, lifecycle) => {
-				let task = value[lifecycle];
+		const lifeCycleKeys: (keyof BacktrackConfig)[] = Object.keys(value);
+		const filtered: Lifecycles = lifeCycleKeys.reduce((acc, lifecycle) => {
+			let task = value[lifecycle];
 
-				/**
-				 * Handle extended tasks
-				 * eg, build: [false, 'eslint .']
-				 */
-				let skipTask = false;
-				if (Array.isArray(task)) {
-					task = task.reduceRight((acc2, currentTask) => {
-						if (skipTask === true) {
-							// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+			/**
+			 * Handle extended tasks
+			 * eg, build: [false, 'eslint .']
+			 */
+			let skipTask = false;
+			if (Array.isArray(task)) {
+				type TaskAcc2 = Array<AllTaskTypes | AllTaskTypes[]>;
+				task = task.reduceRight(
+					(
+						acc2: TaskAcc2,
+						currentTask: AllTaskTypes | AllTaskTypes[] | false,
+					): TaskAcc2 => {
+						if (skipTask) {
 							return acc2;
 						}
 
-						if (currentTask === false) {
+						if (!currentTask) {
 							skipTask = true;
-							// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 							return acc2;
 						}
 
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 						return [
 							currentTask,
 							...acc2,
 						];
-					}, []);
-				}
+					},
+					[],
+				);
+			}
 
-				/**
-				 * If blacklisted, skip task
-				 */
-				if (blacklist.includes(lifecycle)) {
+			/**
+			 * If blacklisted, skip task
+			 */
+			if (blacklist.includes(lifecycle)) {
+				return acc;
+			}
+
+			if (task === false || skipTask !== false) {
+				blacklist.push(lifecycle);
+
+				if (task === false) {
 					return acc;
 				}
+			}
 
-				if (task === false || skipTask !== false) {
-					blacklist.push(lifecycle);
-
-					if (task === false) {
-						return acc;
-					}
-				}
-
-				return {
-					...acc,
-					[lifecycle]: task,
-				};
-			},
-			{},
-		);
+			return {
+				...acc,
+				[lifecycle]: task,
+			};
+		}, {});
 
 		if (baseConfig === false && dirname) {
 			// Disable normalize as it takes a lot of time and we do not need it

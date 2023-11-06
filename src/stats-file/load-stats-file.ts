@@ -14,7 +14,7 @@ function loadStatsFile(): StatsFile {
 		return {};
 	}
 
-	const load: StatsFile = require(file);
+	const load = require(file) as StatsFile;
 
 	const normalized = normalizeStats.load(load);
 

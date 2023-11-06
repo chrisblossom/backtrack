@@ -72,7 +72,6 @@ module.exports = {
 							// 	ignoreRhs: true,
 							// },
 						],
-						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'jest/no-export': 'off',
 					},
 				},
@@ -81,6 +80,7 @@ module.exports = {
 						'*.test.{ts,tsx}',
 					],
 					rules: {
+						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'@typescript-eslint/ban-ts-comment': 'off',
 					},
 				},

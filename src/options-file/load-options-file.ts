@@ -1,11 +1,11 @@
 import { cosmiconfigSync } from 'cosmiconfig';
 import { ErrorWithProcessExitCode } from '../utils/error-with-process-exit-code';
 import { rootPath } from '../config/paths';
-import { Preset } from '../types';
+import { BacktrackConfig } from '../types';
 
 interface ESModule {
 	__esModule: true;
-	default?: Preset;
+	default?: BacktrackConfig;
 }
 
 function isESModule(obj: any): obj is ESModule {
@@ -14,7 +14,7 @@ function isESModule(obj: any): obj is ESModule {
 }
 
 interface TransformResult {
-	config: Preset | ESModule;
+	config: BacktrackConfig;
 	filepath: string;
 }
 
@@ -56,10 +56,10 @@ const explorer = cosmiconfigSync('backtrack', {
 	transform,
 });
 
-function loadOptionsFile(searchPath: string = rootPath): Preset {
+function loadOptionsFile(searchPath: string = rootPath): BacktrackConfig {
 	const result = explorer.search(searchPath);
 
-	const config: Preset = result?.config;
+	const config = result?.config as BacktrackConfig;
 
 	return config;
 }

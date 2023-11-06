@@ -10,21 +10,21 @@ import {
 } from '../config-manager/config-manager';
 
 class Initialize {
-	config: Lifecycles;
-	pkg: any;
-	paths: any;
-	env: any;
+	backtrackConfig: Lifecycles; // Preset?
+	pkg: InstanceType<typeof Pkg>;
+	paths: Record<string, string>;
+	env: Record<string, string>;
 
 	constructor() {
 		const parent = parentModule() ?? '';
 		const parentDirname = path.parse(parent).dir;
 
-		this.config = optionsFile(parentDirname);
+		this.backtrackConfig = optionsFile(parentDirname);
 
-		this.pkg = new Pkg(this.config.resolve);
+		this.pkg = new Pkg(this.backtrackConfig.resolve);
 
-		this.paths = require('../config/paths');
-		this.env = require('../config/env');
+		this.paths = require('../config/paths') as typeof this.paths;
+		this.env = require('../config/env') as typeof this.env;
 
 		this.configManager = this.configManager.bind(this);
 	}

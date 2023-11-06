@@ -6,11 +6,11 @@ import {
 	isNaN,
 	isNull,
 	isNumber,
-	isPlainObject,
 	isRegExp,
 	isString,
 	isUndefined,
 } from 'lodash';
+import { isPlainObject } from './object-utils';
 
 type Types =
 	| 'array'

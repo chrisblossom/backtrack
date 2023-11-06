@@ -38,10 +38,13 @@ async function backupPackageJson(
 
 	const shouldBackup = mapManagedKeys
 		.filter((key) => {
-			const matchedMangedKey = get(managedKeys, key);
-			const matchedPackageJson = get(packageJson, key);
-			const matchedPreviousManagedKey = get(previousManagedKeys, key);
-			const matchedDefaultKey = get(npmDefaults, key);
+			const matchedMangedKey: unknown = get(managedKeys, key);
+			const matchedPackageJson: unknown = get(packageJson, key);
+			const matchedPreviousManagedKey: unknown = get(
+				previousManagedKeys,
+				key,
+			);
+			const matchedDefaultKey: unknown = get(npmDefaults, key);
 
 			/**
 			 * Don't backup if package.json key === npm default

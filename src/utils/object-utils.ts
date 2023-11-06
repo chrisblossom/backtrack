@@ -1,5 +1,31 @@
-import { cloneDeep, isPlainObject, mergeWith, toPath } from 'lodash';
+import { cloneDeep, mergeWith, toPath } from 'lodash';
 import deepKeys from 'deep-keys';
+
+// source: https://github.com/sindresorhus/is-plain-obj
+// copy due to ESM-only package
+function isPlainObject<Value>(
+	value: unknown,
+): value is Record<PropertyKey, Value> {
+	if (typeof value !== 'object' || value === null) {
+		return false;
+	}
+
+	const prototype = Object.getPrototypeOf(value) as object;
+	return (
+		(prototype === null ||
+			prototype === Object.prototype ||
+			Object.getPrototypeOf(prototype) === null) &&
+		!(Symbol.toStringTag in value) &&
+		!(Symbol.iterator in value)
+	);
+}
+
+function objectHasKey<O extends object>(
+	obj: O,
+	key: keyof any,
+): key is keyof O {
+	return key in obj;
+}
 
 function isReadonlyArray<T>(value: unknown): value is readonly T[] {
 	return Array.isArray(value);
@@ -99,13 +125,11 @@ function mergeDeep(
 	/* eslint-enable @typescript-eslint/no-unsafe-return */
 }
 
-function hasProperty<O>(object: O, property: string): boolean {
-	return Object.prototype.hasOwnProperty.call(object, property);
-}
-
 export {
 	getParentsFromPath,
-	hasProperty,
+	objectHasKey,
+	isPlainObject,
+	isReadonlyArray,
 	mapObjectKeyNames,
 	mergeDeep,
 	toArray,

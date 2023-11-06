@@ -11,9 +11,8 @@ function loadPackageJson(): PackageJson {
 		throw new Error('package.json not found');
 	}
 
-	const load = require(file);
+	const load = require(file) as PackageJson;
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return load;
 }
 

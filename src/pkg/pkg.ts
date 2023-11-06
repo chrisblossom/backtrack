@@ -46,14 +46,14 @@ class Pkg {
 		return resolveWithPrefixSync(packageId, { dirname });
 	}
 
-	require(sourceId: string, packageId: string): any {
+	require(sourceId: string, packageId: string): unknown {
 		this.validator(sourceId, packageId);
 
 		const dirname = this.resolveMap[sourceId];
 
 		const modulePath = resolveWithPrefixSync(packageId, { dirname });
 
-		return require(modulePath);
+		return require(modulePath) as unknown;
 	}
 }
 

@@ -167,7 +167,9 @@ test('backtrack', async () => {
 	 */
 	process.env.RUN_MODE = 'init';
 
+	// @ts-ignore
 	delete config.dev;
+	// @ts-ignore
 	delete config.clean.copy;
 
 	await sandbox.createFile(

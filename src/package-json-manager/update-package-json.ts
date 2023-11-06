@@ -32,7 +32,11 @@ function updatePackageJson(
 				/**
 				 * Unset object empty tree
 				 */
-				const matchedPackageKey = get(packageJsonCopy, currentPath);
+				const matchedPackageKey: unknown = get(
+					packageJsonCopy,
+					currentPath,
+				);
+
 				if (
 					isPlainObject(matchedPackageKey) &&
 					isEmpty(matchedPackageKey)

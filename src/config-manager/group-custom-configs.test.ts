@@ -7,15 +7,9 @@ const groupCustomConfigs = (namespace: any, customConfigs: any) =>
 describe('groupCustomConfigs', () => {
 	test('gets matched namespace', () => {
 		const customConfigs = [
-			{
-				'config-1': 1,
-			},
-			{
-				'config-2': 2,
-			},
-			{
-				'config-1': 3,
-			},
+			{ 'config-1': 1 },
+			{ 'config-2': 2 },
+			{ 'config-1': 3 },
 		];
 
 		const result = groupCustomConfigs('config-1', customConfigs);
@@ -28,15 +22,9 @@ describe('groupCustomConfigs', () => {
 
 	test('return empty array when none are matched', () => {
 		const customConfigs = [
-			{
-				'config-1': 1,
-			},
-			{
-				'config-2': 2,
-			},
-			{
-				'config-1': 3,
-			},
+			{ 'config-1': 1 },
+			{ 'config-2': 2 },
+			{ 'config-1': 3 },
 		];
 
 		const result = groupCustomConfigs('config-3', customConfigs);

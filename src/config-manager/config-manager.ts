@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return */
-
+import type { Config } from '../types';
+import type { Initialize } from '../initialize/initialize';
 import { groupCustomConfigs } from './group-custom-configs';
 import { mergeCustomConfigs } from './merge-custom-configs';
 
 export type ConfigManager = Readonly<{
-	config?: any;
+	config?: Config;
 	namespace?: string;
 }>;
 
+// Should be preset or lifecycles. Worst case Config
 export type ConfigManagerReturn = Record<string, unknown>;
 
 /**
@@ -19,8 +20,8 @@ export type ConfigManagerReturn = Record<string, unknown>;
  * @returns {object} - Merged config object
  */
 function configManager(
-	this: ConfigManager,
-	{ config, namespace }: ConfigManager = {},
+	this: InstanceType<typeof Initialize>,
+	{ config: managedConfig = {}, namespace }: ConfigManager = {},
 ): ConfigManagerReturn {
 	/**
 	 * Validate args
@@ -29,14 +30,13 @@ function configManager(
 		throw new Error('namespace is required');
 	}
 
-	const backtrackConfigArray =
-		this.config !== undefined ? this.config.config : undefined;
+	const backtrackConfigArray = this.backtrackConfig.config;
 
 	/**
 	 * Return config if backtrackConfig is not set
 	 */
-	if (!backtrackConfigArray) {
-		return config;
+	if (backtrackConfigArray == null) {
+		return managedConfig;
 	}
 
 	/**
@@ -51,7 +51,7 @@ function configManager(
 	 * If no custom config, return original config
 	 */
 	if (groupedCustomConfigs.length === 0) {
-		return config;
+		return managedConfig;
 	}
 
 	/**
@@ -59,7 +59,7 @@ function configManager(
 	 */
 	const mergedConfigs = mergeCustomConfigs(
 		namespace,
-		config,
+		managedConfig,
 		groupedCustomConfigs,
 	);
 

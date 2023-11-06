@@ -45,7 +45,9 @@ describe('configManager', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: backtrack config not found]`,
+			);
 		}
 	});
 

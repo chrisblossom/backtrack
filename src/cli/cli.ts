@@ -55,7 +55,8 @@ if (require.main === module && process.argv.length > 2) {
 
 			return start();
 		})
-		.catch((error) => {
+		.catch((e: unknown) => {
+			const error = e as Error;
 			/**
 			 * Handle error here at last resort. Should never get here.
 			 */

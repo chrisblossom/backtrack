@@ -5,7 +5,8 @@ import { isEqual } from 'lodash';
 import del from 'del';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
-import { plainObjectHasKey, StatsFile } from '../types';
+import { StatsFile } from '../types';
+import { objectHasKey } from '../utils/object-utils';
 import { normalizeStats } from './normalize-stats';
 
 const statsFilename = '.backtrack-stats.json';
@@ -20,7 +21,7 @@ async function writeStatsFile(
 	const filterEmptySections: StatsFile = Object.keys(sections).reduce(
 		(acc, section) => {
 			const matchedSection =
-				plainObjectHasKey(sections, section) &&
+				objectHasKey(sections, section) &&
 				sections[section] !== undefined
 					? sections[section]
 					: {};
@@ -46,10 +47,7 @@ async function writeStatsFile(
 	 */
 	const shouldDelete = Object.keys(filterEmptySections).reduce(
 		(acc: number[], section) => {
-			const matchedSection = plainObjectHasKey(
-				filterEmptySections,
-				section,
-			)
+			const matchedSection = objectHasKey(filterEmptySections, section)
 				? filterEmptySections[section]
 				: undefined;
 
