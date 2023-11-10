@@ -1,6 +1,7 @@
 'use strict';
 
-module.exports = {
+/** @type {import('@backtrack/core').Config} */
+const config = {
 	presets: [
 		[
 			'@backtrack/node',
@@ -109,3 +110,5 @@ module.exports = {
 		},
 	},
 };
+
+module.exports = config;
