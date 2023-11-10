@@ -8,7 +8,7 @@ import { AllTaskTypes, Task } from '../types';
 import { validateTask } from './validate-task';
 import { runShellCommand } from './run-shell-command';
 
-function checkForRun(task: AllTaskTypes, ...options: any[]): unknown {
+function checkForRun(task: AllTaskTypes, ...options: unknown[]): unknown {
 	if (typeof task === 'object') {
 		if (typeof task.name !== 'string' || task.name === '') {
 			throw new Error(`'name' is required for run syntax`);
@@ -31,7 +31,7 @@ function checkForRun(task: AllTaskTypes, ...options: any[]): unknown {
 	return task(...options);
 }
 
-function isSingleTask(task: any): task is AllTaskTypes {
+function isSingleTask(task: unknown): task is AllTaskTypes {
 	return Array.isArray(task) === false;
 }
 

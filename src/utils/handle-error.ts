@@ -68,15 +68,11 @@ function handleError(args: HandleError): Promise<void> {
 			const exitCode = getExitCode(normalizedError);
 
 			normalizedError.forEach((err) => {
-				if (
-					typeof err === 'object' &&
-					err !== null &&
-					Array.isArray(err) === false
-				) {
+				if (typeof err === 'object' && Array.isArray(err) === false) {
 					let message;
-					if ((err as Error).stack !== undefined) {
-						message = (err as Error).stack;
-					} else if ((err as Error).message !== undefined) {
+					if (err.stack) {
+						message = err.stack;
+					} else if (err.message) {
 						message = err.message;
 					} else {
 						message = err;

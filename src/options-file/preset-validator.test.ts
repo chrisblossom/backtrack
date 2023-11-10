@@ -3,17 +3,17 @@ import { presetValidator } from './preset-validator';
 
 describe('presetValidator', () => {
 	test('handles undefined', () => {
-		const validated = presetValidator();
-
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			presetValidator();
+		}).not.toThrow();
 	});
 
 	test('preset passes', () => {
 		const value = require('./__sandbox__/preset-01');
 
-		const validated = presetValidator({ value });
-
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('preset passes with options', () => {
@@ -26,10 +26,10 @@ describe('presetValidator', () => {
 			],
 		};
 
-		// @ts-expect-error
-		const validated = presetValidator({ value });
-
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			// @ts-expect-error
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('preset validates custom lifecycles', () => {
@@ -50,13 +50,13 @@ describe('presetValidator', () => {
 
 	test('preset allows no valid options', () => {
 		const value = {};
-
-		const validated = presetValidator({ value });
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('allows empty presets', () => {
-		// @ts-ignore
+		// @ts-expect-error
 		const value: BacktrackConfig = {
 			dev: [],
 			clean: [],
@@ -69,8 +69,9 @@ describe('presetValidator', () => {
 			config: {},
 		};
 
-		const validated = presetValidator({ value });
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('config fails as array', () => {
@@ -97,9 +98,10 @@ describe('presetValidator', () => {
 			},
 		};
 
-		// @ts-expect-error
-		const validated = presetValidator({ value });
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			// @ts-expect-error
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('fails with unknown key', () => {
@@ -180,10 +182,10 @@ describe('presetValidator', () => {
 			],
 		};
 
-		// @ts-expect-error
-		const validated = presetValidator({ value });
-
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			// @ts-expect-error
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('success with files options', () => {
@@ -234,9 +236,10 @@ describe('presetValidator', () => {
 			],
 		};
 
-		// @ts-expect-error
-		const validated = presetValidator({ value });
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			// @ts-expect-error
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 
 	test('success with resolve', () => {
@@ -245,9 +248,9 @@ describe('presetValidator', () => {
 				'some-npm-pkg': '/path/to/pkg',
 			},
 		};
-
-		// @ts-expect-error
-		const validated = presetValidator({ value });
-		expect(validated).toEqual(undefined);
+		expect(() => {
+			// @ts-expect-error
+			presetValidator({ value });
+		}).not.toThrow();
 	});
 });

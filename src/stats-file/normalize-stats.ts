@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import slash from 'slash';
 import { DirStats, StatsFile, FileStats } from '../types';
 
@@ -50,11 +50,11 @@ function normalizeStats(stats: StatsFile, type: 'load' | 'write'): StatsFile {
 	};
 }
 
-function load(stats: StatsFile) {
+function load(stats: StatsFile): StatsFile {
 	return normalizeStats(stats, 'load');
 }
 
-function write(stats: StatsFile) {
+function write(stats: StatsFile): StatsFile {
 	return normalizeStats(stats, 'write');
 }
 

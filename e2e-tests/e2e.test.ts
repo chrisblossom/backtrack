@@ -24,7 +24,7 @@ beforeEach(async () => {
 
 	processExitSpy = jest
 		.spyOn(process, 'exit')
-		// @ts-ignore
+		// @ts-expect-error
 		.mockImplementation(() => undefined);
 
 	jest.doMock('../src/utils/handle-error', () => ({
@@ -167,9 +167,9 @@ test('backtrack', async () => {
 	 */
 	process.env.RUN_MODE = 'init';
 
-	// @ts-ignore
+	// @ts-expect-error
 	delete config.dev;
-	// @ts-ignore
+	// @ts-expect-error
 	delete config.clean.copy;
 
 	await sandbox.createFile(
@@ -227,7 +227,7 @@ test('creates only latest when file already exists and new managed file that is 
 	/**
 	 * add file that already exists
 	 */
-	// @ts-ignore
+	// @ts-expect-error
 	packageJson.backtrack.files = {
 		src: 'files/file1.js',
 		dest: 'src/file1.js',
@@ -329,9 +329,9 @@ test('correctly handles multiple shell commands', async () => {
 	await backtrack();
 
 	const initialFiles = await sandbox.getAllFilesHash();
-	// @ts-ignore
+	// @ts-expect-error
 	delete initialFiles['.backtrack-stats.json'];
-	// @ts-ignore
+	// @ts-expect-error
 	delete initialFiles['package.json'];
 
 	expect(initialFiles).toEqual({
@@ -343,9 +343,9 @@ test('correctly handles multiple shell commands', async () => {
 	await backtrack();
 
 	const filesRemoved = await sandbox.getAllFilesHash();
-	// @ts-ignore
+	// @ts-expect-error
 	delete filesRemoved['.backtrack-stats.json'];
-	// @ts-ignore
+	// @ts-expect-error
 	delete filesRemoved['package.json'];
 
 	expect(filesRemoved).toEqual({});
@@ -441,7 +441,7 @@ test('completely ignores updates to ignored source files', async () => {
 
 	await backtrack();
 
-	// @ts-ignore
+	// @ts-expect-error
 	// eslint-disable-next-line no-console
 	const loggedUpdateMessage = console.info.mock.calls.some((message) => {
 		return message[1].includes(

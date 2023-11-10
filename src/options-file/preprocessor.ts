@@ -25,7 +25,7 @@ function Preprocessor(): (args: Args) => Lifecycles {
 			 */
 			let skipTask = false;
 			if (Array.isArray(task)) {
-				type TaskAcc2 = Array<AllTaskTypes | AllTaskTypes[]>;
+				type TaskAcc2 = (AllTaskTypes | AllTaskTypes[])[];
 				task = task.reduceRight(
 					(
 						acc2: TaskAcc2,

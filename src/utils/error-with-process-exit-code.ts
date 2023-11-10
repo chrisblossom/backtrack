@@ -8,9 +8,8 @@ class ErrorWithProcessExitCode extends Error {
 
 	constructor(message: string, exitCode: number) {
 		super(message);
-		if (exitCode != null) {
-			this.exitCode = exitCode;
-		}
+
+		this.exitCode = exitCode;
 		// Set the prototype explicitly for better compatibility across different environments
 		Object.setPrototypeOf(this, ErrorWithProcessExitCode.prototype);
 	}

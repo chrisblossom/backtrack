@@ -2,9 +2,9 @@ import { validateTask } from './validate-task';
 
 describe('validateTask', () => {
 	test('handles valid task', () => {
-		const result = validateTask('dev');
-
-		expect(result).toMatchSnapshot();
+		expect(() => {
+			validateTask('dev');
+		}).not.toThrow();
 	});
 
 	test('handles undefined task', () => {
@@ -15,7 +15,7 @@ describe('validateTask', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(`[Error: "task" is required]`);
 		}
 	});
 
@@ -26,7 +26,9 @@ describe('validateTask', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: "task" is not allowed to be empty]`,
+			);
 		}
 	});
 
@@ -37,7 +39,9 @@ describe('validateTask', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: "task" must be a string]`,
+			);
 		}
 	});
 
@@ -51,15 +55,17 @@ describe('validateTask', () => {
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: "process.env.NODE_ENV" is required]`,
+			);
 		}
 
 		process.env.NODE_ENV = NODE_ENV;
 	});
 
 	test('handles process.env.NODE_ENV is set', () => {
-		const result = validateTask('dev');
-
-		expect(result).toMatchSnapshot();
+		expect(() => {
+			validateTask('dev');
+		}).not.toThrow();
 	});
 });

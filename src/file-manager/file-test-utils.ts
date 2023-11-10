@@ -1,12 +1,12 @@
-/* eslint-disable arrow-body-style,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment */
+/* eslint-disable arrow-body-style,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/explicit-function-return-type */
 
 import { FileManager, FileManagerStats } from '../types';
 
-const filesPreprocessor = (args: any) =>
+const filesPreprocessor = (args: unknown) =>
 	require('../options-file/files-preprocessor').filesPreprocessor(args);
-const filesParser = (args: any) =>
+const filesParser = (args: unknown) =>
 	require('../options-file/files-post-processor').filesPostProcessor(args);
-const getFileStats = (parsedFiles: any) =>
+const getFileStats = (parsedFiles: unknown) =>
 	require('./get-file-stats').getFileStats(parsedFiles);
 
 function fileStats(previousFiles: FileManager): FileManagerStats {

@@ -47,7 +47,7 @@ export interface CopyFile {
 	ignoreUpdates?: boolean;
 }
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-explicit-any */
 export function isCopyFileOptions(value: any): value is CopyFileOptions {
 	return value.src === undefined && value.dest === undefined;
 }
@@ -56,7 +56,7 @@ export function isCopyFile(obj: any): obj is CopyFile {
 	return obj.src !== undefined && obj.dest !== undefined;
 }
 
-/* eslint-enable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-member-access */
+/* eslint-enable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-explicit-any */
 
 export type FileManager = (CopyFile | CopyFileOptions)[];
 
@@ -71,9 +71,7 @@ export type Files =
 	| false
 	| (false | CopyFile | CopyFileOptions)[];
 
-export interface Resolve {
-	[key: string]: string;
-}
+export type Resolve = Record<string, string>;
 
 export type ExternalConfig = Record<string, unknown[]>;
 
@@ -112,15 +110,15 @@ export type Lifecycles = {
 export interface ParsedFiles {
 	src: {
 		files: string[];
-		absolute: { [key: string]: string };
-		hash: { [key: string]: string };
+		absolute: Record<string, string>;
+		hash: Record<string, string>;
 	};
 	dest: {
 		files: string[];
-		absolute: { [key: string]: string };
-		hash: { [key: string]: string };
-		allowChanges: { [key: string]: boolean };
-		ignoreUpdates: { [key: string]: boolean };
+		absolute: Record<string, string>;
+		hash: Record<string, string>;
+		allowChanges: Record<string, boolean>;
+		ignoreUpdates: Record<string, boolean>;
 	};
 	makeDirs: string[];
 }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types,no-console */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/explicit-function-return-type,no-console */
 
 import { bgBlue, bgGreen, bgRed, bgYellow, gray, white } from 'chalk';
 
@@ -63,5 +63,5 @@ function warn(...messages: unknown[]) {
 	return print(messages, format, 'warn');
 }
 
-// eslint-disable-next-line import/no-default-export
+// eslint-disable-next-line import/no-default-export,import/no-anonymous-default-export
 export default { error, info, log, print, success, warn };

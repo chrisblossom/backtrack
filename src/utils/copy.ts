@@ -19,7 +19,7 @@ export interface File {
 	preserveTimestamps?: boolean;
 }
 
-function getHashedName(source: string, dest: string) {
+function getHashedName(source: string, dest: string): string {
 	const parsed = path.parse(dest);
 	const fileHash = getFileHash(source).substring(0, 8);
 

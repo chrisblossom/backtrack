@@ -70,8 +70,8 @@ function sortPackageJson(packageJson: PackageJson): PackageJson {
 		'dependencies',
 	];
 
-	const getSortedKeys = (keys: typeof top | typeof bottom) => {
-		return keys.reduce((acc, key) => {
+	const getSortedKeys = (keys: string[]): Record<string, unknown> => {
+		const result = keys.reduce((acc, key) => {
 			const value = initialSort[key];
 
 			if (value === undefined) {
@@ -80,6 +80,8 @@ function sortPackageJson(packageJson: PackageJson): PackageJson {
 
 			return { ...acc, [key]: value };
 		}, {});
+
+		return result;
 	};
 
 	const topKeys = getSortedKeys(top);

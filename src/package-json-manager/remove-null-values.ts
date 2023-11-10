@@ -1,8 +1,6 @@
 import { PackageJson } from '../types';
 
-interface CurrentObject {
-	[key: string]: unknown;
-}
+type CurrentObject = Record<string, unknown>;
 
 function removeNullValues(packageJson: PackageJson): PackageJson {
 	const removeNull = (object: CurrentObject): PackageJson => {
@@ -13,11 +11,7 @@ function removeNullValues(packageJson: PackageJson): PackageJson {
 				return acc;
 			}
 
-			if (
-				typeof value === 'object' &&
-				Array.isArray(value) === false &&
-				value !== null
-			) {
+			if (typeof value === 'object' && Array.isArray(value) === false) {
 				value = removeNull(value as CurrentObject);
 			}
 

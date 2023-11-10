@@ -9,7 +9,7 @@ import { rootPath } from '../config/paths';
  *
  * WARNING: NOT PROPERLY TESTED
  */
-const getRealPath = (file: string) => {
+const getRealPath = (file: string): string => {
 	try {
 		return realpathSync(file);
 	} catch (error) {

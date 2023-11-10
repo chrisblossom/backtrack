@@ -49,26 +49,25 @@ if (require.main === module && process.argv.length > 2) {
 
 	const logPrefix = `${taskName}:${process.env.NODE_ENV}`;
 
-	import('./start')
-		.then((module) => {
-			const start = module.start;
+	try {
+		const module = await import('./start');
+		const start = module.start;
 
-			return start();
-		})
-		.catch((e: unknown) => {
-			const error = e as Error;
-			/**
-			 * Handle error here at last resort. Should never get here.
-			 */
-			return handleError({
-				error,
-				logPrefix,
-			});
+		await start();
+	} catch (e: unknown) {
+		const error = e as Error;
+		/**
+		 * Handle error here at last resort. Should never get here.
+		 */
+		await handleError({
+			error,
+			logPrefix,
 		});
+	}
 } else {
 	const logPrefix = '[backtrack]';
 
-	handleError({
+	await handleError({
 		error: new Error('Task required'),
 		logPrefix,
 	});

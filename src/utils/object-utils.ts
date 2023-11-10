@@ -10,7 +10,7 @@ function isPlainObject<Value>(
 		return false;
 	}
 
-	const prototype = Object.getPrototypeOf(value) as object;
+	const prototype: unknown = Object.getPrototypeOf(value);
 	return (
 		(prototype === null ||
 			prototype === Object.prototype ||
@@ -22,7 +22,7 @@ function isPlainObject<Value>(
 
 function objectHasKey<O extends object>(
 	obj: O,
-	key: keyof any,
+	key: keyof never,
 ): key is keyof O {
 	return key in obj;
 }
@@ -108,19 +108,22 @@ function mergeDeep<T>(...objects: Record<string, unknown>[]): T {
 	 */
 	const firstCopy = cloneDeep(first);
 
-	/* eslint-disable @typescript-eslint/no-unsafe-return */
-	return mergeWith(firstCopy, ...rest, (objValue: any, srcValue: any) => {
-		if (Array.isArray(objValue)) {
-			return objValue.concat(srcValue);
-		}
+	return mergeWith(
+		firstCopy,
+		...rest,
+		(objValue: unknown, srcValue: unknown) => {
+			if (Array.isArray(objValue)) {
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+				return objValue.concat(srcValue);
+			}
 
-		if (isPlainObject(objValue)) {
-			return mergeDeep(objValue, srcValue);
-		}
+			if (isPlainObject(objValue) && isPlainObject(srcValue)) {
+				return mergeDeep(objValue, srcValue);
+			}
 
-		return srcValue;
-	});
-	/* eslint-enable @typescript-eslint/no-unsafe-return */
+			return srcValue;
+		},
+	) as T;
 }
 
 export {

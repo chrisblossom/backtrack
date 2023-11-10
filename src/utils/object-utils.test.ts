@@ -218,7 +218,7 @@ describe('mergeDeep', () => {
 		const result = mergeDeep(obj1, obj2);
 
 		expect(result === obj1).toEqual(false);
-		// @ts-ignore
+		// @ts-expect-error
 		expect(result.two === obj1.two).toEqual(false);
 	});
 });

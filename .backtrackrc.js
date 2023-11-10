@@ -49,21 +49,8 @@ const config = {
 						'.*.{ts,tsx}',
 					],
 					rules: {
-						// TODO: enable
-						'@typescript-eslint/explicit-function-return-type':
-							'off',
-						'@typescript-eslint/no-explicit-any': 'off',
-						'@typescript-eslint/promise-function-async': 'off',
-						'@typescript-eslint/restrict-plus-operands': 'off',
-						'@typescript-eslint/explicit-member-accessibility':
-							'off',
-						'@typescript-eslint/camelcase': 'off',
-						'import/no-anonymous-default-export': 'off',
-						'@typescript-eslint/no-require-imports': 'off',
-						'promise/prefer-await-to-callbacks': 'off',
-						'promise/prefer-await-to-then': 'off',
-						'@typescript-eslint/no-floating-promises': 'off',
 						'@typescript-eslint/no-var-requires': 'off',
+						'promise/prefer-await-to-then': 'off',
 
 						'@typescript-eslint/strict-boolean-expressions': [
 							'off',
@@ -74,6 +61,14 @@ const config = {
 							// },
 						],
 						'jest/no-export': 'off',
+
+						'@typescript-eslint/explicit-module-boundary-types': [
+							'error',
+						],
+						'@typescript-eslint/explicit-function-return-type': [
+							'error',
+						],
+						'@typescript-eslint/no-unnecessary-condition': 'off',
 					},
 				},
 				{
@@ -81,8 +76,12 @@ const config = {
 						'*.test.{ts,tsx}',
 					],
 					rules: {
+						'@typescript-eslint/no-explicit-any': 'off',
+						'@typescript-eslint/no-unsafe-argument': 'off',
 						'@typescript-eslint/no-unsafe-assignment': 'off',
 						'@typescript-eslint/ban-ts-comment': 'off',
+						'@typescript-eslint/explicit-function-return-type':
+							'off',
 					},
 				},
 			],

@@ -81,17 +81,17 @@ function splitSections(copyFiles: FileManager): SplitSections {
 	return sections;
 }
 
-function parseOptions(options: CopyFileOptions[]) {
-	interface ParseOptionsAcc {
-		allowChangesAll: boolean;
-		ignoreUpdatesAll: boolean;
-		allowChanges: string[];
-		ignoreUpdates: string[];
-		skip: string[];
-	}
+interface ParseOptionsReturn {
+	allowChangesAll: boolean;
+	ignoreUpdatesAll: boolean;
+	allowChanges: string[];
+	ignoreUpdates: string[];
+	skip: string[];
+}
 
-	const result = options.reduce(
-		(acc: ParseOptionsAcc, fileOptions) => {
+function parseOptions(options: CopyFileOptions[]): ParseOptionsReturn {
+	const result = options.reduce<ParseOptionsReturn>(
+		(acc, fileOptions) => {
 			if (fileOptions.skip) {
 				toArray(fileOptions.skip).forEach((relativePath) => {
 					const normalizedFile = normalizePathname(relativePath);
@@ -138,7 +138,11 @@ function parseOptions(options: CopyFileOptions[]) {
 	return result;
 }
 
-function getMakeDirs(makeDirs: string[], files: string[], skipFiles: string[]) {
+function getMakeDirs(
+	makeDirs: string[],
+	files: string[],
+	skipFiles: string[],
+): string[] {
 	const filePaths = files
 		.map((filePath) => {
 			const { dir } = path.parse(filePath);

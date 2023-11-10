@@ -7,8 +7,11 @@ import { normalizePathname } from '../utils/normalize-pathname';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
 import { ParsedFiles, DirStats } from '../types';
 
-async function shouldDelete(relativeDir: string, makeDirs: string[] = []) {
-	async function goUpOne() {
+async function shouldDelete(
+	relativeDir: string,
+	makeDirs: string[] = [],
+): Promise<void> {
+	async function goUpOne(): Promise<void> {
 		const upOneDir = path.join(relativeDir, '..');
 		if (upOneDir === '.') {
 			return;

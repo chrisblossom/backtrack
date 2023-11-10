@@ -2,15 +2,17 @@ import { cosmiconfigSync } from 'cosmiconfig';
 import { ErrorWithProcessExitCode } from '../utils/error-with-process-exit-code';
 import { rootPath } from '../config/paths';
 import { BacktrackConfig } from '../types';
+import { isPlainObject } from '../utils/object-utils';
 
 interface ESModule {
 	__esModule: true;
 	default?: BacktrackConfig;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isESModule(obj: any): obj is ESModule {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-	return obj.__esModule === true;
+	return isPlainObject(obj) === true && obj.__esModule === true;
 }
 
 interface TransformResult {
@@ -18,7 +20,7 @@ interface TransformResult {
 	filepath: string;
 }
 
-function transform(result: TransformResult | null) {
+function transform(result: TransformResult | null): TransformResult {
 	/**
 	 * Handle missing config file
 	 *
