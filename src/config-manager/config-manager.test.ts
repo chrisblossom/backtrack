@@ -1,6 +1,6 @@
 import path from 'path';
 
-function configManager(args: any) {
+function configManager<T>(args: { config: T; namespace: string }): T {
 	const Backtrack = require('../initialize/initialize').Initialize;
 
 	const backtrack = new Backtrack();

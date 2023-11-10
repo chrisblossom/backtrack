@@ -2,15 +2,11 @@ import path from 'path';
 import parentModule from 'parent-module';
 import { optionsFile } from '../options-file/options-file';
 import { Pkg } from '../pkg/pkg';
-import { Lifecycles } from '../types';
-import {
-	configManager,
-	ConfigManager,
-	ConfigManagerReturn,
-} from '../config-manager/config-manager';
+import type { Lifecycles } from '../types';
+import { configManager } from '../config-manager/config-manager';
 
 class Initialize {
-	backtrackConfig: Lifecycles; // Preset?
+	backtrackConfig: Lifecycles;
 	pkg: InstanceType<typeof Pkg>;
 	paths: Record<string, string>;
 	env: Record<string, string>;
@@ -29,8 +25,8 @@ class Initialize {
 		this.configManager = this.configManager.bind(this);
 	}
 
-	configManager(args: ConfigManager): ConfigManagerReturn {
-		return configManager.bind(this)(args);
+	configManager<T>(args: { config: T; namespace: string }): T {
+		return configManager.bind(this)(args) as T;
 	}
 }
 

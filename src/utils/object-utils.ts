@@ -97,9 +97,7 @@ function getParentsFromPath(path: readonly string[]): string[][] {
 }
 
 // TODO: Replace with https://github.com/voodoocreation/ts-deepmerge
-function mergeDeep(
-	...objects: Record<string, unknown>[]
-): Record<string, unknown> {
+function mergeDeep<T>(...objects: Record<string, unknown>[]): T {
 	const [
 		first,
 		...rest

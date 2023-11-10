@@ -2,6 +2,15 @@
 
 exports[`transformConfig handles false 1`] = `
 {
+  "config": {
+    "eslint": [
+      {
+        "rules": {
+          "no-constant-binary-expression": "off",
+        },
+      },
+    ],
+  },
   "dev": [
     [Function preset2DevTask1],
     {
@@ -155,6 +164,20 @@ exports[`transformConfig handles false with additional task 1`] = `
     ],
     "makeDirs": [],
   },
+  "config": {
+    "eslint": [
+      {
+        "rules": {
+          "no-console": "off",
+        },
+      },
+    ],
+    "prettier": [
+      {
+        "semi": true,
+      },
+    ],
+  },
   "dev": [
     [Function preset2DevTask1],
     {
@@ -232,6 +255,15 @@ exports[`transformConfig handles one preset 1`] = `
       "<PROJECT_ROOT>/dist/static/favicons",
     ],
   },
+  "config": {
+    "eslint": [
+      {
+        "rules": {
+          "no-constant-binary-expression": "off",
+        },
+      },
+    ],
+  },
   "dev": [
     [Function preset2DevTask1],
     {
@@ -256,6 +288,95 @@ exports[`transformConfig handles one preset 1`] = `
       [Function preset1DevTask2],
     ],
     "base",
+  ],
+  "files": {
+    "dest": {
+      "absolute": {},
+      "allowChanges": {},
+      "files": [],
+      "hash": {},
+      "ignoreUpdates": {},
+    },
+    "makeDirs": [
+      "dist",
+      "src",
+    ],
+    "src": {
+      "absolute": {},
+      "files": [],
+      "hash": {},
+    },
+  },
+  "resolve": {
+    "backtrack-preset-01": "<PROJECT_ROOT>/node_modules/backtrack-preset-01",
+    "backtrack-preset-02": "<PROJECT_ROOT>/node_modules/backtrack-preset-02",
+  },
+}
+`;
+
+exports[`transformConfig handles third party config overrides 1`] = `
+{
+  "clean": {
+    "copy": [
+      {
+        "dest": "<PROJECT_ROOT>/dist/static-1",
+        "src": "<PROJECT_ROOT>/static-1",
+      },
+      {
+        "dest": "<PROJECT_ROOT>/dist/static-2",
+        "hash": true,
+        "src": "<PROJECT_ROOT>/static-2",
+      },
+    ],
+    "del": [
+      "nested",
+    ],
+    "makeDirs": [
+      "<PROJECT_ROOT>/dist/static/other",
+    ],
+  },
+  "config": {
+    "eslint": [
+      {
+        "rules": {
+          "no-console": "off",
+        },
+      },
+      {
+        "rules": {
+          "no-constant-binary-expression": "off",
+        },
+      },
+    ],
+    "prettier": [
+      {
+        "semi": true,
+      },
+    ],
+  },
+  "dev": [
+    [Function preset2DevTask1],
+    {
+      "name": "preset1DevTask1",
+      "task": [Function preset1DevTask1],
+    },
+    {
+      "name": "run jest",
+      "task": "jest",
+    },
+    "eslint --fix",
+    [
+      {
+        "name": "run prettier",
+        "task": "prettier",
+      },
+      "eslint",
+    ],
+    [Function preset1DevTask2],
+    [
+      [Function preset1DevTask1],
+      [Function preset1DevTask2],
+    ],
   ],
   "files": {
     "dest": {

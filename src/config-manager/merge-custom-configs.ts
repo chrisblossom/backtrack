@@ -1,67 +1,83 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
-import type { Config } from '../types';
+import type { ExternalConfig } from '../types';
 import { getType } from '../utils/get-type';
-import { mergeDeep } from '../utils/object-utils';
+import { isPlainObject, mergeDeep } from '../utils/object-utils';
 
-function mergeCustomConfigs(
+function checkType<T>(
 	namespace: string,
-	config: Config,
-	customConfigs: Config[],
-): Record<string, unknown> {
+	value: unknown,
+	expectedType: string,
+): asserts value is T {
+	const currentType = getType(value);
+	if (currentType !== expectedType) {
+		throw new Error(
+			`${namespace} config failed because of mismatched type. Expected: '${expectedType}', Actual: '${currentType}'`,
+		);
+	}
+}
+
+type Fn = <T>(x: T) => T;
+function isFunction(fn: unknown): fn is Fn {
+	return typeof fn === 'function';
+}
+
+function run<T>(namespace: string, fn: Fn, previousConfig: T): T {
+	try {
+		const fnResult = fn(previousConfig);
+
+		return fnResult;
+	} catch (e: unknown) {
+		const error = e as Error;
+
+		error.message += '\n';
+		error.message += `config namespace context: ${namespace}`;
+
+		throw error;
+	}
+}
+
+function mergeCustomConfigs<T>(
+	namespace: string,
+	config: T,
+	customConfigs: ExternalConfig,
+): T {
 	const expectedType = getType(config);
 	/**
 	 * Use reduce right because preset's array order
 	 */
-	const result = customConfigs.reduceRight((acc, currentConfig) => {
-		/**
-		 * Allow custom merge functions to be more explicit how
-		 */
-		if (typeof currentConfig === 'function') {
-			let fnResult;
 
-			try {
-				fnResult = currentConfig(acc);
-			} catch (e: unknown) {
-				const error = e as Error;
-
-				error.message += '\n';
-				error.message += `config namespace context: ${namespace}`;
-
-				throw error;
-			}
-			const currentConfigType = getType(fnResult);
-
-			if (currentConfigType !== expectedType) {
-				throw new Error(
-					`${namespace} config failed with custom function. Mismatched type. Expected: '${expectedType}', Actual: '${currentConfigType}'`,
-				);
+	const result = customConfigs[namespace].reduceRight<T>(
+		(acc, currentConfig): T => {
+			if (currentConfig == null) {
+				return acc;
 			}
 
-			return fnResult;
-		}
+			/**
+			 * Allow custom merge functions to be more explicit how
+			 */
+			if (isFunction(currentConfig)) {
+				const fnResult = run<T>(namespace, currentConfig, acc);
+				checkType<T>(namespace, fnResult, expectedType);
 
-		const currentConfigType = getType(currentConfig);
+				return fnResult;
+			}
 
-		if (currentConfigType !== expectedType) {
-			throw new Error(
-				`${namespace} config failed. Mismatched type. Expected: '${expectedType}', Actual: '${currentConfigType}'`,
-			);
-		}
+			checkType<T>(namespace, currentConfig, expectedType);
 
-		if (typeof currentConfig === 'object' && currentConfig !== null) {
-			if (Array.isArray(currentConfig)) {
+			if (Array.isArray(currentConfig) && Array.isArray(acc)) {
 				return [
 					...acc,
 					...currentConfig,
-				];
+				] as T;
 			}
 
-			return mergeDeep(acc, currentConfig);
-		}
+			if (isPlainObject(currentConfig) && isPlainObject(acc)) {
+				return mergeDeep<T>(acc, currentConfig);
+			}
 
-		return currentConfig;
-	}, config);
+			return currentConfig;
+		},
+		config,
+	);
 
 	return result;
 }

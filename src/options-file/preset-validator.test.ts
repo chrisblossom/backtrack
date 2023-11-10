@@ -1,3 +1,4 @@
+import type { BacktrackConfig } from '../types';
 import { presetValidator } from './preset-validator';
 
 describe('presetValidator', () => {
@@ -55,7 +56,8 @@ describe('presetValidator', () => {
 	});
 
 	test('allows empty presets', () => {
-		const value = {
+		// @ts-ignore
+		const value: BacktrackConfig = {
 			dev: [],
 			clean: [],
 			build: [],
@@ -64,9 +66,38 @@ describe('presetValidator', () => {
 			files: [],
 			format: [],
 			packageJson: [],
+			config: {},
+		};
+
+		const validated = presetValidator({ value });
+		expect(validated).toEqual(undefined);
+	});
+
+	test('config fails as array', () => {
+		const value = {
 			config: [],
 		};
 
+		let error;
+		try {
+			presetValidator({ value });
+		} catch (e) {
+			error = e;
+		} finally {
+			expect(error).toMatchSnapshot();
+		}
+	});
+
+	test('config works as a plain object', () => {
+		const value = {
+			config: {
+				eslint: {
+					'no-console': 'off',
+				},
+			},
+		};
+
+		// @ts-expect-error
 		const validated = presetValidator({ value });
 		expect(validated).toEqual(undefined);
 	});

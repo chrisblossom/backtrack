@@ -39,6 +39,29 @@ describe('transformConfig', () => {
 		expect(result).toMatchSnapshot();
 	});
 
+	test('handles third party config overrides', () => {
+		const dir = path.resolve(__dirname, '__sandbox__/app1/');
+		process.chdir(dir);
+
+		const config = {
+			presets: ['01'],
+			config: {
+				eslint: {
+					rules: {
+						'no-console': 'off',
+					},
+				},
+				prettier: {
+					semi: true,
+				},
+			},
+		};
+
+		const result = transformConfig(config);
+
+		expect(result).toMatchSnapshot();
+	});
+
 	test('handles false', () => {
 		const dir = path.resolve(__dirname, '__sandbox__/app1/');
 		process.chdir(dir);
@@ -62,6 +85,13 @@ describe('transformConfig', () => {
 			clean: [
 				false,
 				{ del: 'static' },
+			],
+			config: [
+				false,
+				{
+					eslint: { rules: { 'no-console': 'off' } },
+					prettier: { semi: true },
+				},
 			],
 		};
 

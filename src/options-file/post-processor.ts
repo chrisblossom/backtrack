@@ -5,7 +5,7 @@ import { filesPostProcessor } from './files-post-processor';
 
 interface Args {
 	value: {
-		files?: readonly Record<string, unknown>[];
+		files?: Record<string, unknown>[];
 	};
 }
 

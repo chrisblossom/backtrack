@@ -4,6 +4,7 @@ import { Lifecycles, BacktrackConfig } from '../types';
 import { Preprocessor } from './preprocessor';
 import { postProcessor } from './post-processor';
 import { presetValidator } from './preset-validator';
+import { externalConfigProcessor } from './external-config-processor';
 import { cleanPreprocessor } from './clean-preprocessor';
 import { cleanValidator } from './clean-validator';
 import { cleanProcessor } from './clean-processor';
@@ -43,6 +44,9 @@ function transformConfig(
 			},
 			resolve: {
 				processor: 'mergeDeep',
+			},
+			config: {
+				processor: externalConfigProcessor,
 			},
 		},
 	};

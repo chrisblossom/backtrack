@@ -23,9 +23,38 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			files: [
-				{ allowChanges: false },
+			files: { allowChanges: false },
+		});
+	});
+
+	test('when false, go to the lowest possible value type', () => {
+		const preprocessor = Preprocessor();
+
+		const value = {
+			dev: ['one'],
+			build: [
+				'one',
+				'two',
 			],
+			config: [
+				false,
+				{ prettier: { semi: true } },
+			],
+		};
+
+		const result = preprocessor({
+			// @ts-expect-error
+			value,
+			dirname: __dirname,
+		});
+
+		expect(result).toEqual({
+			dev: 'one',
+			build: [
+				'one',
+				'two',
+			],
+			config: { prettier: { semi: true } },
 		});
 	});
 
@@ -46,9 +75,7 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			files: [
-				{ allowChanges: false },
-			],
+			files: { allowChanges: false },
 		});
 	});
 
@@ -72,10 +99,8 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			dev: ['eslint'],
-			files: [
-				{ allowChanges: false },
-			],
+			dev: 'eslint',
+			files: { allowChanges: false },
 		});
 	});
 
@@ -99,10 +124,8 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			dev: ['eslint'],
-			files: [
-				{ allowChanges: false },
-			],
+			dev: 'eslint',
+			files: { allowChanges: false },
 		});
 	});
 
@@ -126,7 +149,7 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			build: ['task4'],
+			build: 'task4',
 			dev: [
 				[
 					'task1',

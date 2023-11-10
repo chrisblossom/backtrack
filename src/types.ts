@@ -4,14 +4,14 @@ type ShellCommand = string;
 // eslint-disable-next-line @typescript-eslint/ban-types
 type CustomFn = Function;
 
-export type NamedTask = Readonly<{
+export interface NamedTask {
 	name: string;
 	task: Task;
-}>;
+}
 
 export type AllTaskTypes = ShellCommand | CustomFn | NamedTask;
 
-export type Lifecycle = readonly (AllTaskTypes | readonly AllTaskTypes[])[];
+export type Lifecycle = (AllTaskTypes | AllTaskTypes[])[];
 
 export type Task = AllTaskTypes | Lifecycle;
 
@@ -60,8 +60,6 @@ export function isCopyFile(obj: any): obj is CopyFile {
 
 export type FileManager = (CopyFile | CopyFileOptions)[];
 
-export type Config = Record<string, unknown>;
-
 type PresetTask =
 	| AllTaskTypes
 	| false
@@ -71,11 +69,13 @@ export type Files =
 	| CopyFile
 	| CopyFileOptions
 	| false
-	| readonly (CopyFile | CopyFileOptions | false)[];
+	| (false | CopyFile | CopyFileOptions)[];
 
 export interface Resolve {
 	[key: string]: string;
 }
+
+export type ExternalConfig = Record<string, unknown[]>;
 
 // Backtrack Config Files
 export type BacktrackConfig = {
@@ -87,10 +87,12 @@ export type BacktrackConfig = {
 	format?: PresetTask;
 	test?: PresetTask;
 
-	clean?: Clean | false | readonly (Clean | false)[];
+	clean?: (Clean | false) | (false | Clean)[];
 	files?: Files;
-	packageJson?: PackageJson | false | (PackageJson | false)[];
-	config?: Config | false | (Config | false)[];
+	packageJson?: (PackageJson | false) | (false | PackageJson)[];
+	config?:
+		| (Record<string, unknown> | false)
+		| (false | Record<string, unknown>)[];
 } & Record<string, PresetTask>;
 
 export type Lifecycles = {
@@ -102,8 +104,8 @@ export type Lifecycles = {
 
 	clean?: NormalizedClean;
 	files?: ParsedFiles;
-	packageJson?: readonly PackageJson[];
-	config?: Config[];
+	packageJson?: PackageJson[];
+	config?: ExternalConfig;
 	resolve?: Resolve;
 } & Record<string, Lifecycle>;
 
@@ -123,22 +125,23 @@ export interface ParsedFiles {
 	makeDirs: string[];
 }
 
-export type FileStats = Readonly<Record<string, string>>;
+export type FileStats = Record<string, string>;
 
-export type DirStats = readonly string[];
+export type DirStats = string[];
 
-export type FileManagerStats = Readonly<{
+export interface FileManagerStats {
 	directories?: DirStats;
 	files?: FileStats;
-}>;
+}
 
-export type StatsFile = Readonly<{
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- neded for sortKeys type
+export type StatsFile = {
 	fileManager?: FileManagerStats;
 	packageJson?: PackageJson;
-}>;
+};
 
-export type Scripts = Readonly<Record<string, string | null>>;
+export type Scripts = Record<string, string | null>;
 // prettier-ignore
 export type PackageJson =
-	Readonly<{ scripts?: Scripts }> &
-	Readonly<Record<string, unknown>>;
+	{ scripts?: Scripts } &
+	Record<string, unknown>;

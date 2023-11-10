@@ -79,13 +79,10 @@ const cleanSchema = Joi.array()
 	})
 	.label('clean');
 
-const configSchema = Joi.array()
-	.items(
-		Joi.object({}).options({
-			allowUnknown: true,
-		}),
-	)
-	.single(true)
+const configSchema = Joi.object({})
+	.options({
+		allowUnknown: true,
+	})
 	.label('config');
 
 const resolveSchema = Joi.object().pattern(/.*/, Joi.string()).label('resolve');

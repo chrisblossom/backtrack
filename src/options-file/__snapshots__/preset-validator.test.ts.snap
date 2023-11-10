@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`presetValidator config fails as array 1`] = `
+[Error: {
+  "config" [31m[1][0m: []
+}
+[31m
+[1] "config" must be an object[0m]
+`;
+
 exports[`presetValidator fails no options - del 1`] = `
 [Error: {
   "clean": [

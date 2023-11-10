@@ -1,3 +1,5 @@
+import type { ExternalConfig } from '../types';
+
 const mergeCustomConfigs = (namespace: any, config: any, customConfigs: any) =>
 	require('./merge-custom-configs').mergeCustomConfigs(
 		namespace,
@@ -9,25 +11,15 @@ const namespace = 'merge_custom_configs_test';
 
 describe('mergeCustomConfigs', () => {
 	test('merges objects', () => {
-		const config = {
-			extends: ['airbnb-base'],
-		};
+		const config = { extends: ['airbnb-base'] };
 
-		const customConfigs = [
-			{
-				extends: ['other-custom-preset'],
-			},
-			{
-				rules: {
-					semi: 'always',
-				},
-			},
-			{
-				rules: {
-					semi: 'never',
-				},
-			},
-		];
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				{ extends: ['other-custom-preset'] },
+				{ rules: { semi: 'always' } },
+				{ rules: { semi: 'never' } },
+			],
+		};
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -36,9 +28,7 @@ describe('mergeCustomConfigs', () => {
 				'airbnb-base',
 				'other-custom-preset',
 			],
-			rules: {
-				semi: 'always',
-			},
+			rules: { semi: 'always' },
 		});
 	});
 
@@ -51,17 +41,19 @@ describe('mergeCustomConfigs', () => {
 			},
 		};
 
-		const customConfigs = [
-			(cfg: any) => {
-				return {
-					...cfg,
-					rules: {
-						...cfg.rules,
-						semi: 'always',
-					},
-				};
-			},
-		];
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				(cfg: any) => {
+					return {
+						...cfg,
+						rules: {
+							...cfg.rules,
+							semi: 'always',
+						},
+					};
+				},
+			],
+		};
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -80,23 +72,25 @@ describe('mergeCustomConfigs', () => {
 			},
 		};
 
-		const customConfigs = [
-			(cfg: any) => {
-				return {
-					...cfg,
-					rules: {
-						...cfg.rules,
-						semi: 'always',
-					},
-				};
-			},
-			{
-				rules: {
-					semi: 'never',
-					'no-undef': 'off',
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				(cfg: any) => {
+					return {
+						...cfg,
+						rules: {
+							...cfg.rules,
+							semi: 'always',
+						},
+					};
 				},
-			},
-		];
+				{
+					rules: {
+						semi: 'never',
+						'no-undef': 'off',
+					},
+				},
+			],
+		};
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -108,12 +102,14 @@ describe('mergeCustomConfigs', () => {
 
 	test('merges arrays', () => {
 		const config = ['one'];
-		const customConfigs = [
-			[
-				'two',
-				'three',
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				[
+					'two',
+					'three',
+				],
 			],
-		];
+		};
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -126,7 +122,7 @@ describe('mergeCustomConfigs', () => {
 
 	test('handles string', () => {
 		const config = '1';
-		const customConfigs = ['2'];
+		const customConfigs: ExternalConfig = { [namespace]: ['2'] };
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -136,10 +132,12 @@ describe('mergeCustomConfigs', () => {
 	test('handles numbers', () => {
 		const config = 1;
 
-		const customConfigs = [
-			2,
-			3,
-		];
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				2,
+				3,
+			],
+		};
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -148,10 +146,9 @@ describe('mergeCustomConfigs', () => {
 
 	test('finds invalid preset', () => {
 		const config = {};
-		const customConfigs = [
-			{},
-			[],
-		];
+		const customConfigs: ExternalConfig = {
+			[namespace]: [[]],
+		};
 
 		let error;
 		try {
@@ -160,14 +157,14 @@ describe('mergeCustomConfigs', () => {
 			error = e;
 		} finally {
 			expect(error).toMatchInlineSnapshot(
-				`[Error: merge_custom_configs_test config failed. Mismatched type. Expected: 'plain object', Actual: 'array']`,
+				`[Error: merge_custom_configs_test config failed because of mismatched type. Expected: 'plain object', Actual: 'array']`,
 			);
 		}
 	});
 
 	test('finds invalid preset function', () => {
 		const config = {};
-		const customConfigs = [() => ''];
+		const customConfigs: ExternalConfig = { [namespace]: [() => ''] };
 
 		let error;
 		try {
@@ -176,7 +173,7 @@ describe('mergeCustomConfigs', () => {
 			error = e;
 		} finally {
 			expect(error).toMatchInlineSnapshot(
-				`[Error: merge_custom_configs_test config failed with custom function. Mismatched type. Expected: 'plain object', Actual: 'string']`,
+				`[Error: merge_custom_configs_test config failed because of mismatched type. Expected: 'plain object', Actual: 'string']`,
 			);
 		}
 	});
@@ -184,14 +181,16 @@ describe('mergeCustomConfigs', () => {
 	test('is valid with spread', () => {
 		const config = {};
 
-		const customConfigs = [
-			(cfg: any) => ({
-				...cfg,
-				rules: {
-					...cfg.rules,
-				},
-			}),
-		];
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				(cfg: any) => ({
+					...cfg,
+					rules: {
+						...cfg.rules,
+					},
+				}),
+			],
+		};
 
 		const result = mergeCustomConfigs(namespace, config, customConfigs);
 
@@ -200,11 +199,13 @@ describe('mergeCustomConfigs', () => {
 
 	test('catches thrown errors', () => {
 		const config = {};
-		const customConfigs = [
-			() => {
-				throw new Error('broken fn');
-			},
-		];
+		const customConfigs: ExternalConfig = {
+			[namespace]: [
+				(): void => {
+					throw new Error('broken fn');
+				},
+			],
+		};
 
 		let error;
 		try {

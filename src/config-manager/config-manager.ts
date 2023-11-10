@@ -1,28 +1,18 @@
-import type { Config } from '../types';
 import type { Initialize } from '../initialize/initialize';
-import { groupCustomConfigs } from './group-custom-configs';
 import { mergeCustomConfigs } from './merge-custom-configs';
 
-export type ConfigManager = Readonly<{
-	config?: Config;
-	namespace?: string;
-}>;
-
-// Should be preset or lifecycles. Worst case Config
-export type ConfigManagerReturn = Record<string, unknown>;
-
 /**
- * Config manager
+ * Config manager for third-party configuration files.
  *
  * @param {object} config - Config object
  * @param {string} namespace - Namespace of config
  *
  * @returns {object} - Merged config object
  */
-function configManager(
+function configManager<T>(
 	this: InstanceType<typeof Initialize>,
-	{ config: managedConfig = {}, namespace }: ConfigManager = {},
-): ConfigManagerReturn {
+	{ config: managedConfig, namespace }: { config: T; namespace: string },
+): T {
 	/**
 	 * Validate args
 	 */
@@ -30,37 +20,30 @@ function configManager(
 		throw new Error('namespace is required');
 	}
 
-	const backtrackConfigArray = this.backtrackConfig.config;
+	const thirdPartyOptionsConfig = this.backtrackConfig.config;
 
 	/**
 	 * Return config if backtrackConfig is not set
 	 */
-	if (backtrackConfigArray == null) {
+	if (thirdPartyOptionsConfig == null) {
 		return managedConfig;
 	}
 
 	/**
-	 * Group all matched config presets together
-	 */
-	const groupedCustomConfigs = groupCustomConfigs(
-		namespace,
-		backtrackConfigArray,
-	);
-
-	/**
 	 * If no custom config, return original config
 	 */
-	if (groupedCustomConfigs.length === 0) {
+	const matchedConfig = thirdPartyOptionsConfig[namespace];
+	if (matchedConfig == null || matchedConfig.length === 0) {
 		return managedConfig;
 	}
 
 	/**
 	 * Merge all custom configs
 	 */
-	const mergedConfigs = mergeCustomConfigs(
+	const mergedConfigs = mergeCustomConfigs<T>(
 		namespace,
 		managedConfig,
-		groupedCustomConfigs,
+		thirdPartyOptionsConfig,
 	);
 
 	return mergedConfigs;
