@@ -3,11 +3,11 @@ import { existsSync } from 'fs';
 import { rootPath } from '../config/paths';
 import { getFileHash } from './get-file-hash';
 
-type Return = Readonly<{
+interface Return {
 	absolute: string;
 	relative: string;
 	hash: string;
-}>;
+}
 
 function parseFilePath(file: string): Return {
 	const absolute = path.resolve(rootPath, file);

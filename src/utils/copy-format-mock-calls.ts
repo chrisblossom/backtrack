@@ -9,9 +9,7 @@
 
 type CopyCalls = [string, string, Record<string, unknown>];
 
-function copyFormatMockCalls(
-	calls: readonly CopyCalls[],
-): Record<string, unknown> {
+function copyFormatMockCalls(calls: CopyCalls[]): Record<string, unknown> {
 	const result = calls.reduce((acc, call) => {
 		const src = call[0];
 		const dest = call[1];

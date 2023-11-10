@@ -5,7 +5,7 @@ import { readDirDeep } from 'read-dir-deep';
 import { getFileHash } from './get-file-hash';
 import { toArray } from './object-utils';
 
-export type File = Readonly<{
+export interface File {
 	src: string;
 	dest: string;
 	hash?: boolean;
@@ -17,7 +17,7 @@ export type File = Readonly<{
 	overwrite?: boolean;
 	errorOnExist?: boolean;
 	preserveTimestamps?: boolean;
-}>;
+}
 
 function getHashedName(source: string, dest: string) {
 	const parsed = path.parse(dest);
@@ -34,7 +34,7 @@ function getHashedName(source: string, dest: string) {
  * See https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md#copysrc-dest-options-callback
  * for options
  */
-async function copy(files: readonly File[] | File): Promise<void> {
+async function copy(files: File[] | File): Promise<void> {
 	const normalized = toArray(files);
 
 	const copyFilesResult = normalized.map(async (file) => {

@@ -120,7 +120,7 @@ describe('removeStaleDirectories', () => {
 				],
 			},
 		];
-		const files: readonly [] = [];
+		const files: [] = [];
 
 		const { parsedFiles, previousStats } = await dirInfo(
 			files,

@@ -32,7 +32,7 @@ function isReadonlyArray<T>(value: unknown): value is readonly T[] {
 }
 
 // removes readonly from array
-function toArray<T>(value?: readonly T[] | T): T[] {
+function toArray<T>(value?: readonly T[] | T[] | T): T[] {
 	if (value == null) {
 		return [];
 	}
@@ -49,7 +49,7 @@ function mapObjectKeyNames(object: Record<string, unknown> = {}): string[][] {
 		return [];
 	}
 
-	const keyPaths: readonly string[] = deepKeys(object);
+	const keyPaths: string[] = deepKeys(object);
 
 	const result = keyPaths.map((path: string) => {
 		/**
@@ -71,7 +71,7 @@ function mapObjectKeyNames(object: Record<string, unknown> = {}): string[][] {
 	return result;
 }
 
-function getParentsFromPath(path: readonly string[]): string[][] {
+function getParentsFromPath(path: string[]): string[][] {
 	const basePath = toPath(path);
 
 	const result = basePath

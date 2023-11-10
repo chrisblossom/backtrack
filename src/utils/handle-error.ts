@@ -4,7 +4,7 @@ import { toArray } from './object-utils';
 
 type Errors = Error | ErrorWithProcessExitCode | string;
 
-function getExitCode(errors: readonly Errors[]): number {
+function getExitCode(errors: Errors[]): number {
 	// Use reduce because it works better with typescript types
 	const codes = errors.reduce((acc: number[], error) => {
 		if (!(error instanceof ErrorWithProcessExitCode)) {
@@ -50,11 +50,11 @@ function getExitCode(errors: readonly Errors[]): number {
 	return removeZeros[0];
 }
 
-type HandleError = Readonly<{
-	error: Errors | readonly Errors[];
+interface HandleError {
+	error: Errors | Errors[];
 	logPrefix: string;
 	startTime?: Date;
-}>;
+}
 
 function handleError(args: HandleError): Promise<void> {
 	return new Promise((resolve) => {

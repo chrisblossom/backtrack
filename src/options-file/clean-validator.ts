@@ -3,9 +3,9 @@ import { buildPath, rootPath } from '../config/paths';
 import { fileIsInsideDir } from '../utils/file-is-inside-dir';
 import { NormalizedClean } from '../types';
 
-type Args = Readonly<{
-	value: readonly NormalizedClean[];
-}>;
+interface Args {
+	value: NormalizedClean[];
+}
 
 function cleanValidator({ value }: Args): void {
 	for (const arg of value) {

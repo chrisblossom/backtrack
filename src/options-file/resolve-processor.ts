@@ -4,7 +4,7 @@ import { toArray } from '../utils/object-utils';
 import { Resolve } from '../types';
 
 interface Args {
-	value: Resolve | readonly Resolve[];
+	value: Resolve | Resolve[];
 	current?: Resolve;
 	dirname: string;
 }

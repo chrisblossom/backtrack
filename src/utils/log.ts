@@ -25,7 +25,7 @@ function getTime() {
 type ConsoleTypes = 'info' | 'warn' | 'error';
 
 function print(
-	messages: readonly unknown[],
+	messages: unknown[],
 	format = '\b',
 	type: ConsoleTypes = 'info',
 ) {
@@ -45,6 +45,7 @@ function info(...messages: unknown[]) {
 	const format = `${bgBlue(white('Info'))}${gray(':')}`;
 	return print(messages, format, 'info');
 }
+
 const log = info;
 
 function success(...messages: unknown[]) {

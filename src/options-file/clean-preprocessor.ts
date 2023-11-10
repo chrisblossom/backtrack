@@ -4,10 +4,10 @@ import { buildPath, rootPath } from '../config/paths';
 import { Clean, NormalizedClean } from '../types';
 
 interface Args {
-	value?: Clean | readonly Clean[];
+	value?: Clean | Clean[];
 }
 
-function cleanPreprocessor({ value }: Args = {}): readonly NormalizedClean[] {
+function cleanPreprocessor({ value }: Args = {}): NormalizedClean[] {
 	const allToArray = toArray(value);
 
 	return allToArray.map((arg: Clean) => {

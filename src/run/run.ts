@@ -35,10 +35,7 @@ function isSingleTask(task: any): task is AllTaskTypes {
 	return Array.isArray(task) === false;
 }
 
-async function runTask(
-	task: Task,
-	...options: unknown[]
-): Promise<readonly unknown[]> {
+async function runTask(task: Task, ...options: unknown[]): Promise<unknown[]> {
 	/**
 	 * Handle single tasks
 	 */
