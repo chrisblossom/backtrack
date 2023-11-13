@@ -1,4 +1,4 @@
-import path from 'node:path';
+import { normalize as normalizePath } from 'node:path';
 import slash from 'slash';
 import { DirStats, StatsFile, FileStats } from '../types';
 
@@ -15,7 +15,7 @@ function normalizeStats(stats: StatsFile, type: 'load' | 'write'): StatsFile {
 	 *
 	 * When writing stats we want to use unix paths
 	 */
-	const normalizer = type === 'load' ? path.normalize : slash;
+	const normalizer = type === 'load' ? normalizePath : slash;
 
 	const directories = stats.fileManager.directories;
 	const files = stats.fileManager.files;

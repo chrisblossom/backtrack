@@ -1,5 +1,3 @@
-/* eslint-disable no-await-in-loop */
-
 import log from '../utils/log';
 import { handleError } from '../utils/handle-error';
 import { clean } from '../clean/clean';
@@ -8,6 +6,7 @@ import { AllTaskTypes, Task } from '../types';
 import { validateTask } from './validate-task';
 import { runShellCommand } from './run-shell-command';
 
+// TODO use await instead of promise/prefer-await-to-then
 function checkForRun(task: AllTaskTypes, ...options: unknown[]): unknown {
 	if (typeof task === 'object') {
 		if (typeof task.name !== 'string' || task.name === '') {
@@ -51,10 +50,12 @@ async function runTask(task: Task, ...options: unknown[]): Promise<unknown[]> {
 		 * Handle concurrent tasks as an array
 		 */
 		if (isSingleTask(currentTask)) {
+			// eslint-disable-next-line no-await-in-loop
 			const taskDone = await checkForRun(currentTask, ...options);
 
 			result.push(taskDone);
 		} else {
+			// eslint-disable-next-line no-await-in-loop
 			const taskDone = await Promise.all(
 				currentTask.map((task1) => {
 					return checkForRun(task1, ...options);
@@ -104,6 +105,7 @@ function run(
 			}
 
 			const runningTask = runTask(realTask, ...toArray(realOptions))
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.then((taskResult) => {
 					// eslint-disable-next-line promise/param-names
 					return new Promise((innerResolve) => {
@@ -119,6 +121,7 @@ function run(
 						});
 					});
 				})
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.catch((e: unknown) => {
 					const error = e as Error;
 

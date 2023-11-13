@@ -50,7 +50,6 @@ const config = {
 					],
 					rules: {
 						'@typescript-eslint/no-var-requires': 'off',
-						'promise/prefer-await-to-then': 'off',
 
 						'@typescript-eslint/strict-boolean-expressions': [
 							'off',

@@ -7,6 +7,21 @@ import { getFileHash } from '../utils/get-file-hash';
 import { backupFile } from '../utils/backup-file';
 import { ParsedFiles, FileStats } from '../types';
 
+async function backupChangedFile(removeFilePath: string): Promise<void> {
+	const backupResult = await backupFile(removeFilePath);
+	if (backupResult === undefined) {
+		return;
+	}
+
+	const relativeBackupFilePath = path.relative(rootPath, backupResult.file);
+
+	const relativeFilePath = path.relative(rootPath, removeFilePath);
+
+	log.warn(
+		`'${relativeFilePath}' has been modified and is no longer managed. Moving to '${relativeBackupFilePath}'`,
+	);
+}
+
 async function removeStaleFiles(
 	files: ParsedFiles,
 	previousStats: FileStats = {},
@@ -44,29 +59,9 @@ async function removeStaleFiles(
 					/**
 					 * Backup file if changed
 					 */
-					const backup = backupFile(removeFilePath).then(
-						(backupResult) => {
-							if (backupResult) {
-								const relativeBackupFilePath = path.relative(
-									rootPath,
-									backupResult.file,
-								);
+					const backupFilePending = backupChangedFile(removeFilePath);
 
-								const relativeFilePath = path.relative(
-									rootPath,
-									removeFilePath,
-								);
-
-								log.warn(
-									`'${relativeFilePath}' has been modified and is no longer managed. Moving to '${relativeBackupFilePath}'`,
-								);
-							}
-
-							return backupResult;
-						},
-					);
-
-					pending.push(backup);
+					pending.push(backupFilePending);
 				}
 			}
 		}

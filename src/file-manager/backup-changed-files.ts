@@ -9,7 +9,7 @@ async function backupChangedFiles(
 	previousStats: FileStats = {},
 ): Promise<void> {
 	const backupNewFiles = files.dest.files
-		.map((destFile) => {
+		.map(async (destFile) => {
 			/**
 			 * This only handles new files
 			 */
@@ -40,30 +40,31 @@ async function backupChangedFiles(
 			}
 
 			const originalFilePath = files.dest.absolute[destFile];
-			return backupFile(originalFilePath).then((backupResult) => {
-				if (backupResult) {
-					const relativeBackupFilePath = path.relative(
-						rootPath,
-						backupResult.file,
-					);
 
-					const relativeFilePath = path.relative(
-						rootPath,
-						originalFilePath,
-					);
+			const backupResult = await backupFile(originalFilePath);
 
-					log.warn(
-						`${relativeFilePath} already exists. Moving to ${relativeBackupFilePath}`,
-					);
-				}
+			if (backupResult) {
+				const relativeBackupFilePath = path.relative(
+					rootPath,
+					backupResult.file,
+				);
 
-				return backupResult;
-			});
+				const relativeFilePath = path.relative(
+					rootPath,
+					originalFilePath,
+				);
+
+				log.warn(
+					`${relativeFilePath} already exists. Moving to ${relativeBackupFilePath}`,
+				);
+			}
+
+			return backupResult;
 		})
 		.filter(Boolean);
 
 	const backupOldFiles = Object.keys(previousStats)
-		.map((destFile) => {
+		.map(async (destFile) => {
 			const destHash = files.dest.hash[destFile];
 
 			const previousFileHash = previousStats[destFile];
@@ -106,25 +107,24 @@ async function backupChangedFiles(
 			 */
 			const originalFilePath = files.dest.absolute[destFile];
 
-			return backupFile(originalFilePath).then((backupResult) => {
-				if (backupResult) {
-					const relativeBackupFilePath = path.relative(
-						rootPath,
-						backupResult.file,
-					);
+			const backupResult = await backupFile(originalFilePath);
+			if (backupResult) {
+				const relativeBackupFilePath = path.relative(
+					rootPath,
+					backupResult.file,
+				);
 
-					const relativeFilePath = path.relative(
-						rootPath,
-						originalFilePath,
-					);
+				const relativeFilePath = path.relative(
+					rootPath,
+					originalFilePath,
+				);
 
-					log.warn(
-						`${relativeFilePath} hash mismatch. Moving to ${relativeBackupFilePath}`,
-					);
-				}
+				log.warn(
+					`${relativeFilePath} hash mismatch. Moving to ${relativeBackupFilePath}`,
+				);
+			}
 
-				return backupResult;
-			});
+			return backupResult;
 		})
 		.filter(Boolean);
 
