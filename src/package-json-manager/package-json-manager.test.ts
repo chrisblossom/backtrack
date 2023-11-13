@@ -1,7 +1,11 @@
 import path from 'path';
-import fs from 'fs';
+import type { packageJsonManager as packageJsonManagerType } from './package-json-manager';
 
-const packageJsonManager = (presets?: any, previousManagedKeys?: any) =>
+type PackageJsonManager = typeof packageJsonManagerType;
+const packageJsonManager = async (
+	presets?: any,
+	previousManagedKeys?: any,
+): ReturnType<PackageJsonManager> =>
 	require('./package-json-manager').packageJsonManager(
 		presets,
 		previousManagedKeys,
@@ -9,7 +13,7 @@ const packageJsonManager = (presets?: any, previousManagedKeys?: any) =>
 
 describe('packageJsonManager', () => {
 	const cwd = process.cwd();
-	let writeFileSync: any;
+	let writeFile: any;
 
 	beforeEach(() => {
 		jest.mock('../utils/log', () => ({
@@ -19,17 +23,23 @@ describe('packageJsonManager', () => {
 			success: jest.fn(),
 		}));
 
-		jest.mock('fs-extra', () => ({
-			move: jest.fn(() => Promise.resolve()),
-		}));
+		writeFile = jest.requireMock('fs-extra').writeFile;
+		jest.mock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				move: jest.fn(async () => Promise.resolve()),
+				writeFile: jest.fn(async () => Promise.resolve()),
+			};
+		});
 
 		/**
-		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFileSync.mockRestore();'
+		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFile.mockRestore();'
 		 * otherwise snapshot will not write
 		 */
-		writeFileSync = jest
-			.spyOn(fs, 'writeFileSync')
-			.mockImplementation(() => jest.fn());
+		// writeFile = jest
+		// 	.spyOn(fs, 'writeFile')
+		// 	.mockImplementation(() => jest.fn());
 	});
 
 	afterEach(() => {
@@ -42,11 +52,11 @@ describe('packageJsonManager', () => {
 
 		const result = await packageJsonManager();
 
-		const writeFileSyncCalls = writeFileSync.mock.calls;
+		const writeFileCalls = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
-		expect(writeFileSyncCalls).toEqual([]);
+		expect(writeFileCalls).toEqual([]);
 		expect(result).toEqual({});
 	});
 
@@ -66,11 +76,11 @@ describe('packageJsonManager', () => {
 
 		const result = await packageJsonManager(lifecycles);
 
-		const writeFileSyncCalls = writeFileSync.mock.calls;
+		const writeFileCalls = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
-		expect(writeFileSyncCalls).toMatchSnapshot();
+		expect(writeFileCalls).toMatchSnapshot();
 		expect(result).toEqual({ scripts: { 'lint.fix': 'eslint --fix' } });
 	});
 
@@ -92,11 +102,11 @@ describe('packageJsonManager', () => {
 
 		const result = await packageJsonManager(lifecycles);
 
-		const writeFileSyncCalls = writeFileSync.mock.calls;
+		const writeFileCalls = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
-		expect(writeFileSyncCalls).toMatchSnapshot();
+		expect(writeFileCalls).toMatchSnapshot();
 		expect(result).toEqual({
 			license: '',
 			scripts: {
@@ -122,11 +132,11 @@ describe('packageJsonManager', () => {
 
 		const result = await packageJsonManager(lifecycles);
 
-		const writeFileSyncCalls = writeFileSync.mock.calls;
+		const writeFileCalls = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
-		expect(writeFileSyncCalls).toMatchSnapshot();
+		expect(writeFileCalls).toMatchSnapshot();
 		expect(result).toEqual({ scripts: { test: null } });
 	});
 });

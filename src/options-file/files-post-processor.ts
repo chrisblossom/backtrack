@@ -1,5 +1,5 @@
 import path from 'path';
-import { parseFilePath } from '../utils/parse-file-path';
+import { parseFilePathSync } from '../utils/parse-file-path';
 import { normalizePathname } from '../utils/normalize-pathname';
 import { toArray } from '../utils/object-utils';
 import {
@@ -221,8 +221,8 @@ function filesPostProcessor({ value = [] }: Args = {}): ParsedFiles {
 	const options = parseOptions(sections.options);
 
 	for (const file of sections.copyFiles) {
-		const src = parseFilePath(file.src);
-		const dest = parseFilePath(file.dest);
+		const src = parseFilePathSync(file.src);
+		const dest = parseFilePathSync(file.dest);
 
 		const skip = shouldSkip(dest.relative, options.skip);
 		if (skip === false) {

@@ -1,18 +1,21 @@
 import path from 'path';
-import fs from 'fs';
+import type { writeStatsFile as WriteStatsFileType } from './write-stats-file';
 
-const writeStatsFile = (stats: any, previousStats?: any) =>
-	require('./write-stats-file').writeStatsFile(stats, previousStats);
+type WriteStatsFile = typeof WriteStatsFileType;
+const writeStatsFile = async (
+	...args: Parameters<WriteStatsFile>
+): ReturnType<WriteStatsFile> =>
+	require('./write-stats-file').writeStatsFile(...args);
 
 describe('writeStatsFile', () => {
 	const cwd = process.cwd();
-	let writeFileSync: any;
+	let writeFile: any;
 	let del: any;
 
 	beforeEach(() => {
 		del = jest.requireMock('del');
 
-		jest.mock('del', () => jest.fn(() => Promise.resolve()));
+		jest.mock('del', () => jest.fn(async () => Promise.resolve()));
 
 		jest.mock('../utils/log', () => ({
 			warn: jest.fn(),
@@ -22,12 +25,17 @@ describe('writeStatsFile', () => {
 		}));
 
 		/**
-		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFileSync.mockRestore();'
+		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFile.mockRestore();'
 		 * otherwise snapshot will not write
 		 */
-		writeFileSync = jest
-			.spyOn(fs, 'writeFileSync')
-			.mockImplementation(() => jest.fn());
+		writeFile = jest.requireMock('fs-extra').writeFile;
+		jest.mock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				writeFile: jest.fn(async () => Promise.resolve()),
+			};
+		});
 	});
 
 	afterEach(() => {
@@ -64,9 +72,9 @@ describe('writeStatsFile', () => {
 
 		await writeStatsFile(sections);
 
-		const writeFileMock = writeFileSync.mock.calls;
+		const writeFileMock = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
 		const fileContents = JSON.parse(writeFileMock[0][1]);
 
@@ -139,9 +147,9 @@ describe('writeStatsFile', () => {
 
 		await writeStatsFile(sections, previousStats);
 
-		const readFileMock = writeFileSync.mock.calls;
+		const readFileMock = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
 		expect(readFileMock).toEqual([]);
 		expect(del.mock.calls).toEqual([]);
@@ -153,9 +161,9 @@ describe('writeStatsFile', () => {
 
 		await writeStatsFile({});
 
-		const readFileMock = writeFileSync.mock.calls;
+		const readFileMock = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
 		expect(readFileMock).toEqual([]);
 		expect(del.mock.calls).toEqual([
@@ -172,9 +180,9 @@ describe('writeStatsFile', () => {
 			packageJson: {},
 		});
 
-		const readFileMock = writeFileSync.mock.calls;
+		const readFileMock = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
 		expect(readFileMock).toEqual([]);
 		expect(del.mock.calls).toEqual([
@@ -195,9 +203,9 @@ describe('writeStatsFile', () => {
 			},
 		});
 
-		const readFileMock = writeFileSync.mock.calls;
+		const readFileMock = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
 		expect(readFileMock).toMatchSnapshot();
 		expect(del.mock.calls).toEqual([]);
@@ -209,9 +217,9 @@ describe('writeStatsFile', () => {
 
 		await writeStatsFile({});
 
-		const readFileMock = writeFileSync.mock.calls;
+		const readFileMock = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
 		expect(readFileMock).toEqual([]);
 		expect(del.mock.calls).toEqual([]);

@@ -41,6 +41,7 @@ const config = {
 					files: ['./paths.js'],
 					rules: {
 						'import/no-unresolved': 'off',
+						'import/extensions': 'off',
 					},
 				},
 				{
@@ -49,6 +50,7 @@ const config = {
 						'.*.{ts,tsx}',
 					],
 					rules: {
+						'no-await-in-loop': 'off',
 						'@typescript-eslint/no-var-requires': 'off',
 
 						'@typescript-eslint/strict-boolean-expressions': [
@@ -75,6 +77,9 @@ const config = {
 						'*.test.{ts,tsx}',
 					],
 					rules: {
+						'@typescript-eslint/require-await': 'off',
+						'@typescript-eslint/no-confusing-void-expression':
+							'off',
 						'@typescript-eslint/no-explicit-any': 'off',
 						'@typescript-eslint/no-unsafe-argument': 'off',
 						'@typescript-eslint/no-unsafe-assignment': 'off',

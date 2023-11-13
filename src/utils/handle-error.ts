@@ -56,7 +56,7 @@ interface HandleError {
 	startTime?: Date;
 }
 
-function handleError(args: HandleError): Promise<void> {
+async function handleError(args: HandleError): Promise<void> {
 	return new Promise((resolve) => {
 		const { error, logPrefix, startTime } = args;
 		/**

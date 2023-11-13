@@ -1,5 +1,5 @@
-import { realpathSync } from 'fs';
 import path from 'path';
+import { realpathSync } from 'fs-extra';
 
 /**
  * Make sure any symlinks in the project folder are resolved:

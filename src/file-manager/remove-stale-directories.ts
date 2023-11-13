@@ -1,5 +1,5 @@
 import path from 'path';
-import { existsSync, promises as fs } from 'fs';
+import { pathExists, readdir } from 'fs-extra';
 import del from 'del';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
@@ -25,22 +25,30 @@ async function shouldDelete(
 	}
 
 	const absolutePath = path.resolve(rootPath, relativeDir);
-	const exists = existsSync(absolutePath);
+	const exists = await pathExists(absolutePath);
 	if (exists === false) {
 		await goUpOne();
 
 		return;
 	}
 
-	const isInsideManagedDir = makeDirs.some((dir) => {
-		return fileIsInsideDir(dir, relativeDir);
+	const insideDirList = await Promise.all(
+		makeDirs.map(async (dir) => {
+			const result = await fileIsInsideDir(dir, relativeDir);
+
+			return result;
+		}),
+	);
+
+	const isInsideManagedDir = insideDirList.some((dir) => {
+		return dir;
 	});
 
 	if (isInsideManagedDir === true) {
 		return;
 	}
 
-	const directoryList = await fs.readdir(absolutePath);
+	const directoryList = await readdir(absolutePath);
 	if (directoryList.length !== 0) {
 		log.info(`Directory not empty: ${relativeDir}`);
 
@@ -68,7 +76,7 @@ async function removeStaleDirectories(
 		/**
 		 * Run sequentially to ensure directories are empty before moving to next
 		 */
-		// eslint-disable-next-line no-await-in-loop
+
 		await shouldDelete(normalizedDir, parsedFiles.makeDirs);
 	}
 }

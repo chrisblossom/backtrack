@@ -1,5 +1,4 @@
 import path from 'path';
-import { promises as fs } from 'fs';
 import fse from 'fs-extra';
 import { readDirDeep } from 'read-dir-deep';
 import { getFileHash } from './get-file-hash';
@@ -19,9 +18,9 @@ export interface File {
 	preserveTimestamps?: boolean;
 }
 
-function getHashedName(source: string, dest: string): string {
+async function getHashedName(source: string, dest: string): Promise<string> {
 	const parsed = path.parse(dest);
-	const fileHash = getFileHash(source).substring(0, 8);
+	const fileHash = (await getFileHash(source)).substring(0, 8);
 
 	const rename = `${parsed.name}.${fileHash}${parsed.ext}`;
 
@@ -34,78 +33,63 @@ function getHashedName(source: string, dest: string): string {
  * See https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md#copysrc-dest-options-callback
  * for options
  */
+async function copyDirectoryFiles(
+	src: string,
+	dest: string,
+	hash: boolean,
+	fseCopyOptions: fse.CopyOptions,
+): Promise<void> {
+	const deepFileList = await readDirDeep(src);
+	const copyTasks = deepFileList.map(async (sourceFile) => {
+		const absoluteSourcePath = path.resolve(src, sourceFile);
+		let absoluteDestinationPath = path.resolve(dest, sourceFile);
+
+		if (hash === true) {
+			absoluteDestinationPath = await getHashedName(
+				absoluteSourcePath,
+				absoluteDestinationPath,
+			);
+		}
+
+		await fse.copy(
+			absoluteSourcePath,
+			absoluteDestinationPath,
+			fseCopyOptions,
+		);
+	});
+
+	await Promise.all(copyTasks);
+}
+
 async function copy(files: File[] | File): Promise<void> {
 	const normalized = toArray(files);
 
 	const copyFilesResult = normalized.map(async (file) => {
 		const {
 			src,
+			dest,
 			hash = false,
-
 			overwrite = true,
 			errorOnExist = true,
 			preserveTimestamps = true,
 		} = file;
 
-		const fseCopyOptions = {
+		const fseCopyOptions: fse.CopyOptions = {
 			overwrite,
 			errorOnExist,
 			preserveTimestamps,
 		};
 
-		let dest = file.dest;
+		const isDirectory = (await fse.stat(src)).isDirectory();
 
-		const isDirectory: boolean = (await fs.stat(src)).isDirectory();
 		if (isDirectory) {
-			const deepFileList: string[] = await readDirDeep(src);
+			await copyDirectoryFiles(src, dest, hash, fseCopyOptions);
 
-			interface CopyFilesToDestAcc {
-				src: string;
-				dest: string;
-				overwrite: boolean;
-				errorOnExist: boolean;
-				preserveTimestamps: boolean;
-			}
-
-			const copyFilesToDest = deepFileList.reduce(
-				(acc: CopyFilesToDestAcc[], sourceFile) => {
-					const absoluteSourcePath = path.resolve(src, sourceFile);
-
-					let absoluteDestinationPath = path.resolve(
-						dest,
-						sourceFile,
-					);
-
-					if (hash === true) {
-						absoluteDestinationPath = getHashedName(
-							absoluteSourcePath,
-							absoluteDestinationPath,
-						);
-					}
-
-					return [
-						...acc,
-						{
-							src: absoluteSourcePath,
-							dest: absoluteDestinationPath,
-							...fseCopyOptions,
-						},
-					];
-				},
-				[],
-			);
-
-			/**
-			 * copy all directory files
-			 */
-			return copy(copyFilesToDest);
+			return;
 		}
 
-		if (hash === true) {
-			dest = getHashedName(src, file.dest);
-		}
-
-		return fse.copy(src, dest, fseCopyOptions);
+		const finalDest = hash === true ? await getHashedName(src, dest) : dest;
+		await fse.copy(src, finalDest, fseCopyOptions);
 	});
 
 	await Promise.all(copyFilesResult);

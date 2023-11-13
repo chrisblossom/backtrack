@@ -12,9 +12,13 @@ describe('copyFiles', () => {
 	beforeEach(() => {
 		copy = jest.requireMock('fs-extra').copy;
 
-		jest.mock('fs-extra', () => ({
-			copy: jest.fn(() => Promise.resolve()),
-		}));
+		jest.mock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				copy: jest.fn(async () => Promise.resolve()),
+			};
+		});
 
 		jest.mock('../utils/log', () => ({
 			warn: jest.fn(),

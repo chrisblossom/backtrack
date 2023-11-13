@@ -329,9 +329,7 @@ test('correctly handles multiple shell commands', async () => {
 	await backtrack();
 
 	const initialFiles = await sandbox.getAllFilesHash();
-	// @ts-expect-error
 	delete initialFiles['.backtrack-stats.json'];
-	// @ts-expect-error
 	delete initialFiles['package.json'];
 
 	expect(initialFiles).toEqual({
@@ -343,9 +341,7 @@ test('correctly handles multiple shell commands', async () => {
 	await backtrack();
 
 	const filesRemoved = await sandbox.getAllFilesHash();
-	// @ts-expect-error
 	delete filesRemoved['.backtrack-stats.json'];
-	// @ts-expect-error
 	delete filesRemoved['package.json'];
 
 	expect(filesRemoved).toEqual({});

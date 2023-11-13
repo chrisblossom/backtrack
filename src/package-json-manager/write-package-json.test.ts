@@ -1,12 +1,15 @@
 import path from 'path';
-import fs from 'fs';
+import type { writePackageJson as WritePackageJsonType } from './write-package-json';
 
-const writePackageJson = (packageJson: any) =>
-	require('./write-package-json').writePackageJson(packageJson);
+type WritePackageJson = typeof WritePackageJsonType;
+const writePackageJson = async (
+	...args: Parameters<WritePackageJson>
+): ReturnType<WritePackageJson> =>
+	require('./write-package-json').writePackageJson(...args);
 
 describe('writePackageJson', () => {
 	const cwd = process.cwd();
-	let writeFileSync: any;
+	let writeFile: any;
 
 	beforeEach(() => {
 		jest.mock('../utils/log', () => ({
@@ -17,19 +20,24 @@ describe('writePackageJson', () => {
 		}));
 
 		/**
-		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFileSync.mockRestore();'
+		 * Before calling '.toMatchSnapshot();' snapshot, call 'writeFile.mockRestore();'
 		 * otherwise snapshot will not write
 		 */
-		writeFileSync = jest
-			.spyOn(fs, 'writeFileSync')
-			.mockImplementation(() => jest.fn());
+		writeFile = jest.requireMock('fs-extra').writeFile;
+		jest.mock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				writeFile: jest.fn(async () => Promise.resolve()),
+			};
+		});
 	});
 
 	afterEach(() => {
 		process.chdir(cwd);
 	});
 
-	test('writes package json', () => {
+	test('writes package json', async () => {
 		const dir = path.resolve(__dirname, '__sandbox__/package-json-1/');
 		process.chdir(dir);
 
@@ -39,13 +47,13 @@ describe('writePackageJson', () => {
 			},
 		};
 
-		const result = writePackageJson(fakePackageJson);
+		const result = await writePackageJson(fakePackageJson);
 
-		const writeFileSyncCalls = writeFileSync.mock.calls;
+		const writeFileCalls = writeFile.mock.calls;
 
-		writeFileSync.mockRestore();
+		writeFile.mockRestore();
 
-		expect(writeFileSyncCalls).toMatchSnapshot();
+		expect(writeFileCalls).toMatchSnapshot();
 		expect(result).toEqual(undefined);
 	});
 });

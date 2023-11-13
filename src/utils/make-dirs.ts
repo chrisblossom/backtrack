@@ -8,7 +8,7 @@ async function makeDirs(dirs: string[] | string): Promise<string[]> {
 	const normalized = toArray(dirs);
 
 	const result = await Promise.all(
-		normalized.map((dir): Promise<string | undefined | null> => {
+		normalized.map(async (dir): Promise<string | undefined | null> => {
 			// @ts-expect-error ensure dir does not have correct TS signature as of @types/fs-extra v8.1.0
 			return fse.ensureDir(dir);
 		}),

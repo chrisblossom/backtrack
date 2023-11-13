@@ -21,7 +21,7 @@ async function packageJsonManager(
 	/**
 	 * load current package.json from file
 	 */
-	const packageJson = loadPackageJson();
+	const packageJson = await loadPackageJson();
 
 	/**
 	 * Check if update is needed
@@ -62,7 +62,7 @@ async function packageJsonManager(
 	/**
 	 * write packageJson
 	 */
-	writePackageJson(packageJsonSorted);
+	await writePackageJson(packageJsonSorted);
 
 	return managedKeys;
 }

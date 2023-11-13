@@ -1,7 +1,20 @@
 import path from 'path';
+import type {
+	fileIsInsideDir as FileIsInsideDirType,
+	fileIsInsideDirSync as FileIsInsideDirSyncType,
+} from './file-is-inside-dir';
 
-const fileIsInsideDir = (file: string, dir: string) =>
-	require('./file-is-inside-dir').fileIsInsideDir(file, dir);
+type FileIsInsideDir = typeof FileIsInsideDirType;
+const fileIsInsideDir = async (
+	...args: Parameters<FileIsInsideDir>
+): ReturnType<FileIsInsideDir> =>
+	require('./file-is-inside-dir').fileIsInsideDir(...args);
+
+type FileIsInsideDirSync = typeof FileIsInsideDirSyncType;
+const fileIsInsideDirSync = (
+	...args: Parameters<FileIsInsideDirSync>
+): ReturnType<FileIsInsideDirSync> =>
+	require('./file-is-inside-dir').fileIsInsideDirSync(...args);
 
 describe('fileIsInsideDir', () => {
 	const cwd = process.cwd();
@@ -15,75 +28,99 @@ describe('fileIsInsideDir', () => {
 		process.chdir(cwd);
 	});
 
-	test('defaults dir to rootPath', () => {
+	test('defaults dir to rootPath', async () => {
 		const file = path.resolve(sandboxDir, 'nested/file.js');
-		// @ts-expect-error
-		const result = fileIsInsideDir(file);
 
-		expect(result).toEqual(true);
+		const asyncResult = await fileIsInsideDir(file);
+		const syncResult = fileIsInsideDirSync(file);
+
+		const expectedResult = true;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles empty file - false', () => {
+	test('handles empty file - false', async () => {
 		const file = '';
-		// @ts-expect-error
-		const result = fileIsInsideDir(file);
+		const asyncResult = await fileIsInsideDir(file);
+		const syncResult = fileIsInsideDirSync(file);
 
-		expect(result).toEqual(false);
+		const expectedResult = false;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles relative', () => {
+	test('handles relative', async () => {
 		const file = '../';
-		// @ts-expect-error
-		const result = fileIsInsideDir(file);
+		const asyncResult = await fileIsInsideDir(file);
+		const syncResult = fileIsInsideDirSync(file);
 
-		expect(result).toEqual(false);
+		const expectedResult = false;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles absolute', () => {
+	test('handles absolute', async () => {
 		const file = path.resolve(__dirname, '../');
-		// @ts-expect-error
-		const result = fileIsInsideDir(file);
+		const asyncResult = await fileIsInsideDir(file);
+		const syncResult = fileIsInsideDirSync(file);
 
-		expect(result).toEqual(false);
+		const expectedResult = false;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles explicit dir - true', () => {
+	test('handles explicit dir - true', async () => {
 		const file = path.resolve(sandboxDir, 'files1/nested/other1.js');
 		const dir = path.resolve(sandboxDir, 'files1/');
-		const result = fileIsInsideDir(file, dir);
+		const asyncResult = await fileIsInsideDir(file, dir);
+		const syncResult = fileIsInsideDirSync(file, dir);
 
-		expect(result).toEqual(true);
+		const expectedResult = true;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles explicit dir - false', () => {
+	test('handles explicit dir - false', async () => {
 		const file = path.resolve(sandboxDir, 'files1/nested/other1.js');
 		const dir = path.resolve(sandboxDir, 'other_files/');
-		const result = fileIsInsideDir(file, dir);
+		const asyncResult = await fileIsInsideDir(file, dir);
+		const syncResult = fileIsInsideDirSync(file, dir);
 
-		expect(result).toEqual(false);
+		const expectedResult = false;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles explicit relative dir - true', () => {
+	test('handles explicit relative dir - true', async () => {
 		const file = 'files1/nested/other1.js';
 		const dir = 'files1/';
-		const result = fileIsInsideDir(file, dir);
+		const asyncResult = await fileIsInsideDir(file, dir);
+		const syncResult = fileIsInsideDirSync(file, dir);
 
-		expect(result).toEqual(true);
+		const expectedResult = true;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles explicit relative dir - false', () => {
+	test('handles explicit relative dir - false', async () => {
 		const file = 'nested/other1.js';
 		const dir = 'files1/';
-		const result = fileIsInsideDir(file, dir);
+		const asyncResult = await fileIsInsideDir(file, dir);
+		const syncResult = fileIsInsideDirSync(file, dir);
 
-		expect(result).toEqual(false);
+		const expectedResult = false;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 
-	test('handles excess path with same base', () => {
+	test('handles excess path with same base', async () => {
 		const file = path.resolve(sandboxDir, 'files1nested/other1.js');
 		const dir = path.resolve(sandboxDir, 'files1');
-		const result = fileIsInsideDir(file, dir);
+		const asyncResult = await fileIsInsideDir(file, dir);
+		const syncResult = fileIsInsideDirSync(file, dir);
 
-		expect(result).toEqual(false);
+		const expectedResult = false;
+		expect(asyncResult).toEqual(expectedResult);
+		expect(syncResult).toEqual(expectedResult);
 	});
 });

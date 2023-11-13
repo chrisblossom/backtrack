@@ -1,11 +1,11 @@
 import path from 'path';
-import { existsSync } from 'fs';
+import { pathExists } from 'fs-extra';
 import { rootPath } from '../config/paths';
 import { PackageJson } from '../types';
 
-function loadPackageJson(): PackageJson {
+async function loadPackageJson(): Promise<PackageJson> {
 	const file = path.resolve(rootPath, 'package.json');
-	const exists = existsSync(file);
+	const exists = await pathExists(file);
 
 	if (exists === false) {
 		throw new Error('package.json not found');

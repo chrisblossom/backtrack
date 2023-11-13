@@ -1,7 +1,7 @@
 const runTask = (task: any, ...options: unknown[]) =>
 	require('./run').runTask(task, ...options);
 
-const sleep = (ms: number) =>
+const sleep = async (ms: number) =>
 	new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});

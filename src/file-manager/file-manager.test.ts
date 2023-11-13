@@ -1,5 +1,4 @@
 import path from 'path';
-import { realpathSync } from 'fs';
 import os from 'os';
 import del from 'del';
 import fse from 'fs-extra';
@@ -18,7 +17,7 @@ describe('fileManger', () => {
 	 * Use random dir name to ensure unique
 	 */
 	const dir = path.resolve(
-		realpathSync(os.tmpdir()),
+		fse.realpathSync(os.tmpdir()),
 		'backtrack',
 		`cwd_${getRandomInteger().toString()}`,
 	);

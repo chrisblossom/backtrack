@@ -10,9 +10,13 @@ describe('backupFile', () => {
 	beforeEach(() => {
 		move = jest.requireMock('fs-extra').move;
 
-		jest.mock('fs-extra', () => ({
-			move: jest.fn(() => Promise.resolve()),
-		}));
+		jest.mock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				move: jest.fn(async () => Promise.resolve()),
+			};
+		});
 
 		jest.mock('../utils/log', () => ({
 			warn: jest.fn(),

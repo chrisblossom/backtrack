@@ -9,11 +9,11 @@ describe('loadStatsFile', () => {
 		process.chdir(cwd);
 	});
 
-	test('loads stat file and normalizes file manager paths', () => {
+	test('loads stat file and normalizes file manager paths', async () => {
 		const dir = path.resolve(__dirname, '__sandbox__/stats2/');
 		process.chdir(dir);
 
-		const result = loadStatsFile();
+		const result = await loadStatsFile();
 
 		expect(result).toEqual({
 			fileManager: {
@@ -40,11 +40,11 @@ describe('loadStatsFile', () => {
 		});
 	});
 
-	test('handle no stats file', () => {
+	test('handle no stats file', async () => {
 		const dir = path.resolve(__dirname, '__sandbox__/stats-missing-file/');
 		process.chdir(dir);
 
-		const result = loadStatsFile();
+		const result = await loadStatsFile();
 
 		expect(result).toMatchSnapshot();
 	});

@@ -1,7 +1,11 @@
 import path from 'path';
+import type { filesValidator as FilesValidatorType } from './files-validator';
 
-const filesValidator = (args: any) =>
-	require('./files-validator').filesValidator(args);
+type FilesValidator = typeof FilesValidatorType;
+const filesValidator = async (
+	...args: Parameters<FilesValidator>
+): ReturnType<FilesValidator> =>
+	require('./files-validator').filesValidator(...args);
 
 describe('filesValidator', () => {
 	const cwd = process.cwd();
@@ -10,7 +14,7 @@ describe('filesValidator', () => {
 		process.chdir(cwd);
 	});
 
-	test('handles success', () => {
+	test('handles success', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats1/',
@@ -28,12 +32,12 @@ describe('filesValidator', () => {
 			},
 		];
 
-		const result = filesValidator({ value });
+		const result = await filesValidator({ value });
 
 		expect(result).toEqual(undefined);
 	});
 
-	test('handles src outside of rootPath', () => {
+	test('handles src outside of rootPath', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats1/',
@@ -50,12 +54,12 @@ describe('filesValidator', () => {
 			},
 		];
 
-		const result = filesValidator({ value });
+		const result = await filesValidator({ value });
 
 		expect(result).toEqual(undefined);
 	});
 
-	test('handles dest outside of rootPath', () => {
+	test('handles dest outside of rootPath', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats1/',
@@ -71,15 +75,17 @@ describe('filesValidator', () => {
 
 		let error;
 		try {
-			filesValidator({ value });
+			await filesValidator({ value });
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: dest file must be inside rootPath: ../one.js]`,
+			);
 		}
 	});
 
-	test('handles duplicate dest', () => {
+	test('handles duplicate dest', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats1/',
@@ -99,15 +105,22 @@ describe('filesValidator', () => {
 
 		let error;
 		try {
-			filesValidator({ value });
+			await filesValidator({ value });
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(`
+[Error: [
+  "two.js",
+  "two.js" [31m[1][0m
+]
+[31m
+[1] "files destination" position 1 contains a duplicate value[0m]
+`);
 		}
 	});
 
-	test('handles missing source files', () => {
+	test('handles missing source files', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats-missing-file/',
@@ -123,16 +136,17 @@ describe('filesValidator', () => {
 
 		let error;
 		try {
-			expect.hasAssertions();
-			filesValidator({ value });
+			await filesValidator({ value });
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: Source file does not exist: <PROJECT_ROOT>/one.js]`,
+			);
 		}
 	});
 
-	test('handles relative src', () => {
+	test('handles relative src', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats1/',
@@ -148,15 +162,17 @@ describe('filesValidator', () => {
 
 		let error;
 		try {
-			filesValidator({ value });
+			await filesValidator({ value });
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: source file must be an absolute path: ./__sandbox__/stats1/file1.js]`,
+			);
 		}
 	});
 
-	test('handles absolute dest', () => {
+	test('handles absolute dest', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'../file-manager/__sandbox__/stats1/',
@@ -172,11 +188,13 @@ describe('filesValidator', () => {
 
 		let error;
 		try {
-			filesValidator({ value });
+			await filesValidator({ value });
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: Destination file must be a relative path: <PROJECT_ROOT>/file1.js]`,
+			);
 		}
 	});
 });

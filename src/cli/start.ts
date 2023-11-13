@@ -23,7 +23,7 @@ async function start(options?: Record<string, unknown>): Promise<void> {
 
 	try {
 		const lifecycles = optionsFile();
-		const statsFile = loadStatsFile();
+		const statsFile = await loadStatsFile();
 
 		/**
 		 * Update package.json

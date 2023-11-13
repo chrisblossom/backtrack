@@ -1,6 +1,6 @@
 import path from 'path';
-import { existsSync } from 'fs';
 import del from 'del';
+import { pathExists } from 'fs-extra';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { getFileHash } from '../utils/get-file-hash';
@@ -43,9 +43,10 @@ async function removeStaleFiles(
 			/**
 			 * Do nothing if file already has been removed
 			 */
-			const exists = existsSync(removeFilePath);
+
+			const exists = await pathExists(removeFilePath);
 			if (exists === true) {
-				const removeFileHash = getFileHash(removeFilePath);
+				const removeFileHash = await getFileHash(removeFilePath);
 
 				/**
 				 * Remove file if file has not changed
@@ -73,7 +74,7 @@ async function removeStaleFiles(
 		const latestFilename = `${filename}-latest${ext}`;
 		const latestFilePath = path.resolve(rootPath, dir, latestFilename);
 
-		const latestFileExists = existsSync(latestFilePath);
+		const latestFileExists = await pathExists(latestFilePath);
 
 		const destFileIndex = files.dest.files.indexOf(relativeFile);
 		const srcFile = files.src.files[destFileIndex];

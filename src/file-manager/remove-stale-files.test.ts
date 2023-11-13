@@ -1,9 +1,13 @@
 import path from 'path';
 import { FileManager } from '../types';
 import { fileInfo } from './file-test-utils';
+import type { removeStaleFiles as RemoveStaleFilesType } from './remove-stale-files';
 
-const removeStaleFiles = (files: any, previousStats: any) =>
-	require('./remove-stale-files').removeStaleFiles(files, previousStats);
+type RemoveStaleFiles = typeof RemoveStaleFilesType;
+const removeStaleFiles = async (
+	...args: Parameters<any>
+): ReturnType<RemoveStaleFiles> =>
+	require('./remove-stale-files').removeStaleFiles(...args);
 
 describe('removeStaleFiles', () => {
 	const cwd = process.cwd();
@@ -12,12 +16,16 @@ describe('removeStaleFiles', () => {
 
 	beforeEach(() => {
 		del = jest.requireMock('del');
-		jest.mock('del', () => jest.fn(() => Promise.resolve()));
+		jest.mock('del', () => jest.fn(async () => Promise.resolve()));
 
 		move = jest.requireMock('fs-extra').move;
-		jest.mock('fs-extra', () => ({
-			move: jest.fn(() => Promise.resolve()),
-		}));
+		jest.mock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				move: jest.fn(async () => Promise.resolve()),
+			};
+		});
 
 		jest.mock('../utils/log', () => ({
 			warn: jest.fn(),

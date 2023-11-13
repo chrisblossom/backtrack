@@ -40,10 +40,14 @@ describe('clean', () => {
 
 		del = jest.requireMock('del');
 
-		jest.doMock('fs-extra', () => ({
-			ensureDir: jest.fn(() => Promise.resolve()),
-			copy: jest.fn(() => Promise.resolve()),
-		}));
+		jest.doMock('fs-extra', () => {
+			const fsExtra = jest.requireActual('fs-extra');
+			return {
+				...fsExtra,
+				ensureDir: jest.fn(async () => Promise.resolve()),
+				copy: jest.fn(async () => Promise.resolve()),
+			};
+		});
 
 		ensureDir = jest.requireMock('fs-extra').ensureDir;
 		copy = jest.requireMock('fs-extra').copy;

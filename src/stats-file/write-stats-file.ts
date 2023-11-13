@@ -1,5 +1,5 @@
 import path from 'path';
-import { existsSync, writeFileSync } from 'fs';
+import { pathExists, writeFile } from 'fs-extra';
 import sortKeys from 'sort-keys';
 import { isEqual } from 'lodash';
 import del from 'del';
@@ -64,7 +64,7 @@ async function writeStatsFile(
 	);
 
 	if (shouldDelete.length === 0) {
-		const exists = existsSync(statsFile);
+		const exists = await pathExists(statsFile);
 
 		/**
 		 * Do not remove anything if the file does not exist
@@ -92,7 +92,7 @@ async function writeStatsFile(
 		return;
 	}
 
-	writeFileSync(
+	await writeFile(
 		statsFile,
 		// eslint-disable-next-line prefer-template
 		JSON.stringify(sorted, null, 4) + '\n',

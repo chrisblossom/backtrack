@@ -1,6 +1,9 @@
 import path from 'path';
+import type { loadPackageJson as loadPackageJsonType } from './load-package-json';
 
-const loadPackageJson = () => require('./load-package-json').loadPackageJson();
+type LoadPackageJson = typeof loadPackageJsonType;
+const loadPackageJson = async (): ReturnType<LoadPackageJson> =>
+	require('./load-package-json').loadPackageJson();
 
 describe('loadPackageJson', () => {
 	const cwd = process.cwd();
@@ -9,16 +12,19 @@ describe('loadPackageJson', () => {
 		process.chdir(cwd);
 	});
 
-	test('loads stat file', () => {
+	test('loads stat file', async () => {
 		const dir = path.resolve(__dirname, '__sandbox__/found-package-json/');
 		process.chdir(dir);
 
-		const result = loadPackageJson();
+		const result = await loadPackageJson();
 
-		expect(result).toMatchSnapshot();
+		expect(result).toEqual({
+			name: 'found_package_json',
+			private: true,
+		});
 	});
 
-	test('fail when package json does not exist', () => {
+	test('fail when package json does not exist', async () => {
 		const dir = path.resolve(
 			__dirname,
 			'__sandbox__/missing-package-json/',
@@ -27,11 +33,13 @@ describe('loadPackageJson', () => {
 
 		let error;
 		try {
-			loadPackageJson();
+			await loadPackageJson();
 		} catch (e) {
 			error = e;
 		} finally {
-			expect(error).toMatchSnapshot();
+			expect(error).toMatchInlineSnapshot(
+				`[Error: package.json not found]`,
+			);
 		}
 	});
 });

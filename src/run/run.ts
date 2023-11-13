@@ -50,12 +50,10 @@ async function runTask(task: Task, ...options: unknown[]): Promise<unknown[]> {
 		 * Handle concurrent tasks as an array
 		 */
 		if (isSingleTask(currentTask)) {
-			// eslint-disable-next-line no-await-in-loop
 			const taskDone = await checkForRun(currentTask, ...options);
 
 			result.push(taskDone);
 		} else {
-			// eslint-disable-next-line no-await-in-loop
 			const taskDone = await Promise.all(
 				currentTask.map((task1) => {
 					return checkForRun(task1, ...options);
@@ -69,7 +67,7 @@ async function runTask(task: Task, ...options: unknown[]): Promise<unknown[]> {
 	return result;
 }
 
-function run(
+async function run(
 	taskName: string,
 	task: Task,
 	...options: unknown[]
@@ -106,7 +104,7 @@ function run(
 
 			const runningTask = runTask(realTask, ...toArray(realOptions))
 				// eslint-disable-next-line promise/prefer-await-to-then
-				.then((taskResult) => {
+				.then(async (taskResult) => {
 					// eslint-disable-next-line promise/param-names
 					return new Promise((innerResolve) => {
 						process.nextTick(() => {
@@ -122,7 +120,7 @@ function run(
 					});
 				})
 				// eslint-disable-next-line promise/prefer-await-to-then
-				.catch((e: unknown) => {
+				.catch(async (e: unknown) => {
 					const error = e as Error;
 
 					return handleError({

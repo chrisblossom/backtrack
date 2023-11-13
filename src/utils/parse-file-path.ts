@@ -1,7 +1,7 @@
 import path from 'path';
-import { existsSync } from 'fs';
+import { pathExists, pathExistsSync } from 'fs-extra';
 import { rootPath } from '../config/paths';
-import { getFileHash } from './get-file-hash';
+import { getFileHash, getFileHashSync } from './get-file-hash';
 
 interface Return {
 	absolute: string;
@@ -9,11 +9,11 @@ interface Return {
 	hash: string;
 }
 
-function parseFilePath(file: string): Return {
+async function parseFilePath(file: string): Promise<Return> {
 	const absolute = path.resolve(rootPath, file);
 	const relative = path.relative(rootPath, absolute);
 
-	const exists = existsSync(absolute);
+	const exists = await pathExists(absolute);
 	if (exists === false) {
 		return {
 			absolute,
@@ -22,7 +22,7 @@ function parseFilePath(file: string): Return {
 		};
 	}
 
-	const hash = getFileHash(absolute);
+	const hash = await getFileHash(absolute);
 	return {
 		absolute,
 		relative,
@@ -30,4 +30,25 @@ function parseFilePath(file: string): Return {
 	};
 }
 
-export { parseFilePath };
+function parseFilePathSync(file: string): Return {
+	const absolute = path.resolve(rootPath, file);
+	const relative = path.relative(rootPath, absolute);
+
+	const exists = pathExistsSync(absolute);
+	if (exists === false) {
+		return {
+			absolute,
+			relative,
+			hash: '',
+		};
+	}
+
+	const hash = getFileHashSync(absolute);
+	return {
+		absolute,
+		relative,
+		hash,
+	};
+}
+
+export { parseFilePath, parseFilePathSync };

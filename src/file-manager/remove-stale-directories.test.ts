@@ -1,6 +1,5 @@
 import os from 'os';
 import path from 'path';
-import { realpathSync } from 'fs';
 import del from 'del';
 import fse from 'fs-extra';
 import { getRandomInteger } from '../utils/get-random-number';
@@ -29,7 +28,7 @@ async function dirInfo(files: any = [], previousFiles: any = []) {
 		dirname,
 	});
 
-	const pending = parsedPreviousFiles.makeDirs.map((dir: any) =>
+	const pending = parsedPreviousFiles.makeDirs.map(async (dir: any) =>
 		fse.ensureDir(dir),
 	);
 
@@ -52,7 +51,7 @@ describe('removeStaleDirectories', () => {
 	let delMock: any;
 
 	const dir = path.resolve(
-		realpathSync(os.tmpdir()),
+		fse.realpathSync(os.tmpdir()),
 		'backtrack',
 		`cwd_${getRandomInteger().toString()}`,
 	);

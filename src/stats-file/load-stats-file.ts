@@ -1,16 +1,16 @@
 import path from 'path';
-import { existsSync } from 'fs';
+import { pathExists } from 'fs-extra';
 import { rootPath } from '../config/paths';
 import { StatsFile } from '../types';
 import { normalizeStats } from './normalize-stats';
 
 const statsFilename = '.backtrack-stats.json';
 
-function loadStatsFile(): StatsFile {
+async function loadStatsFile(): Promise<StatsFile> {
 	const file = path.resolve(rootPath, statsFilename);
-	const exists = existsSync(file);
+	const exists = await pathExists(file);
 
-	if (!exists) {
+	if (exists === false) {
 		return {};
 	}
 

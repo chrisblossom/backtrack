@@ -13,7 +13,7 @@ describe('copy', () => {
 		const fse = require('fs-extra');
 		fseCopySpy = jest
 			.spyOn(fse, 'copy')
-			.mockImplementation(() => Promise.resolve());
+			.mockImplementation(async () => Promise.resolve());
 
 		process.chdir(workingCwd);
 	});

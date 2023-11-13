@@ -1,13 +1,13 @@
 import path from 'path';
-import { writeFileSync } from 'fs';
+import { writeFile } from 'fs-extra';
 import { rootPath } from '../config/paths';
 import log from '../utils/log';
 import { PackageJson } from '../types';
 
-function writePackageJson(packageJson: PackageJson): void {
+async function writePackageJson(packageJson: PackageJson): Promise<void> {
 	const packageJsonFile = path.resolve(rootPath, 'package.json');
 
-	writeFileSync(
+	await writeFile(
 		packageJsonFile,
 		// eslint-disable-next-line prefer-template
 		JSON.stringify(packageJson, null, 2) + '\n',

@@ -12,16 +12,16 @@ import { getFileStats } from './get-file-stats';
 
 type Return = Promise<FileManagerStats>;
 
-const base = filesPostProcessor();
-
 async function fileManager(
-	files: ParsedFiles = base,
+	files?: ParsedFiles,
 	previousStats: FileManagerStats = {},
 ): Return {
+	const filesNormalized = files ?? filesPostProcessor();
+
 	/**
 	 * Create Directories
 	 */
-	const createDirectories = await makeDirs(files.makeDirs);
+	const createDirectories = await makeDirs(filesNormalized.makeDirs);
 
 	createDirectories.forEach((absolutePath) => {
 		const relativeDir = path.relative(rootPath, absolutePath);
@@ -32,27 +32,27 @@ async function fileManager(
 	/**
 	 * Backup any user-changed files
 	 */
-	await backupChangedFiles(files, previousStats.files);
+	await backupChangedFiles(filesNormalized, previousStats.files);
 
 	/**
 	 * Remove stale files
 	 */
-	await removeStaleFiles(files, previousStats.files);
+	await removeStaleFiles(filesNormalized, previousStats.files);
 
 	/**
 	 * Remove stale directories
 	 */
-	await removeStaleDirectories(files, previousStats.directories);
+	await removeStaleDirectories(filesNormalized, previousStats.directories);
 
 	/**
 	 * Copy files
 	 */
-	await copyFiles(files, previousStats.files);
+	await copyFiles(filesNormalized, previousStats.files);
 
 	/**
 	 * Get updated stats
 	 */
-	const fileStats = getFileStats(files);
+	const fileStats = getFileStats(filesNormalized);
 
 	return fileStats;
 }

@@ -1,6 +1,6 @@
 import path from 'path';
 import { buildPath, rootPath } from '../config/paths';
-import { fileIsInsideDir } from '../utils/file-is-inside-dir';
+import { fileIsInsideDirSync } from '../utils/file-is-inside-dir';
 import { NormalizedClean } from '../types';
 
 interface Args {
@@ -11,7 +11,7 @@ function cleanValidator({ value }: Args): void {
 	for (const arg of value) {
 		for (const pattern of arg.del) {
 			const resolvedPattern = path.resolve(buildPath, pattern);
-			if (fileIsInsideDir(resolvedPattern, buildPath) === false) {
+			if (fileIsInsideDirSync(resolvedPattern, buildPath) === false) {
 				throw new Error(
 					`del pattern '${pattern}' must be inside build directory`,
 				);
@@ -19,7 +19,7 @@ function cleanValidator({ value }: Args): void {
 		}
 
 		for (const dir of arg.makeDirs) {
-			if (fileIsInsideDir(dir, buildPath) === false) {
+			if (fileIsInsideDirSync(dir, buildPath) === false) {
 				throw new Error(
 					`makeDirs '${dir}' must be inside build directory`,
 				);
@@ -27,19 +27,19 @@ function cleanValidator({ value }: Args): void {
 		}
 
 		for (const copy of arg.copy) {
-			if (fileIsInsideDir(copy.src, rootPath) === false) {
+			if (fileIsInsideDirSync(copy.src, rootPath) === false) {
 				throw new Error(
 					`copy.src '${copy.src}' must be inside project root directory`,
 				);
 			}
 
-			if (fileIsInsideDir(copy.src, buildPath) === true) {
+			if (fileIsInsideDirSync(copy.src, buildPath) === true) {
 				throw new Error(
 					`copy.src '${copy.src}' cannot be inside build directory`,
 				);
 			}
 
-			if (fileIsInsideDir(copy.dest, buildPath) === false) {
+			if (fileIsInsideDirSync(copy.dest, buildPath) === false) {
 				throw new Error(
 					`copy.dest '${copy.dest}' must be inside build directory`,
 				);

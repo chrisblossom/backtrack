@@ -1,14 +1,14 @@
 import path from 'path';
-import { existsSync } from 'fs';
+import { pathExists } from 'fs-extra';
 import Joi from '@hapi/joi';
-import { fileIsInsideDir } from '../utils/file-is-inside-dir';
+import { fileIsInsideDirSync } from '../utils/file-is-inside-dir';
 import { isCopyFileOptions, FileManager } from '../types';
 
 interface Args {
 	value: FileManager;
 }
 
-function filesValidator({ value }: Args): void {
+async function filesValidator({ value }: Args): Promise<void> {
 	const { dest, src } = value.reduce(
 		(acc: { dest: string[]; src: string[] }, file) => {
 			if (isCopyFileOptions(file)) {
@@ -61,7 +61,9 @@ function filesValidator({ value }: Args): void {
 		/**
 		 * Handle missing source files
 		 */
-		if (existsSync(file) === false) {
+
+		const fileExists = await pathExists(file);
+		if (fileExists === false) {
 			throw new Error(`Source file does not exist: ${file}`);
 		}
 	}
@@ -79,7 +81,7 @@ function filesValidator({ value }: Args): void {
 		/**
 		 * Do not allow external files
 		 */
-		if (fileIsInsideDir(file) === false) {
+		if (fileIsInsideDirSync(file) === false) {
 			throw new Error(`dest file must be inside rootPath: ${file}`);
 		}
 	}

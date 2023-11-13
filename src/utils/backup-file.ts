@@ -1,6 +1,5 @@
 import path from 'path';
-import { existsSync } from 'fs';
-import { move } from 'fs-extra';
+import { move, pathExists } from 'fs-extra';
 import { rootPath } from '../config/paths';
 import { getFileHash } from './get-file-hash';
 
@@ -13,7 +12,7 @@ type Return = Promise<
 >;
 
 async function backupFile(file: string): Return {
-	const hash = getFileHash(file);
+	const hash = await getFileHash(file);
 
 	const { base: filename, dir, ext = '' } = path.parse(file);
 
@@ -26,7 +25,7 @@ async function backupFile(file: string): Return {
 	 * Handle the same file being backed up multiple times
 	 */
 	let previouslyBackedUp = false;
-	let backupFileExists = existsSync(backupFilePath);
+	let backupFileExists = await pathExists(backupFilePath);
 	if (backupFileExists) {
 		let count = 0;
 		const maxCount = 10;
@@ -35,7 +34,7 @@ async function backupFile(file: string): Return {
 			previouslyBackedUp === false &&
 			count < maxCount
 		) {
-			const backupFileHash = getFileHash(backupFilePath);
+			const backupFileHash = await getFileHash(backupFilePath);
 
 			/**
 			 * Check if the existing file has the same hash.
@@ -49,7 +48,7 @@ async function backupFile(file: string): Return {
 			backupFilename = `${filename}-backup-${shortHash}-${count.toString()}${ext}`;
 			backupFilePath = path.resolve(dir, backupFilename);
 
-			backupFileExists = existsSync(backupFilePath);
+			backupFileExists = await pathExists(backupFilePath);
 			count += 1;
 		}
 
