@@ -1,8 +1,10 @@
 import path from 'path';
 import { copyFormatMockCalls } from './copy-format-mock-calls';
-import { File } from './copy';
+import type { copy as CopyType } from './copy';
 
-const copy = (files: File[] | File) => require('./copy').copy(files);
+type Copy = typeof CopyType;
+const copy = async (...args: Parameters<Copy>): ReturnType<Copy> =>
+	require('./copy').copy(...args);
 
 describe('copy', () => {
 	let fseCopySpy: any;

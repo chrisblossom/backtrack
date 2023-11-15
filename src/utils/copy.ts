@@ -39,7 +39,11 @@ async function copyDirectoryFiles(
 	hash: boolean,
 	fseCopyOptions: fse.CopyOptions,
 ): Promise<void> {
-	const deepFileList = await readDirDeep(src);
+	const abosluteSourceDirectory = path.resolve(src);
+	const deepFileList = await readDirDeep(abosluteSourceDirectory, {
+		cwd: abosluteSourceDirectory,
+	});
+
 	const copyTasks = deepFileList.map(async (sourceFile) => {
 		const absoluteSourcePath = path.resolve(src, sourceFile);
 		let absoluteDestinationPath = path.resolve(dest, sourceFile);
