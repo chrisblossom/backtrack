@@ -1,13 +1,25 @@
+import { ExecaError } from 'execa';
 import { ErrorWithProcessExitCode } from './error-with-process-exit-code';
 import log from './log';
 import { toArray } from './object-utils';
 
-type Errors = Error | ErrorWithProcessExitCode | string;
+type Errors = Error | ExecaError | ErrorWithProcessExitCode | string;
+
+function errorHasExitCode(
+	error: unknown,
+): error is Error & { exitCode: number } {
+	if (typeof error !== 'object' || error === null) {
+		return false;
+	}
+
+	// @ts-expect-error TS2339 - Property 'exitCode' does not exist on type 'Error | string'.
+	return typeof error.exitCode === 'number';
+}
 
 function getExitCode(errors: Errors[]): number {
 	// Use reduce because it works better with typescript types
 	const codes = errors.reduce((acc: number[], error) => {
-		if (!(error instanceof ErrorWithProcessExitCode)) {
+		if (!errorHasExitCode(error)) {
 			return acc;
 		}
 
@@ -16,7 +28,7 @@ function getExitCode(errors: Errors[]): number {
 		/**
 		 * remove undefined and duplicate exit codes
 		 */
-		if (typeof exitCode !== 'number' || acc.includes(exitCode)) {
+		if (acc.includes(exitCode) === true) {
 			return acc;
 		}
 
