@@ -89,7 +89,7 @@ function Preprocessor(): (args: Args) => Lifecycles {
 			});
 
 			const closestPackageJson = findPackageJson
-				? findPackageJson.package
+				? findPackageJson.packageJson
 				: {};
 
 			const packageId = closestPackageJson.name;
