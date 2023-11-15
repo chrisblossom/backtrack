@@ -1,9 +1,8 @@
 # backtrack
 
 [![npm](https://img.shields.io/npm/v/@backtrack/core.svg?label=npm%20version)](https://www.npmjs.com/package/@backtrack/core)
-[![Linux Build Status](https://img.shields.io/circleci/project/github/chrisblossom/backtrack/master.svg?label=linux%20build)](https://circleci.com/gh/chrisblossom/backtrack/tree/master)
-[![Windows Build Status](https://img.shields.io/appveyor/ci/chrisblossom/backtrack/master.svg?label=windows%20build)](https://ci.appveyor.com/project/chrisblossom/backtrack/branch/master)
-[![Code Coverage](https://img.shields.io/codecov/c/github/chrisblossom/backtrack/master.svg)](https://codecov.io/gh/chrisblossom/backtrack/branch/master)
+
+[//]: # '[![Code Coverage](https://img.shields.io/codecov/c/github/chrisblossom/backtrack/master.svg)](https://codecov.io/gh/chrisblossom/backtrack/branch/master)'
 
 ## About
 
@@ -34,8 +33,7 @@ See [docs](./docs/)
 
 ## Presets
 
--   [@backtrack/preset-node-app](https://github.com/chrisblossom/backtrack-preset-node-app)
--   [@backtrack/preset-node-module](https://github.com/chrisblossom/backtrack-preset-node-module)
+-   [@backtrack/preset-node](https://github.com/chrisblossom/backtrack-preset-node)
 -   [@backtrack/preset-preset](https://github.com/chrisblossom/backtrack-preset-preset)
 -   [@backtrack/preset-jest](https://github.com/chrisblossom/backtrack-preset-jest)
 -   [@backtrack/preset-style](https://github.com/chrisblossom/backtrack-preset-style)

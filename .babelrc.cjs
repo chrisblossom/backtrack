@@ -29,7 +29,6 @@ const babel = {
 	],
 	plugins: [
 		pkg.resolve(backtrackId, 'babel-plugin-dynamic-import-node'),
-		pkg.resolve(backtrackId, '@babel/plugin-proposal-class-properties'),
 		pkg.resolve(backtrackId, '@babel/plugin-transform-strict-mode'),
 	],
 };

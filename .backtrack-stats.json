@@ -1,14 +1,12 @@
 {
     "fileManager": {
         "directories": [
-            ".circleci",
             ".husky",
             "dist",
             "src"
         ],
         "files": {
-            ".babelrc.cjs": "019e7706d3c07df6ce9844b563507f3a989b3ef0958533ccc8be91914ea8907a",
-            ".circleci/config.yml": "8c0cfd70d0df0bcc72810dda6b2e99a5fffa2545ac9a9827e0f5fbcd9e2feae5",
+            ".babelrc.cjs": "7f69157bbe12553bb71b5e890da845ddeeb5f36f2de71aacc5b18b483e6eab1a",
             ".editorconfig": "c8e06355ec368086c1313bda19033a9e5d8a920d27dbf91a97fc509a0d2d8e3b",
             ".eslintignore": "cc67305578620b791ded1c8aed0f3c39db17c4643c760d09408e18eadb1d7a37",
             ".eslintrc.cjs": "fdb4499d6fbf4441b57b0e540a981c0db9f58023d756278d41d79a9292a544d2",
@@ -23,7 +21,6 @@
             ".prettierrc.cjs": "105ba088ab96fe3b965231970dc8db9904de34ff9a9febff5a071d8220b74701",
             ".yarnrc": "feed5a1b1413c2d27507ed09e7d1c21fb40e0f8aca947c0620793b7e187e8ba4",
             "README.md": "ignoreUpdates",
-            "appveyor.yml": "6aa9016d30e25bc337b46ce7a9e7dd84272410415dfa539a0dda7070c1f41259",
             "global.d.ts": "ignoreUpdates",
             "jest.config.cjs": "849190b5138d25fa0849678fb4a3c818fb0dccffbe6a86732713a18c4cc06b6d",
             "src/core.ts": "ignoreUpdates",
