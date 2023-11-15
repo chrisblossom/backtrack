@@ -1,8 +1,9 @@
 import execa from 'execa';
-import { ErrorWithProcessExitCode } from '../utils/error-with-process-exit-code';
 
-async function runShellCommand(command: string): Promise<void> {
-	const runningCommand = execa.shell(command, {
+async function runShellCommand(
+	command: string,
+): Promise<execa.ExecaChildProcess> {
+	const runningCommand = execa(command, {
 		env: { FORCE_COLOR: 'true' },
 		// https://nodejs.org/api/child_process.html#child_process_options_stdio
 		stdio: [
@@ -13,45 +14,43 @@ async function runShellCommand(command: string): Promise<void> {
 			// stderr
 			'pipe',
 		],
+		preferLocal: true,
+		shell: true,
 	});
 
 	const logStream = runningCommand.stdout;
 	const logErrorStream = runningCommand.stderr;
 
 	/**
-	 * Log all output to console
+	 * Log all output to console if not in test environment
 	 */
-	if (logStream !== null) {
-		logStream.pipe(process.stdout);
-	}
+	const backtrackTestEnv = process.env.BACKTRACK_TEST_ENVIRONMENT ?? '';
+	if (backtrackTestEnv !== 'test') {
+		if (logStream !== null) {
+			logStream.pipe(process.stdout);
+		}
 
-	if (logErrorStream !== null) {
-		logErrorStream.pipe(process.stderr);
+		if (logErrorStream !== null) {
+			logErrorStream.pipe(process.stderr);
+		}
 	}
 
 	try {
-		await runningCommand;
+		const result = await runningCommand;
+
+		return result;
 	} catch (err: unknown) {
 		const error = err as execa.ExecaError;
 
 		/**
-		 * An error stack is not relevant here because it is an external command
-		 *
 		 * More detailed command not found error
 		 */
 		// @ts-expect-error - execa.ExecaError can throw an error with a code of ENOENT
 		if (error.code === 'ENOENT') {
-			const message = `Command not found: ${error.cmd}`;
-			const exitCode = 1;
-
-			throw new ErrorWithProcessExitCode(message, exitCode);
+			error.message += ' - command not found';
 		}
 
-		const code = error.code;
-		const exitCode = code === 0 || code ? code : 1;
-		const message = `Command failed: ${error.cmd}`;
-
-		throw new ErrorWithProcessExitCode(message, exitCode);
+		throw error;
 	}
 }
 
