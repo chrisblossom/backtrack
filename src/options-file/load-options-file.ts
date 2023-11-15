@@ -1,4 +1,4 @@
-import { cosmiconfigSync } from 'cosmiconfig';
+import { lilconfigSync } from 'lilconfig';
 import { ErrorWithProcessExitCode } from '../utils/error-with-process-exit-code';
 import { rootPath } from '../config/paths';
 import { BacktrackConfig } from '../types';
@@ -53,7 +53,7 @@ function transform(result: TransformResult | null): TransformResult {
 	};
 }
 
-const explorer = cosmiconfigSync('backtrack', {
+const explorer = lilconfigSync('backtrack', {
 	stopDir: rootPath,
 	transform,
 });

@@ -88,7 +88,6 @@
 	"dependencies": {
 		"chalk": "^4.1.2",
 		"core-js": "^3.33.2",
-		"cosmiconfig": "^6.0.0",
 		"deep-keys": "^0.5.0",
 		"del": "^6.1.1",
 		"dotenv": "^16.3.1",
@@ -96,6 +95,7 @@
 		"execa": "^1.0.0",
 		"fs-extra": "^8.1.0",
 		"joi": "^17.11.0",
+		"lilconfig": "^2.1.0",
 		"lodash": "^4.17.21",
 		"parent-module": "^2.0.0",
 		"read-dir-deep": "^8.0.0",
