@@ -65,9 +65,12 @@ function Preprocessor(): (args: Args) => Lifecycles {
 			}
 
 			/**
-			 * If task is an array with only one item, remove the array
+			 * Set config structure
 			 */
-			task = Array.isArray(task) && task.length === 1 ? task[0] : task;
+			if (lifecycle === 'config') {
+				task =
+					Array.isArray(task) && task.length === 1 ? task[0] : task;
+			}
 
 			return {
 				...acc,

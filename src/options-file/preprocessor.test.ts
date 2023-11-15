@@ -23,7 +23,7 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			files: { allowChanges: false },
+			files: [{ allowChanges: false }],
 		});
 	});
 
@@ -49,7 +49,7 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			dev: 'one',
+			dev: ['one'],
 			build: [
 				'one',
 				'two',
@@ -75,7 +75,7 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			files: { allowChanges: false },
+			files: [{ allowChanges: false }],
 		});
 	});
 
@@ -99,8 +99,8 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			dev: 'eslint',
-			files: { allowChanges: false },
+			dev: ['eslint'],
+			files: [{ allowChanges: false }],
 		});
 	});
 
@@ -124,8 +124,8 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			dev: 'eslint',
-			files: { allowChanges: false },
+			dev: ['eslint'],
+			files: [{ allowChanges: false }],
 		});
 	});
 
@@ -149,7 +149,7 @@ describe('preprocessor', () => {
 		});
 
 		expect(result).toEqual({
-			build: 'task4',
+			build: ['task4'],
 			dev: [
 				[
 					'task1',
