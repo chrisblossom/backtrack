@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { BacktrackConfig } from '../types';
 import { packageJsonSchema } from './package-json-schema';
 
@@ -44,14 +44,12 @@ const objType = Joi.object({
 	],
 });
 
-const functionLifecycles = Joi.array()
-	.items([
-		cmdType,
-		fnType,
-		objType,
-		Joi.array().items(cmdType, fnType, objType),
-	])
-	.single(true);
+const functionLifecycles = Joi.array().items(
+	cmdType,
+	fnType,
+	objType,
+	Joi.array().items(cmdType, fnType, objType),
+);
 
 const cleanCopySchema = Joi.array()
 	.items(
@@ -124,7 +122,6 @@ function generateSchema(lifecycles: BacktrackConfig): Joi.ObjectSchema {
 				Joi.array().ordered(Joi.string().required(), Joi.object()),
 			)
 
-			.single(true)
 			.unique()
 			.label('presets'),
 	}).required();
@@ -138,7 +135,7 @@ interface Args {
 
 function presetValidator({ value = {} }: Args = { value: {} }): void {
 	const schema = generateSchema(value);
-	const isValid = Joi.validate(value, schema);
+	const isValid = schema.validate(value);
 
 	if (isValid.error) {
 		throw new Error(isValid.error.annotate());

@@ -1,4 +1,3 @@
-import Joi from '@hapi/joi';
 import { packageJsonSchema } from './package-json-schema';
 
 describe('packageJsonSchema', () => {
@@ -7,9 +6,9 @@ describe('packageJsonSchema', () => {
 			scripts: { dev: 'backtrack dev' },
 		};
 
-		const isValid = Joi.validate(managedKeys, packageJsonSchema);
+		const isValid = packageJsonSchema.validate(managedKeys);
 
-		expect(isValid.error).toEqual(null);
+		expect(isValid.error).toEqual(undefined);
 	});
 
 	test('is invalid', () => {
@@ -17,7 +16,7 @@ describe('packageJsonSchema', () => {
 			keywords: 'backtrack name',
 		};
 
-		const isValid = Joi.validate(managedKeys, packageJsonSchema);
+		const isValid = packageJsonSchema.validate(managedKeys);
 
 		expect(isValid.error).toMatchSnapshot();
 	});
@@ -25,14 +24,14 @@ describe('packageJsonSchema', () => {
 	test('is valid no managedKeys', () => {
 		const managedKeys = {};
 
-		const isValid = Joi.validate(managedKeys, packageJsonSchema);
+		const isValid = packageJsonSchema.validate(managedKeys);
 
-		expect(isValid.error).toEqual(null);
+		expect(isValid.error).toEqual(undefined);
 	});
 
 	test('is valid undefined managedKeys', () => {
-		const isValid = Joi.validate(undefined, packageJsonSchema);
+		const isValid = packageJsonSchema.validate(undefined);
 
-		expect(isValid.error).toEqual(null);
+		expect(isValid.error).toEqual(undefined);
 	});
 });

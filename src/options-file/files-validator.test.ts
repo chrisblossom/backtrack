@@ -115,7 +115,7 @@ describe('filesValidator', () => {
   "two.js" [31m[1][0m
 ]
 [31m
-[1] "files destination" position 1 contains a duplicate value[0m]
+[1] "files destination" contains a duplicate value[0m]
 `);
 		}
 	});

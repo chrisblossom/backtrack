@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`packageJsonSchema is invalid 1`] = `[ValidationError: single value of "packageJson" fails because [child "package.json managedKey: keywords" fails because ["package.json managedKey: keywords" is not allowed]]]`;
+exports[`packageJsonSchema is invalid 1`] = `[ValidationError: "package.json managedKey: keywords" is not allowed]`;

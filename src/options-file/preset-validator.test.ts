@@ -34,7 +34,7 @@ describe('presetValidator', () => {
 
 	test('preset validates custom lifecycles', () => {
 		const value = {
-			invalid1: new Date('2017-12-05T18:02:11.869Z'),
+			invalid1: [new Date('2017-12-05T18:02:11.869Z')],
 		};
 
 		let error;

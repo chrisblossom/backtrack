@@ -1,6 +1,6 @@
 import path from 'path';
 import { pathExists } from 'fs-extra';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { fileIsInsideDirSync } from '../utils/file-is-inside-dir';
 import { isCopyFileOptions, FileManager } from '../types';
 

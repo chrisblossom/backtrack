@@ -5,7 +5,7 @@ exports[`presetValidator config fails as array 1`] = `
   "config" [31m[1][0m: []
 }
 [31m
-[1] "config" must be an object[0m]
+[1] "config" must be of type object[0m]
 `;
 
 exports[`presetValidator fails no options - del 1`] = `
@@ -19,7 +19,7 @@ exports[`presetValidator fails no options - del 1`] = `
   ]
 }
 [31m
-[1] "0" is not allowed to be empty[0m]
+[1] "clean[0].del[0]" is not allowed to be empty[0m]
 `;
 
 exports[`presetValidator fails no options - makeDirs 1`] = `
@@ -33,7 +33,7 @@ exports[`presetValidator fails no options - makeDirs 1`] = `
   ]
 }
 [31m
-[1] "0" is not allowed to be empty[0m]
+[1] "clean[0].makeDirs[0]" is not allowed to be empty[0m]
 `;
 
 exports[`presetValidator fails with unknown key 1`] = `
@@ -51,13 +51,15 @@ exports[`presetValidator fails with unknown key 1`] = `
   ]
 }
 [31m
-[1] "excess" is not allowed[0m]
+[1] "clean[0].excess" is not allowed[0m]
 `;
 
 exports[`presetValidator preset validates custom lifecycles 1`] = `
 [Error: {
-  "invalid1" [31m[1][0m: "2017-12-05T18:02:11.869Z"
+  "invalid1": [
+    "2017-12-05T18:02:11.869Z" [31m[1][0m
+  ]
 }
 [31m
-[1] single value of "invalid1" does not match any of the allowed types[0m]
+[1] "invalid1" does not match any of the allowed types[0m]
 `;

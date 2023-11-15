@@ -1,4 +1,5 @@
 import readPkgUp from 'read-pkg-up';
+import { toArray } from '../utils/object-utils';
 import type { AllTaskTypes, BacktrackConfig, Lifecycles } from '../types';
 
 interface Args {
@@ -70,6 +71,8 @@ function Preprocessor(): (args: Args) => Lifecycles {
 			if (lifecycle === 'config') {
 				task =
 					Array.isArray(task) && task.length === 1 ? task[0] : task;
+			} else {
+				task = toArray(task);
 			}
 
 			return {
