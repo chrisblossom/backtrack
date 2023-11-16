@@ -1,24 +1,40 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/explicit-function-return-type,no-console */
+/* eslint-disable no-console */
 
-import { bgBlue, bgGreen, bgRed, bgYellow, gray, white } from 'chalk';
+import { Instance as Chalk } from 'chalk';
 
-function getTime() {
-	const addZero = (time: number) => {
-		if (time < 10) {
-			return `0${time.toString()}`;
-		}
+const {
+	//
+	bgBlue,
+	bgGreen,
+	bgRed,
+	bgYellow,
+	gray,
+	white,
+} = new Chalk({ level: 2 });
 
-		return time.toString();
-	};
+const addZero = (time: number): string => {
+	if (time < 10) {
+		return `0${time.toString()}`;
+	}
 
+	return time.toString();
+};
+
+interface Time {
+	time: Date;
+	message: string;
+}
+
+function getTime(): Time {
 	const now = new Date();
 	const hours = addZero(now.getHours());
 	const minutes = addZero(now.getMinutes());
 	const seconds = addZero(now.getSeconds());
 
+	const timeFormatted = `${hours}:${minutes}:${seconds}`;
 	return {
 		time: now,
-		message: `[${gray(`${hours}:${minutes}:${seconds}`)}]`,
+		message: `[${gray(timeFormatted)}]`,
 	};
 }
 
@@ -28,7 +44,7 @@ function print(
 	messages: unknown[],
 	format = '\b',
 	type: ConsoleTypes = 'info',
-) {
+): Time {
 	const time = getTime();
 	const meta = `${time.message} ${format}`;
 
@@ -41,24 +57,24 @@ function print(
 	return time;
 }
 
-function info(...messages: unknown[]) {
+function info(...messages: unknown[]): Time {
 	const format = `${bgBlue(white('Info'))}${gray(':')}`;
 	return print(messages, format, 'info');
 }
 
 const log = info;
 
-function success(...messages: unknown[]) {
+function success(...messages: unknown[]): Time {
 	const format = `${bgGreen(white('Success'))}${gray(':')}`;
 	return print(messages, format, 'info');
 }
 
-function error(...messages: unknown[]) {
+function error(...messages: unknown[]): Time {
 	const format = `${bgRed(white('Error'))}${gray(':')}`;
 	return print(messages, format, 'error');
 }
 
-function warn(...messages: unknown[]) {
+function warn(...messages: unknown[]): Time {
 	const format = `${bgYellow(white('Warning'))}${gray(':')}`;
 	return print(messages, format, 'warn');
 }
