@@ -1,6 +1,16 @@
 /* eslint-disable no-console */
 
-import { Instance as Chalk } from 'chalk';
+import { Instance as Chalk, Options as ChalkOptions } from 'chalk';
+
+const chalkOptions: ChalkOptions = {};
+const supportsColor =
+	process.env.PATH !== undefined
+		? process.env.PATH.includes('Sourcetree.app')
+		: true;
+
+if (supportsColor === false) {
+	chalkOptions.level = 0;
+}
 
 const {
 	//
