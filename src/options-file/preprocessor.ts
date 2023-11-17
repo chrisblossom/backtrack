@@ -11,99 +11,91 @@ function Preprocessor(): (args: Args) => Lifecycles {
 	let baseConfig = true;
 	const blacklist: string[] = [];
 
-	/**
-	 * The preprocessor is ran up up the chain on each preset
-	 * After all tasks are processed starting from the top of the preset chain
-	 */
-	return function preprocessor({ value, dirname }: Args): Lifecycles {
-		const lifeCycleKeys: (keyof BacktrackConfig)[] = Object.keys(value);
-		const filtered: Lifecycles = lifeCycleKeys.reduce((acc, lifecycle) => {
-			let task = value[lifecycle];
+	function processTask(
+		task: AllTaskTypes | AllTaskTypes[] | false,
+		lifecycle: keyof BacktrackConfig,
+	): AllTaskTypes | AllTaskTypes[] | false {
+		let skipTask = false;
 
-			/**
-			 * Handle extended tasks
-			 * eg, build: [false, 'eslint .']
-			 */
-			let skipTask = false;
-			if (Array.isArray(task)) {
-				type TaskAcc2 = (AllTaskTypes | AllTaskTypes[])[];
-				task = task.reduceRight(
-					(
-						acc2: TaskAcc2,
-						currentTask: AllTaskTypes | AllTaskTypes[] | false,
-					): TaskAcc2 => {
-						if (skipTask) {
-							return acc2;
-						}
-
-						if (!currentTask) {
-							skipTask = true;
-							return acc2;
-						}
-
-						return [
-							currentTask,
-							...acc2,
-						];
-					},
-					[],
-				);
-			}
-
-			/**
-			 * If blacklisted, skip task
-			 */
-			if (blacklist.includes(lifecycle)) {
-				return acc;
-			}
-
-			if (task === false || skipTask !== false) {
-				blacklist.push(lifecycle);
-
-				if (task === false) {
+		if (Array.isArray(task)) {
+			task = task.reduceRight((acc, currentTask) => {
+				if (skipTask) {
 					return acc;
 				}
-			}
 
-			/**
-			 * Set config structure
-			 */
-			if (lifecycle === 'config') {
-				task =
-					Array.isArray(task) && task.length === 1 ? task[0] : task;
-			} else {
-				task = toArray(task);
-			}
+				if (!currentTask) {
+					skipTask = true;
+					return acc;
+				}
 
-			return {
-				...acc,
-				[lifecycle]: task,
-			};
-		}, {});
+				return [
+					currentTask,
+					...acc,
+				];
+			}, []);
+		}
 
-		if (baseConfig === false && dirname) {
-			// Disable normalize as it takes a lot of time and we do not need it
+		if (blacklist.includes(lifecycle)) {
+			return false;
+		}
+
+		if (task === false || skipTask) {
+			blacklist.push(lifecycle);
+			return task === false ? false : task;
+		}
+
+		return task;
+	}
+
+	function processConfig(
+		task: AllTaskTypes | AllTaskTypes[] | false,
+		lifecycle: keyof BacktrackConfig,
+	): AllTaskTypes | AllTaskTypes[] {
+		if (lifecycle === 'config') {
+			return Array.isArray(task) && task.length === 1 ? task[0] : task;
+		}
+		return toArray(task);
+	}
+
+	function addPackageResolution(
+		filtered: Lifecycles,
+		dirname: string,
+	): Lifecycles {
+		if (!baseConfig && dirname) {
 			const findPackageJson = readPkgUp.sync({
 				cwd: dirname,
 				normalize: false,
 			});
-
 			const closestPackageJson = findPackageJson
 				? findPackageJson.packageJson
 				: {};
-
 			const packageId = closestPackageJson.name;
+
 			if (packageId) {
-				filtered.resolve = {
-					[packageId]: dirname,
-				};
+				filtered.resolve = { [packageId]: dirname };
 			}
 		}
 
-		/**
-		 * Preprocessor runs on every preset. Only add files to base preset
-		 */
-		if (baseConfig === true) {
+		return filtered;
+	}
+
+	return function preprocessor({ value, dirname }: Args): Lifecycles {
+		const lifeCycleKeys: (keyof BacktrackConfig)[] = Object.keys(value);
+		let filtered: Lifecycles = {};
+
+		for (const lifecycle of lifeCycleKeys) {
+			let task = value[lifecycle];
+			task = processTask(task, lifecycle);
+
+			if (task !== false) {
+				task = processConfig(task, lifecycle);
+				filtered = { ...filtered, [lifecycle]: task };
+			}
+		}
+
+		filtered = addPackageResolution(filtered, dirname);
+
+		if (baseConfig) {
 			baseConfig = false;
 		}
 
